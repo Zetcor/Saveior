@@ -1,92 +1,99 @@
-/*
-    COLOR PALETTE
-    ⬛ #000000 - Black
-    🟩 #062807 - Body, Navbar Container
-    🟦 #16424A - Font Color
-        #E0F7F1 - Secondary Color
-    ⚪ #F0F0F0 - White Container, Font Color
-*/
+:root {
+	--darkgreen: #062807;
+	--bluegreen: #16424a;
+	--gray: #d9d9d9;
+	--white: #f0f0f0;
+	--lightmint: #e0f7f1;
+}
+
+.text-gold {
+	color: #c47e00;
+}
 
 body {
-    font-family: Poppins,'Segoe UI', Tahoma, Verdana, sans-serif;
-    background-color: #062807;
-    margin: 0;
-    padding: 0;
+	font-family: 'Poppins';
+	background: linear-gradient(to right, #0a2f0a, #000000, #0a2f0a);
+	margin: 0;
+	padding: 0;
 }
 
 .rounded-container {
-    background-color: #F0F0F0;
-    border-bottom-left-radius: 100px;
-    border-bottom-right-radius: 100px;
-    height: 53em;
-    padding: 20px;
+	background-color: var(--white);
+	border-bottom-left-radius: 100px;
+	border-bottom-right-radius: 100px;
+	height: 56.5em;
+	padding: 20px;
 }
 
-
-/* ---------- NAVBAR ---------- */
+/* Navbar */
 nav {
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	padding: 10px 30px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .navbar-container {
-    background-color: #062807;
-    border-radius: 50px;
-    padding: 8px 20px;
+	background-color: var(--darkgreen);
+	border-radius: 50px;
+	padding: 15px 10px;
 }
 
 .nav-logo {
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-    font-size: 20px;
-    color: #F0F0F0;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+	font-size: 20px;
+	color: var(--white);
+	padding: 0 20px;
 }
+
 .nav-logo img {
-    height: 30px;
-    margin-right: 8px;
+	height: 30px;
+	margin-right: 8px;
 }
 
 .nav-link {
-    color: #F0F0F0;
-    border-radius: 25px;
-    padding: 8px 16px;
-    transition: background 0.3s;
+	color: var(--white);
+	border-radius: 25px;
+	padding: 8px 16px;
+	transition: background 0.3s;
 }
+
 .nav-link:hover {
-    background-color: rgba(255,255,255,0.1);
+	background-color: rgba(255, 255, 255, 0.199);
 }
+
 .nav-link.active {
-    background-color: #e8f3ef;
-    color: #062807 !important;
-    font-weight: 600;
+	background-color: var(--lightmint);
+	color: var(--darkgreen) !important;
+	font-weight: bold;
 }
 
 .icon-btn {
-    background-color: #062807;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
-    color: #F0F0F0;
-    font-size: 18px;
-}
-.icon-btn:hover {
-    background-color: #154d14;
+	background-color: var(--darkgreen);
+	border: none;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 10px;
+	color: var(--white);
+	font-size: 20px;
 }
 
-/* ---------- SUB-NAVBAR ---------- */
+.icon-btn:hover {
+	background-color: #154d14;
+}
+
+/* Subnavbar */
 .button-container {
 	flex-wrap: wrap;
-    background-color: rgb(165, 161, 161);
-    border-radius: 50px;
-    padding: 8px 20px;
+	background-color: var(--gray);
+	border-radius: 50px;
+	padding: 8px 12px;
 }
 
 .button-container input[type='radio'] {
@@ -95,123 +102,143 @@ nav {
 
 .button-container label {
 	color: gray;
-	font-size: 20px;
-    padding: 8px 16px;
+	padding: 8px 25px;
 	border-radius: 8px;
 	transition: all 0.3s ease;
 	user-select: none;
-    border-radius: 25px;
+	border-radius: 25px;
 }
 
 .button-container label:hover {
-	background: #FFFFFF;
-	color: #062807;
+	background: var(--white);
+	color: var(--darkgreen);
 }
 
 .button-container input[type='radio']:checked + label {
-	background: #FFFFFF;
-	color: #062807;
+	background: var(--white);
+	color: var(--darkgreen);
+	font-weight: bold;
 }
 
-/* ---------- Tracker ---------- */
+/* Tracker container */
 .tracker-container {
-      max-width: 900px;
-      margin: 40px auto;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      display: flex;
-      margin-top: 120px;
-    }
-    /* Left panel */
-    .left-panel {
-      flex: 1;
-      padding: 20px;
-      border-right: 2px solid #eee;
-    }
-    .tabs {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .tabs button {
-      flex: 1;
-      margin: 0 3px;
-      border-radius: 30px;
-    }
-    .notes {
-      width: 100%;
-      min-height: 80px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 10px;
-      margin-bottom: 15px;
-    }
-    .calc-display {
-      width: 100%;
-      height: 50px;
-      font-size: 1.5rem;
-      text-align: right;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      padding-right: 10px;
-    }
-    .calc-btn {
-      font-size: 1.3rem;
-      padding: 15px;
-      border-radius: 12px;
-    }
-    .save-cancel {
-      margin-top: 15px;
-      display: flex;
-      gap: 10px;
-    }
-    .save-cancel button {
-      flex: 1;
-      font-size: 1.2rem;
-      padding: 12px;
-      border-radius: 10px;
-    }
-    /* Right panel */
-    .right-panel {
-      flex: 1;
-      padding: 20px;
-      background: #0d3b40;
-      color: white;
-    }
-    .summary {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-    }
-    .summary span {
-      font-weight: bold;
-    }
-    .entries {
-      background: #fff;
-      border-radius: 12px;
-      padding: 15px;
-      color: black;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    .entry-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px;
-      border-bottom: 1px solid #eee;
-      font-weight: bold;
-    }
-    .entry-item.expense { color: red; }
-    .entry-item.income { color: green; }
-    .total-bar {
-      margin-top: 20px;
-      background: #fff;
-      color: #0d3b40;
-      font-size: 1.3rem;
-      font-weight: bold;
-      border-radius: 12px;
-      padding: 12px;
-      text-align: right;
-    }
+	max-width: 1000px;
+	margin: 40px auto;
+	padding: 20px;
+	overflow: hidden;
+	display: flex;
+	margin-top: 120px;
+	gap: 10px;
+}
+
+/* Calculator panel */
+.calculator-container {
+	background: white;
+	flex: 1;
+	padding: 20px;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+		rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+/* Tabs and notes */
+.tabs {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+.tabs button {
+	flex: 1;
+	margin: 0 3px;
+	border-radius: 30px;
+}
+.notes {
+	width: 100%;
+	min-height: 80px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 10px;
+	resize: none;
+}
+
+/* Calculator */
+.calc-display {
+	width: 100%;
+	height: 50px;
+	text-align: right;
+	border-radius: 10px;
+	padding-right: 10px;
+}
+.calc-btn {
+	padding: 10px;
+	border-radius: 12px;
+}
+.save-cancel {
+	margin-top: 15px;
+	display: flex;
+	gap: 10px;
+}
+.save-cancel button {
+	flex: 1;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+/* Summary panel */
+.summary-container {
+	flex: 1;
+	padding: 20px;
+	background: var(--bluegreen);
+	color: var(--white);
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+		rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.summary {
+	background: white;
+	display: flex;
+	justify-content: space-between;
+	font-size: 1.1rem;
+	margin-bottom: 20px;
+	border-radius: 50px;
+	padding: 10px 20px;
+}
+
+.summary span {
+	font-weight: bold;
+}
+
+.entries {
+	background: white;
+	border-radius: 20px;
+	padding: 15px;
+	color: black;
+	max-height: 390px;
+	overflow-y: auto;
+}
+
+.entry-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px;
+	border-bottom: 1px solid var(--white);
+	font-weight: bold;
+}
+
+.total-bar {
+	margin-top: 20px;
+	background: white;
+	color: var(--darkgreen);
+	font-size: 1.3rem;
+	font-weight: bold;
+	border-radius: 50px;
+	padding: 12px;
+	text-align: right;
+}
