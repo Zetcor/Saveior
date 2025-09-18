@@ -6,6 +6,9 @@
 	--lightmint: #e0f7f1;
 }
 
+.entry-item.expense { color: red; }
+.entry-item.income { color: green; }
+
 .text-gold {
 	color: #c47e00;
 }
@@ -196,11 +199,11 @@ nav {
 	border-radius: 20px;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
 	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
 		rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
+/* Summary row */
 .summary {
 	background: white;
 	display: flex;
@@ -215,15 +218,23 @@ nav {
 	font-weight: bold;
 }
 
+/* Entries list */
 .entries {
-	background: white;
+	background: var(--bluegreen);
 	border-radius: 20px;
 	padding: 15px;
 	color: black;
-	max-height: 390px;
+
+	/* 👇 enable scrolling when too many entries */
+	max-height: 390px;   /* adjust height limit */
 	overflow-y: auto;
+
+	/* keep flex behavior inside container */
+	flex: 1;
+	min-height: 0;
 }
 
+/* Entry items */
 .entry-item {
 	display: flex;
 	justify-content: space-between;
@@ -232,8 +243,8 @@ nav {
 	font-weight: bold;
 }
 
+/* Total bar */
 .total-bar {
-	margin-top: 20px;
 	background: white;
 	color: var(--darkgreen);
 	font-size: 1.3rem;
@@ -241,4 +252,9 @@ nav {
 	border-radius: 50px;
 	padding: 12px;
 	text-align: right;
+	margin-top: 20px;
+
+	/* 👇 stays visible while scrolling entries */
+	position: sticky;
+	bottom: 0;
 }
