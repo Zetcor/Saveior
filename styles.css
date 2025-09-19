@@ -51,10 +51,15 @@ nav {
 	justify-content: space-between;
 }
 
+.navbar.sticky-top {
+	top: 20px;
+}
+
 .navbar-container {
 	background-color: var(--darkgreen);
 	border-radius: 50px;
 	padding: 15px 10px;
+	align-items: center;
 }
 
 .nav-logo {
