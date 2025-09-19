@@ -6,9 +6,15 @@
 	--lightmint: #e0f7f1;
 }
 
-.entry-item.expense { color: red; }
-.entry-item.income { color: green; }
-.entry-item.transfer { color: rgb(23, 97, 235); }
+.entry-item.expense {
+	color: red;
+}
+.entry-item.income {
+	color: green;
+}
+.entry-item.transfer {
+	color: rgb(23, 97, 235);
+}
 
 .text-gold {
 	color: #c47e00;
@@ -225,12 +231,8 @@ nav {
 	border-radius: 20px;
 	padding: 15px;
 	color: black;
-
-	/* 👇 enable scrolling when too many entries */
-	max-height: 390px;   /* adjust height limit */
+	max-height: 390px;
 	overflow-y: auto;
-
-	/* keep flex behavior inside container */
 	flex: 1;
 	min-height: 0;
 }
@@ -254,27 +256,25 @@ nav {
 	padding: 12px;
 	text-align: right;
 	margin-top: 20px;
-
-	/* 👇 stays visible while scrolling entries */
 	position: sticky;
 	bottom: 0;
 }
 
-/* Custom dropdowns for Account & Category */
+/* Account & Category dropdowns */
 .custom-dropdown {
-  flex: 1;
-  margin: 0 3px;
-  border-radius: 30px;
-  padding: 8px 15px;
-  border: 1px solid var(--gray);
-  background-color: var(--white);
-  color: var(--bluegreen);
-  font-weight: 500;
-  transition: all 0.3s ease;
+	flex: 1;
+	margin: 0 3px;
+	border-radius: 30px;
+	padding: 8px 15px;
+	border: 1px solid var(--gray);
+	background-color: var(--white);
+	color: var(--bluegreen);
+	font-weight: 500;
+	transition: all 0.3s ease;
 }
 
 .custom-dropdown:focus {
-  border-color: var(--bluegreen);
-  box-shadow: 0 0 5px rgba(22, 66, 74, 0.4);
-  outline: none;
+	border-color: var(--bluegreen);
+	box-shadow: 0 0 5px rgba(22, 66, 74, 0.4);
+	outline: none;
 }
