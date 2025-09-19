@@ -36,8 +36,11 @@ body {
 	background-color: var(--white);
 	border-bottom-left-radius: 100px;
 	border-bottom-right-radius: 100px;
-	height: 55em;
+	min-height: 95vh;
+	margin-bottom: 4vh;
 	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /* Navbar */
