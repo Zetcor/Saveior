@@ -1,394 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saveior | Record</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://kit.fontawesome.com/203f7bcb2a.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="rounded-container">
-      <nav class="navbar navbar-expand-lg container-fluid">
-        <div class="navbar-container">
-          <a class="nav-logo text-decoration-none fs-4" href="index.html">
-            <img
-              src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-              alt="Logo"
-            />
-            Saveior
-          </a>
-        </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Saveior | Record</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://kit.fontawesome.com/203f7bcb2a.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="rounded-container">
+			<nav class="navbar navbar-expand-lg container-fluid">
+				<div class="navbar-container">
+					<a class="nav-logo text-decoration-none fs-4" href="index.html">
+						<img
+							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+							alt="Logo"
+						/>
+						Saveior
+					</a>
+				</div>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div
-            class="mx-auto navbar-container position-absolute start-50 translate-middle-x"
-          >
-            <ul class="nav flex-lg-row flex-column text-center gap-3">
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="#">Dashboard</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-4 active" href="#">Records</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="#">Budgets</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="#">Accounts</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="#">Categories</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="#">Savings</a>
-              </li>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div
+						class="mx-auto navbar-container position-absolute start-50 translate-middle-x"
+					>
+						<ul class="nav flex-lg-row flex-column text-center gap-3">
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Dashboard</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-4 active" href="#">Records</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Budgets</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Accounts</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Categories</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Savings</a>
+							</li>
 
-              <a href="#" class="nav-link d-lg-none">Settings</a>
-              <a href="#" class="nav-link d-lg-none">Accounts</a>
-            </ul>
-          </div>
+							<a href="#" class="nav-link d-lg-none">Settings</a>
+							<a href="#" class="nav-link d-lg-none">Accounts</a>
+						</ul>
+					</div>
 
-          <div class="ms-lg-auto mt-2 mt-lg-0">
-            <div
-              class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
-            >
-              <button class="icon-btn d-none d-lg-flex">
-                <i class="fa-solid fa-gear"></i>
-              </button>
-              <button class="icon-btn d-none d-lg-flex">
-                <i class="fa-solid fa-user"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+					<div class="ms-lg-auto mt-2 mt-lg-0">
+						<div
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+						>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-gear"></i>
+							</button>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-user"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
 
-      <div
-        class="button-container position-absolute start-50 translate-middle-x mt-5"
-      >
-        <input
-          type="radio"
-          id="expense"
-          name="transactionType"
-          value="expense"
-          checked
-        />
-        <label for="expense">Expense</label>
+			<div
+				class="button-container position-absolute start-50 translate-middle-x mt-5"
+			>
+				<input
+					type="radio"
+					id="expense"
+					name="transactionType"
+					value="expense"
+					checked
+				/>
+				<label for="expense">Expense</label>
 
-        <input type="radio" id="income" name="transactionType" value="income" />
-        <label for="income">Income</label>
+				<input type="radio" id="income" name="transactionType" value="income" />
+				<label for="income">Income</label>
 
-        <input
-          type="radio"
-          id="transfer"
-          name="transactionType"
-          value="transfer"
-        />
-        <label for="transfer">Transfer</label>
-      </div>
+				<input
+					type="radio"
+					id="transfer"
+					name="transactionType"
+					value="transfer"
+				/>
+				<label for="transfer">Transfer</label>
+			</div>
 
-      <div class="tracker-container">
-        <!-- Calculator Section -->
-        <div class="calculator-container">
-          <div class="tabs">
-            <!-- Account Dropdown -->
-            <select
-              id="accountDropdown"
-              class="form-select custom-dropdown"
-              aria-label="Select Account"
-            >
-              <option selected disabled>Account</option>
-              <option value="Cash">Cash</option>
-              <option value="Credit Card">Credit Card</option>
-              <option value="Debit Card">Debit Card</option>
-            </select>
+			<div class="tracker-container">
+				<!-- Calculator Section -->
+				<div class="calculator-container">
+					<div class="tabs">
+						<!-- Account Dropdown -->
+						<select
+							id="accountDropdown"
+							class="form-select custom-dropdown"
+							aria-label="Select Account"
+						>
+							<option selected disabled>Account</option>
+							<option value="Cash">Cash</option>
+							<option value="Credit Card">Credit Card</option>
+							<option value="Debit Card">Debit Card</option>
+						</select>
 
-            <!-- Category Dropdown -->
-            <select
-              id="categoryDropdown"
-              class="form-select custom-dropdown"
-              aria-label="Select Category"
-            >
-              <option selected disabled>Category</option>
-              <option value="Food">Food</option>
-              <option value="Transportation">Transportation</option>
-              <option value="Bills">Bills</option>
-              <option value="Tax">Tax</option>
-              <option value="Shopping">Shopping</option>
-            </select>
-          </div>
+						<!-- Category Dropdown -->
+						<select
+							id="categoryDropdown"
+							class="form-select custom-dropdown"
+							aria-label="Select Category"
+						>
+							<option selected disabled>Category</option>
+							<option value="Food">Food</option>
+							<option value="Transportation">Transportation</option>
+							<option value="Bills">Bills</option>
+							<option value="Tax">Tax</option>
+							<option value="Shopping">Shopping</option>
+						</select>
+					</div>
 
-          <textarea
-            id="desc-input"
-            class="notes"
-            placeholder="Add notes"
-          ></textarea>
+					<textarea
+						id="desc-input"
+						class="notes"
+						placeholder="Add notes"
+					></textarea>
 
-          <!-- Calculator -->
-          <input
-            type="text"
-            id="display"
-            class="form-control calc-display mt-3"
-            disabled
-          />
+					<!-- Calculator -->
+					<input
+						type="text"
+						id="display"
+						class="form-control calc-display mt-3"
+						disabled
+					/>
 
-          <div class="row g-2 mt-1">
-            <div class="col-6">
-              <button
-                class="btn btn-danger calc-btn w-100"
-                onclick="clearDisplay()"
-              >
-                C
-              </button>
-            </div>
-            <div class="col-6">
-              <button
-                class="btn btn-warning calc-btn w-100"
-                onclick="deleteLast()"
-              >
-                ⌫
-              </button>
-            </div>
-          </div>
+					<div class="row g-2 mt-1">
+						<div class="col-6">
+							<button
+								class="btn btn-light border calc-btn w-100"
+								onclick="clearDisplay()"
+							>
+								C
+							</button>
+						</div>
+						<div class="col-6">
+							<button
+								class="btn btn-light border calc-btn w-100"
+								onclick="deleteLast()"
+							>
+								⌫
+							</button>
+						</div>
+					</div>
 
-          <div class="row g-2 my-2">
-            <!-- Calculator buttons -->
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('+')">
-                +
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('7')">
-                7
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('8')">
-                8
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('9')">
-                9
-              </button>
-            </div>
+					<div class="row g-2 my-2">
+						<!-- Calculator buttons -->
+						<div class="col-3">
+							<button
+								class="btn btn-light border calc-btn w-100"
+								onclick="press('+')"
+							>
+								+
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('7')">
+								7
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('8')">
+								8
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('9')">
+								9
+							</button>
+						</div>
 
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('-')">
-                −
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('4')">
-                4
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('5')">
-                5
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('6')">
-                6
-              </button>
-            </div>
+						<div class="col-3">
+							<button
+								class="btn btn-light border calc-btn w-100"
+								onclick="press('-')"
+							>
+								−
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('4')">
+								4
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('5')">
+								5
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('6')">
+								6
+							</button>
+						</div>
 
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('*')">
-                ×
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('1')">
-                1
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('2')">
-                2
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('3')">
-                3
-              </button>
-            </div>
+						<div class="col-3">
+							<button
+								class="btn btn-light border calc-btn w-100"
+								onclick="press('*')"
+							>
+								×
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('1')">
+								1
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('2')">
+								2
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('3')">
+								3
+							</button>
+						</div>
 
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('/')">
-                ÷
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('0')">
-                0
-              </button>
-            </div>
-            <div class="col-3">
-              <button class="btn btn-light calc-btn w-100" onclick="press('.')">
-                .
-              </button>
-            </div>
-            <div class="col-3">
-              <button
-                class="btn btn-light calc-btn w-100"
-                onclick="calculateResult()"
-              >
-                =
-              </button>
-            </div>
-          </div>
+						<div class="col-3">
+							<button
+								class="btn btn-light border calc-btn w-100"
+								onclick="press('/')"
+							>
+								÷
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('0')">
+								0
+							</button>
+						</div>
+						<div class="col-3">
+							<button class="text-darkteal calc-btn w-100" onclick="press('.')">
+								.
+							</button>
+						</div>
+						<div class="col-3">
+							<button
+								class="btn btn-light border calc-btn w-100"
+								onclick="calculateResult()"
+							>
+								=
+							</button>
+						</div>
+					</div>
 
-          <!-- Buttons -->
-          <div class="save-cancel">
-            <button class="btn btn-danger" onclick="cancelEntry()">Back</button>
-            <button class="btn btn-success" onclick="saveEntry()">Save</button>
-          </div>
-        </div>
+					<!-- Buttons -->
+					<div class="save-cancel">
+						<button class="btn btn-danger" onclick="cancelEntry()">Back</button>
+						<button class="btn btn-success" onclick="saveEntry()">Save</button>
+					</div>
+				</div>
 
-        <!-- Summary Section -->
-        <div class="summary-container ms-5">
-          <div class="summary p-3 mb-3 d-flex justify-content-around">
-            <div class="text-dark">
-              EXPENSE: <span id="total-expenses" class="text-danger">₱0</span>
-            </div>
-            <div class="text-dark">
-              INCOME: <span id="total-income" class="text-success">₱0</span>
-            </div>
-          </div>
+				<!-- Summary Section -->
+				<div class="summary-container ms-5">
+					<div class="summary p-3 mb-3 d-flex justify-content-around">
+						<div class="text-dark">
+							EXPENSE: <span id="total-expenses" class="text-danger">₱0</span>
+						</div>
+						<div class="text-dark">
+							INCOME: <span id="total-income" class="text-success">₱0</span>
+						</div>
+					</div>
 
-          <div class="entries" id="expense-list"></div>
-          <div class="total-bar text-center">
-            TOTAL: <span id="balance" class="text-gold">₱0</span>
-          </div>
-        </div>
-      </div>
-    </div>
+					<div class="entries" id="expense-list"></div>
+					<div class="total-bar text-center">
+						TOTAL: <span id="balance" class="text-gold">₱0</span>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <script>
-      let totalIncome = 0;
-      let totalExpenses = 0;
-      let currentAmount = null;
+		<script>
+			let totalIncome = 0;
+			let totalExpenses = 0;
+			let currentAmount = null;
 
-      function saveEntry() {
-        let category = document.getElementById("categoryDropdown").value;
-        category = category.replace("-", " ");
-        let account = document.getElementById("accountDropdown").value;
-        account = account.replace("-", " ");
-        let desc = document.getElementById("desc-input").value.trim();
-        let type =
-          document.querySelector('input[name="transactionType"]:checked')
-            ?.value || null;
-        let entriesList = document.getElementById("expense-list");
-        entriesList.style.backgroundColor = "#ffffff";
+			function saveEntry() {
+				let category = document.getElementById('categoryDropdown').value;
+				category = category.replace('-', ' ');
+				let account = document.getElementById('accountDropdown').value;
+				account = account.replace('-', ' ');
+				let desc = document.getElementById('desc-input').value.trim();
+				let type =
+					document.querySelector('input[name="transactionType"]:checked')
+						?.value || null;
+				let entriesList = document.getElementById('expense-list');
+				entriesList.style.backgroundColor = '#ffffff';
 
-        if (account === "Account") {
-          alert("Please select an account!");
-          return;
-        }
+				if (account === 'Account') {
+					alert('Please select an account!');
+					return;
+				}
 
-        if (category === "Category") {
-          alert("Please select a category!");
-          return;
-        }
+				if (category === 'Category') {
+					alert('Please select a category!');
+					return;
+				}
 
-        if (category === "Account") {
-          alert("Please select a sender account!");
-          return;
-        }
+				if (category === 'Account') {
+					alert('Please select a receiver account!');
+					return;
+				}
 
-        if (account === "Account") {
-          alert("Please select a receiver account!");
-          return;
-        }
+				if (account === 'Account') {
+					alert('Please select a sender account!');
+					return;
+				}
 
-        if (category === account) {
-          alert("You cannot transfer to the same account!");
-          return;
-        }
+				if (category === account) {
+					alert('You cannot transfer to the same account!');
+					return;
+				}
 
-        if (
-          currentAmount === null ||
-          isNaN(currentAmount) ||
-          currentAmount <= 0
-        ) {
-          alert("Enter a valid amount!");
-          return;
-        }
+				if (
+					currentAmount === null ||
+					isNaN(currentAmount) ||
+					currentAmount <= 0
+				) {
+					alert('Enter a valid amount!');
+					return;
+				}
 
-        let entry = document.createElement("div");
-        entry.className = "entry-item " + type;
-        let categoryIcon = "";
-        if (category === "Food") {
-          categoryIcon = '<i class="fa-solid fa-utensils"></i>';
-        } else if (category === "Transportation") {
-          categoryIcon = '<i class="fa-solid fa-bus"></i>';
-        } else if (category === "Bills") {
-          categoryIcon = '<i class="fa-solid fa-file-invoice"></i>';
-        } else if (category === "Tax") {
-          categoryIcon = '<i class="fa-solid fa-money-bill-wave"></i>';
-        } else if (category === "Shopping") {
-          categoryIcon = '<i class="fa-solid fa-basket-shopping"></i>';
-        } else if (category === "Salary") {
-          categoryIcon = '<i class="fa-solid fa-briefcase"></i>';
-        } else if (category === "Allowance") {
-          categoryIcon = '<i class="fa-solid fa-coins"></i>';
-        } else if (category === "Part-Time") {
-          categoryIcon = '<i class="fa-solid fa-clock"></i>';
-        } else if (category === "Investment") {
-          categoryIcon = '<i class="fa-solid fa-chart-line"></i>';
-        } else if (category === "Bonus") {
-          categoryIcon = '<i class="fa-solid fa-gift"></i>';
-        } else if (category === "Cash") {
-          categoryIcon = '<i class="fa-solid fa-money-bill"></i>';
-        } else if (category === "Credit Card") {
-          categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
-        } else {
-          categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
-        }
+				let entry = document.createElement('div');
+				entry.className = 'entry-item ' + type;
+				let categoryIcon = '';
+				if (category === 'Food') {
+					categoryIcon = '<i class="fa-solid fa-utensils"></i>';
+				} else if (category === 'Transportation') {
+					categoryIcon = '<i class="fa-solid fa-bus"></i>';
+				} else if (category === 'Bills') {
+					categoryIcon = '<i class="fa-solid fa-file-invoice"></i>';
+				} else if (category === 'Tax') {
+					categoryIcon = '<i class="fa-solid fa-money-bill-wave"></i>';
+				} else if (category === 'Shopping') {
+					categoryIcon = '<i class="fa-solid fa-basket-shopping"></i>';
+				} else if (category === 'Salary') {
+					categoryIcon = '<i class="fa-solid fa-briefcase"></i>';
+				} else if (category === 'Allowance') {
+					categoryIcon = '<i class="fa-solid fa-coins"></i>';
+				} else if (category === 'Part-Time') {
+					categoryIcon = '<i class="fa-solid fa-clock"></i>';
+				} else if (category === 'Investment') {
+					categoryIcon = '<i class="fa-solid fa-chart-line"></i>';
+				} else if (category === 'Bonus') {
+					categoryIcon = '<i class="fa-solid fa-gift"></i>';
+				} else if (category === 'Cash') {
+					categoryIcon = '<i class="fa-solid fa-money-bill"></i>';
+				} else if (category === 'Credit Card') {
+					categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
+				} else {
+					categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
+				}
 
-        let accountIcon = "";
-        if (account === "Cash") {
-          accountIcon = '<i class="fa-solid fa-money-bill"></i>';
-        } else if (account === "Credit Card") {
-          accountIcon = '<i class="fa-solid fa-credit-card"></i>';
-        } else if (account === "Debit Card") {
-          accountIcon = '<i class="fa-solid fa-credit-card"></i>';
-        }
+				let accountIcon = '';
+				if (account === 'Cash') {
+					accountIcon = '<i class="fa-solid fa-money-bill"></i>';
+				} else if (account === 'Credit Card') {
+					accountIcon = '<i class="fa-solid fa-credit-card"></i>';
+				} else if (account === 'Debit Card') {
+					accountIcon = '<i class="fa-solid fa-credit-card"></i>';
+				}
 
-        entry.innerHTML = `
+				entry.innerHTML = `
             <div style="display:flex; justify-content:space-between; width:100%;">
               <div>
                 <div>${categoryIcon} ${category}</div>
@@ -401,239 +413,238 @@
             </div>
         `;
 
-        document.getElementById("expense-list").appendChild(entry);
+				document.getElementById('expense-list').appendChild(entry);
 
-        if (type === "income") {
-          totalIncome += currentAmount;
-        } else if (type === "expense") {
-          totalExpenses += currentAmount;
-        }
+				if (type === 'income') {
+					totalIncome += currentAmount;
+				} else if (type === 'expense') {
+					totalExpenses += currentAmount;
+				}
 
-        updateSummary();
-        cancelEntry(type);
-      }
+				updateSummary();
+				cancelEntry(type);
+			}
 
-      function cancelEntry(type) {
-        document.getElementById("desc-input").value = "";
-        document.getElementById("display").value = "";
-        currentAmount = null;
+			function cancelEntry(type) {
+				document.getElementById('desc-input').value = '';
+				document.getElementById('display').value = '';
+				currentAmount = null;
 
-        const accountDropdown = document.getElementById("accountDropdown");
-        accountDropdown.innerHTML = "";
+				const accountDropdown = document.getElementById('accountDropdown');
+				accountDropdown.innerHTML = '';
 
-        let options = ["Cash", "Credit Card", "Debit Card"];
+				let options = ['Cash', 'Credit Card', 'Debit Card'];
 
-        const defaultOption = document.createElement("option");
+				const defaultOption = document.createElement('option');
 
-        if (type === "transfer") {
-          defaultOption.textContent = "To Account";
-        } else {
-          defaultOption.textContent = "Account";
-        }
+				if (type === 'transfer') {
+					defaultOption.textContent = 'From Account';
+				} else {
+					defaultOption.textContent = 'Account';
+				}
 
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        accountDropdown.appendChild(defaultOption);
+				defaultOption.disabled = true;
+				defaultOption.selected = true;
+				accountDropdown.appendChild(defaultOption);
 
-        options.forEach((opt) => {
-          const optionElement = document.createElement("option");
-          optionElement.value = opt.replace(" ", "-");
-          optionElement.textContent = opt;
-          accountDropdown.appendChild(optionElement);
-        });
+				options.forEach((opt) => {
+					const optionElement = document.createElement('option');
+					optionElement.value = opt.replace(' ', '-');
+					optionElement.textContent = opt;
+					accountDropdown.appendChild(optionElement);
+				});
 
-        if (document.getElementById("income").checked) {
-          updateCategoryOptions("income");
-        }
+				if (document.getElementById('income').checked) {
+					updateCategoryOptions('income');
+				}
 
-        if (document.getElementById("expense").checked) {
-          updateCategoryOptions("expense");
-        }
+				if (document.getElementById('expense').checked) {
+					updateCategoryOptions('expense');
+				}
 
-        if (document.getElementById("transfer").checked) {
-          updateCategoryOptions("transfer");
-        }
-      }
+				if (document.getElementById('transfer').checked) {
+					updateCategoryOptions('transfer');
+				}
+			}
 
-      function updateSummary() {
-        document.getElementById("total-income").textContent =
-          "₱" + totalIncome.toFixed(2);
-        document.getElementById("total-expenses").textContent =
-          "₱" + totalExpenses.toFixed(2);
-        document.getElementById("balance").textContent =
-          "₱" + (totalIncome - totalExpenses).toFixed(2);
-      }
+			function updateSummary() {
+				document.getElementById('total-income').textContent =
+					'₱' + totalIncome.toFixed(2);
+				document.getElementById('total-expenses').textContent =
+					'₱' + totalExpenses.toFixed(2);
+				document.getElementById('balance').textContent =
+					'₱' + (totalIncome - totalExpenses).toFixed(2);
+			}
 
-      function press(value) {
-        document.getElementById("display").value += value;
-        liveCalculate();
-      }
+			function press(value) {
+				document.getElementById('display').value += value;
+				liveCalculate();
+			}
 
-      function clearDisplay() {
-        document.getElementById("display").value = "";
-        currentAmount = null;
-      }
+			function clearDisplay() {
+				document.getElementById('display').value = '';
+				currentAmount = null;
+			}
 
-      function liveCalculate() {
-        try {
-          let expr = document
-            .getElementById("display")
-            .value.replace(/×/g, "*")
-            .replace(/÷/g, "/");
-          if (!expr.trim()) return;
-          let result = eval(expr);
-          if (!isNaN(result)) {
-            currentAmount = parseFloat(result);
-          }
-        } catch {
-          currentAmount = null;
-        }
-      }
+			function liveCalculate() {
+				try {
+					let expr = document
+						.getElementById('display')
+						.value.replace(/×/g, '*')
+						.replace(/÷/g, '/');
+					if (!expr.trim()) return;
+					let result = eval(expr);
+					if (!isNaN(result)) {
+						currentAmount = parseFloat(result);
+					}
+				} catch {
+					currentAmount = null;
+				}
+			}
 
-      function calculateResult() {
-        try {
-          let expr = document
-            .getElementById("display")
-            .value.replace(/×/g, "*")
-            .replace(/÷/g, "/");
-          let result = eval(expr);
-          if (!isNaN(result)) {
-            document.getElementById("display").value = result;
-            currentAmount = parseFloat(result);
-          }
-        } catch {
-          alert("Invalid calculation!");
-          currentAmount = null;
-        }
-      }
+			function calculateResult() {
+				try {
+					let expr = document
+						.getElementById('display')
+						.value.replace(/×/g, '*')
+						.replace(/÷/g, '/');
+					let result = eval(expr);
+					if (!isNaN(result)) {
+						document.getElementById('display').value = result;
+						currentAmount = parseFloat(result);
+					}
+				} catch {
+					alert('Invalid calculation!');
+					currentAmount = null;
+				}
+			}
 
-      function deleteLast() {
-        let display = document.getElementById("display");
-        display.value = display.value.slice(0, -1);
-        liveCalculate();
-      }
+			function deleteLast() {
+				let display = document.getElementById('display');
+				display.value = display.value.slice(0, -1);
+				liveCalculate();
+			}
 
-      document.addEventListener("keydown", function (event) {
-        if (document.activeElement.id === "desc-input") {
-          return;
-        }
+			document.addEventListener('keydown', function (event) {
+				if (document.activeElement.id === 'desc-input') {
+					return;
+				}
 
-        const key = event.key;
-        if (!isNaN(key) || "+-*/.".includes(key)) {
-          press(key);
-        } else if (key === "Enter") {
-          event.preventDefault();
-          calculateResult();
-        } else if (key === "Backspace") {
-          deleteLast();
-        } else if (key === "Escape") {
-          clearDisplay();
-        }
-      });
+				const key = event.key;
+				if (!isNaN(key) || '+-*/.'.includes(key)) {
+					press(key);
+				} else if (key === 'Enter') {
+					event.preventDefault();
+					calculateResult();
+				} else if (key === 'Backspace') {
+					deleteLast();
+				} else if (key === 'Escape') {
+					clearDisplay();
+				}
+			});
 
-      function selectValue(dropdownId, value) {
-        document.getElementById(dropdownId).textContent = value;
-        document.getElementById(dropdownId).dataset.value = value;
-      }
+			function selectValue(dropdownId, value) {
+				document.getElementById(dropdownId).textContent = value;
+				document.getElementById(dropdownId).dataset.value = value;
+			}
 
-      function updateCategoryOptions(type) {
-        const categoryDropdown = document.getElementById("categoryDropdown");
-        categoryDropdown.innerHTML = "";
+			function updateCategoryOptions(type) {
+				const categoryDropdown = document.getElementById('categoryDropdown');
+				categoryDropdown.innerHTML = '';
 
-        let options = [];
+				let options = [];
 
-        if (type === "income") {
-          options = ["Salary", "Allowance", "Part-Time", "Investment", "Bonus"];
-        } else if (type === "expense") {
-          options = ["Food", "Transportation", "Bills", "Tax", "Shopping"];
-        } else {
-          options = ["Cash", "Debit Card"];
-        }
+				if (type === 'income') {
+					options = ['Salary', 'Allowance', 'Part-Time', 'Investment', 'Bonus'];
+				} else if (type === 'expense') {
+					options = ['Food', 'Transportation', 'Bills', 'Tax', 'Shopping'];
+				} else {
+					options = ['Cash', 'Debit Card'];
+				}
 
-        if (type !== "transfer") {
-          const defaultOption = document.createElement("option");
-          defaultOption.textContent = "Category";
-          defaultOption.disabled = true;
-          defaultOption.selected = true;
-          categoryDropdown.appendChild(defaultOption);
-        } else {
-          const defaultOption = document.createElement("option");
-          defaultOption.textContent = "From Account";
-          defaultOption.disabled = true;
-          defaultOption.selected = true;
-          categoryDropdown.appendChild(defaultOption);
-        }
+				if (type !== 'transfer') {
+					const defaultOption = document.createElement('option');
+					defaultOption.textContent = 'Category';
+					defaultOption.disabled = true;
+					defaultOption.selected = true;
+					categoryDropdown.appendChild(defaultOption);
+				} else {
+					const defaultOption = document.createElement('option');
+					defaultOption.textContent = 'To Account';
+					defaultOption.disabled = true;
+					defaultOption.selected = true;
+					categoryDropdown.appendChild(defaultOption);
+				}
 
-        options.forEach((opt) => {
-          const optionElement = document.createElement("option");
-          optionElement.value = opt.replace(" ", "-");
-          optionElement.textContent = opt;
-          categoryDropdown.appendChild(optionElement);
-        });
-      }
+				options.forEach((opt) => {
+					const optionElement = document.createElement('option');
+					optionElement.value = opt.replace(' ', '-');
+					optionElement.textContent = opt;
+					categoryDropdown.appendChild(optionElement);
+				});
+			}
 
-      function resetAccountOptions(type) {
-        const accountDropdown = document.getElementById("accountDropdown");
-        accountDropdown.innerHTML = "";
+			function resetAccountOptions(type) {
+				const accountDropdown = document.getElementById('accountDropdown');
+				accountDropdown.innerHTML = '';
 
-        let options = ["Cash", "Credit Card", "Debit Card"];
+				let options = ['Cash', 'Credit Card', 'Debit Card'];
 
-        const defaultOption = document.createElement("option");
+				const defaultOption = document.createElement('option');
 
-        if (type === "transfer") {
-          defaultOption.textContent = "To Account";
-        } else {
-          defaultOption.textContent = "Account";
-        }
+				if (type === 'transfer') {
+					defaultOption.textContent = 'From Account';
+				} else {
+					defaultOption.textContent = 'Account';
+				}
 
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        accountDropdown.appendChild(defaultOption);
+				defaultOption.disabled = true;
+				defaultOption.selected = true;
+				accountDropdown.appendChild(defaultOption);
 
-        options.forEach((opt) => {
-          const optionElement = document.createElement("option");
-          optionElement.value = opt.replace(" ", "-");
-          optionElement.textContent = opt;
-          accountDropdown.appendChild(optionElement);
-        });
+				options.forEach((opt) => {
+					const optionElement = document.createElement('option');
+					optionElement.value = opt.replace(' ', '-');
+					optionElement.textContent = opt;
+					accountDropdown.appendChild(optionElement);
+				});
+			}
 
-      }
+			document.getElementById('income').addEventListener('change', () => {
+				if (document.getElementById('income').checked) {
+					updateCategoryOptions('income');
+					resetAccountOptions('income');
+					document.getElementById('desc-input').value = '';
+					document.getElementById('display').value = '';
+					currentAmount = null;
+				}
+			});
 
-      document.getElementById("income").addEventListener("change", () => {
-        if (document.getElementById("income").checked) {
-          updateCategoryOptions("income");
-          resetAccountOptions("income");
-          document.getElementById("desc-input").value = "";
-          document.getElementById("display").value = "";
-          currentAmount = null;
-        }
-      });
+			document.getElementById('expense').addEventListener('change', () => {
+				if (document.getElementById('expense').checked) {
+					updateCategoryOptions('expense');
+					resetAccountOptions('expense');
+					document.getElementById('desc-input').value = '';
+					document.getElementById('display').value = '';
+					currentAmount = null;
+				}
+			});
 
-      document.getElementById("expense").addEventListener("change", () => {
-        if (document.getElementById("expense").checked) {
-          updateCategoryOptions("expense");
-          resetAccountOptions("expense");
-          document.getElementById("desc-input").value = "";
-          document.getElementById("display").value = "";
-          currentAmount = null;
-        }
-      });
+			document.getElementById('transfer').addEventListener('change', () => {
+				if (document.getElementById('transfer').checked) {
+					updateCategoryOptions('transfer');
+					resetAccountOptions('transfer');
+					document.getElementById('desc-input').value = '';
+					document.getElementById('display').value = '';
+					currentAmount = null;
+				}
+			});
+		</script>
 
-      document.getElementById("transfer").addEventListener("change", () => {
-        if (document.getElementById("transfer").checked) {
-          updateCategoryOptions("transfer");
-          resetAccountOptions("transfer");
-          document.getElementById("desc-input").value = "";
-          document.getElementById("display").value = "";
-          currentAmount = null;
-        }
-      });
-    </script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+			crossorigin="anonymous"
+		></script>
+	</body>
 </html>

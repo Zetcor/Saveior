@@ -20,6 +20,11 @@
 	color: #c47e00;
 }
 
+.text-darkteal {
+	background-color: #44676d;
+	color: white;
+}
+
 body {
 	font-family: 'Poppins';
 	background: linear-gradient(to right, #0a2f0a, #000000, #0a2f0a);
@@ -182,15 +187,31 @@ nav {
 	border-radius: 10px;
 	padding-right: 10px;
 }
+
+.calc-display:disabled {
+	background: var(--bluegreen);
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: white;
+}
+
 .calc-btn {
 	padding: 10px;
 	border-radius: 12px;
+	font-weight: 600;
+	border-style: none;
 }
+
+.text-darkteal:hover {
+	background-color: var(--bluegreen);
+}
+
 .save-cancel {
 	margin-top: 15px;
 	display: flex;
 	gap: 10px;
 }
+
 .save-cancel button {
 	flex: 1;
 	padding: 10px;
