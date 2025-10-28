@@ -314,5 +314,6 @@ nav {
 }
 
 .custom-dropdown.active option:first-child {
-	display: none;
+	background-color: #146941;
+	color: #fdfdfd;
 }
