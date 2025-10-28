@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Saveior | Accounts</title>
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+			type="image/x-icon"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<script
+			src="https://kit.fontawesome.com/203f7bcb2a.js"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- Your styles -->
+		<link rel="stylesheet" href="styles.css" />
+		<style>
+			/* page-specific tweaks */
+			.accounts-list {
+				display: block; /* stacked */
+				padding: 8px 0;
+			}
+			.account-card {
+				width: 100%;
+				max-width: 720px;
+				background: #fff;
+				border-radius: 16px;
+				padding: 16px;
+				margin: 0 auto 12px auto; /* standalone div per account */
+				box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+					rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+			}
+			.account-header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 8px;
+			}
+			.account-title {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-weight: 700;
+				font-size: 1.05rem;
+			}
+			.balance-lg {
+				font-size: 1.6rem;
+				font-weight: 700;
+			}
+			.muted {
+				color: #6c757d;
+				font-size: 0.9rem;
+			}
+			.accounts-toolbar .form-control,
+			.accounts-toolbar .btn {
+				border-radius: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="rounded-container">
+			<!-- Nav -->
+			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
+				<div class="navbar-container">
+					<a class="nav-logo text-decoration-none fs-4" href="index.html">
+						<img
+							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+							alt="Logo"
+						/>
+						Saveior
+					</a>
+				</div>
+
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div
+						class="collapse navbar-collapse justify-content-center"
+						id="navbarSupportedContent"
+					>
+						<ul
+							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
+						>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Dashboard</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="index.html"
+									>Records</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Budgets</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-4 active" href="accounts.html"
+									>Accounts</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Categories</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Savings</a>
+							</li>
+							<a href="#" class="nav-link d-lg-none">Settings</a>
+							<a href="#" class="nav-link d-lg-none">Accounts</a>
+						</ul>
+					</div>
+					<div class="ms-lg-auto mt-2 mt-lg-0">
+						<div
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+						>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-gear"></i>
+							</button>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-user"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<!-- Content -->
+			<div class="tracker-container" style="margin-top: 40px">
+				<div class="calculator-container" style="flex: 1 1 100%">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="m-0">Accounts</h4>
+						<div class="accounts-toolbar d-flex gap-2">
+							<input
+								id="newAccountName"
+								class="form-control"
+								placeholder="Add account e.g. 'Cash'"
+							/>
+							<button id="addAccountBtn" class="btn btn-success">
+								<i class="bi bi-plus-circle"></i> Add
+							</button>
+						</div>
+					</div>
+
+					<!-- Each account is its own standalone div (no row/wrapper) -->
+					<div id="accountsList" class="accounts-list"></div>
+
+					<p class="muted mt-2">
+						Tip: New accounts start at <strong>0.00</strong>. Editing here
+						persists and shows up in the Records → Account dropdown.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// === Shared storage schema ===
+			// localStorage key for accounts shared across pages
+			const ACCOUNTS_KEY = 'saveior.accounts';
+
+			// Ensure defaults exist (name + balance only)
+			function ensureDefaults() {
+				const current = JSON.parse(
+					localStorage.getItem(ACCOUNTS_KEY) || 'null'
+				);
+				if (Array.isArray(current) && current.length) return;
+
+				const defaults = [
+					{ id: crypto.randomUUID(), name: 'Cash', balance: 0 },
+					{ id: crypto.randomUUID(), name: 'Credit Card', balance: 0 },
+					{ id: crypto.randomUUID(), name: 'Debit Card', balance: 0 },
+				];
+				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(defaults));
+			}
+
+			function getAccounts() {
+				return JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+			}
+
+			function setAccounts(list) {
+				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(list));
+			}
+
+			// === UI rendering ===
+			const accountsList = document.getElementById('accountsList');
+
+			function iconFor(name) {
+				const t = (name || '').toLowerCase();
+				if (t.includes('credit'))
+					return '<i class="fa-solid fa-credit-card"></i>';
+				if (t.includes('debit'))
+					return '<i class="fa-regular fa-credit-card"></i>';
+				if (t.includes('cash')) return '<i class="fa-solid fa-money-bill"></i>';
+				return '<i class="fa-solid fa-wallet"></i>';
+			}
+
+			function render() {
+				const accounts = getAccounts();
+				accountsList.innerHTML = '';
+
+				accounts.forEach((acc) => {
+					const card = document.createElement('div');
+					card.className = 'account-card';
+
+					card.innerHTML = `
+          <div class="account-header">
+            <div class="account-title">${iconFor(acc.name)} ${acc.name}</div>
+            <div class="balance-lg">₱ <span data-field="balance">${Number(
+							acc.balance || 0
+						).toFixed(2)}</span></div>
+          </div>
+
+          <div class="d-flex gap-2 align-items-center mt-3">
+            <input type="number" step="0.01" min="0" class="form-control" placeholder="0.00" value="${Number(
+							acc.balance || 0
+						).toFixed(2)}" data-role="edit-amount"/>
+            <button class="btn btn-primary" data-action="save"><i class="bi bi-check2-circle"></i> Save</button>
+            <button class="btn btn-outline-danger" data-action="remove"><i class="bi bi-trash3"></i></button>
+          </div>
+        `;
+
+					// Save balance
+					card
+						.querySelector('[data-action="save"]')
+						.addEventListener('click', () => {
+							const input = card.querySelector('[data-role="edit-amount"]');
+							const val = parseFloat(input.value);
+							if (isNaN(val) || val < 0) {
+								alert('Enter a valid non-negative amount.');
+								return;
+							}
+							const list = getAccounts().map((a) =>
+								a.id === acc.id ? { ...a, balance: val } : a
+							);
+							setAccounts(list);
+							card.querySelector('[data-field="balance"]').textContent =
+								val.toFixed(2);
+						});
+
+					// Remove account
+					card
+						.querySelector('[data-action="remove"]')
+						.addEventListener('click', () => {
+							if (!confirm(`Remove account "${acc.name}"?`)) return;
+							const list = getAccounts().filter((a) => a.id !== acc.id);
+							setAccounts(list);
+							render();
+						});
+
+					// Append each standalone account div to the page
+					accountsList.appendChild(card);
+				});
+			}
+
+			// Add new account (name only)
+			document.getElementById('addAccountBtn').addEventListener('click', () => {
+				const nameEl = document.getElementById('newAccountName');
+				const name = nameEl.value.trim();
+				if (!name) {
+					alert('Please enter an account name.');
+					return;
+				}
+
+				const accounts = getAccounts();
+				if (accounts.some((a) => a.name.toLowerCase() === name.toLowerCase())) {
+					alert('Account name already exists.');
+					return;
+				}
+
+				accounts.push({ id: crypto.randomUUID(), name, balance: 0 });
+				setAccounts(accounts);
+				nameEl.value = '';
+				render();
+			});
+
+			// Boot
+			ensureDefaults();
+			render();
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>

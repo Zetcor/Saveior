@@ -72,7 +72,9 @@
 								<a class="nav-link text-light px-4" href="#">Budgets</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="#">Accounts</a>
+								<a class="nav-link text-light px-4" href="accounts.html"
+									>Accounts</a
+								>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-light px-4" href="#">Categories</a>
@@ -419,9 +421,12 @@
 				<div style="color: gray; font-size: 12px; font-weight: 500">${desc}</div>
 			</div>
 			<div style="display:flex; align-items:center; gap:10px;">
-				<div>₱${currentAmount.toFixed(2)}</div>
+				<div>₱${currentAmount.toLocaleString('en-US', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				})}</div>
 				<button class="btn btn-sm btn-outline-danger delete-btn">
-					<i class="fa-solid fa-trash"></i>
+					<i class="bi bi-trash3"></i>
 				</button>
 			</div>
 		</div>
@@ -429,14 +434,12 @@
 
 				entriesList.appendChild(entry);
 
-				// Update totals
 				if (type === 'income') totalIncome += currentAmount;
 				else if (type === 'expense') totalExpenses += currentAmount;
 
 				updateSummary();
 				cancelEntry(type);
 
-				// Add delete button event
 				entry
 					.querySelector('.delete-btn')
 					.addEventListener('click', function () {
@@ -448,14 +451,11 @@
 				const amount = parseFloat(entry.dataset.amount);
 				const type = entry.dataset.type;
 
-				// Subtract from totals
 				if (type === 'income') totalIncome -= amount;
 				else if (type === 'expense') totalExpenses -= amount;
 
-				// Remove from DOM
 				entry.remove();
 
-				// Update summary
 				updateSummary();
 			}
 
@@ -467,24 +467,26 @@
 				const accountDropdown = document.getElementById('accountDropdown');
 				accountDropdown.innerHTML = '';
 
-				let options = ['Cash', 'Credit Card', 'Debit Card'];
-
-				const defaultOption = document.createElement('option');
-
-				if (type === 'transfer') {
-					defaultOption.textContent = 'From Account';
-				} else {
-					defaultOption.textContent = 'Account';
+				// 🔄 NEW: pull accounts dynamically from localStorage
+				const ACCOUNTS_KEY = 'saveior.accounts';
+				function getStoredAccounts() {
+					const data = localStorage.getItem(ACCOUNTS_KEY);
+					return data ? JSON.parse(data) : [];
 				}
 
+				const accounts = getStoredAccounts();
+				const placeholder = type === 'transfer' ? 'From Account' : 'Account';
+
+				const defaultOption = document.createElement('option');
+				defaultOption.textContent = placeholder;
 				defaultOption.disabled = true;
 				defaultOption.selected = true;
 				accountDropdown.appendChild(defaultOption);
 
-				options.forEach((opt) => {
+				accounts.forEach((acc) => {
 					const optionElement = document.createElement('option');
-					optionElement.value = opt.replace(' ', '-');
-					optionElement.textContent = opt;
+					optionElement.value = (acc.name || '').replace(/\s+/g, '-');
+					optionElement.textContent = acc.name || '';
 					accountDropdown.appendChild(optionElement);
 				});
 
@@ -506,11 +508,23 @@
 
 			function updateSummary() {
 				document.getElementById('total-income').textContent =
-					'₱' + totalIncome.toFixed(2);
+					'₱' +
+					totalIncome.toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
 				document.getElementById('total-expenses').textContent =
-					'₱' + totalExpenses.toFixed(2);
+					'₱' +
+					totalExpenses.toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
 				document.getElementById('balance').textContent =
-					'₱' + (totalIncome - totalExpenses).toFixed(2);
+					'₱' +
+					(totalIncome - totalExpenses).toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
 			}
 
 			function press(value) {
@@ -625,24 +639,29 @@
 				const accountDropdown = document.getElementById('accountDropdown');
 				accountDropdown.innerHTML = '';
 
-				let options = ['Cash', 'Credit Card', 'Debit Card'];
+				// 🔄 NEW: pull accounts dynamically from localStorage
+				const ACCOUNTS_KEY = 'saveior.accounts';
 
-				const defaultOption = document.createElement('option');
-
-				if (type === 'transfer') {
-					defaultOption.textContent = 'From Account';
-				} else {
-					defaultOption.textContent = 'Account';
+				function getStoredAccounts() {
+					const data = localStorage.getItem(ACCOUNTS_KEY);
+					return data ? JSON.parse(data) : [];
 				}
 
+				const accounts = getStoredAccounts();
+				const placeholder = type === 'transfer' ? 'From Account' : 'Account';
+
+				// Create default placeholder option
+				const defaultOption = document.createElement('option');
+				defaultOption.textContent = placeholder;
 				defaultOption.disabled = true;
 				defaultOption.selected = true;
 				accountDropdown.appendChild(defaultOption);
 
-				options.forEach((opt) => {
+				// Populate dropdown from localStorage accounts
+				accounts.forEach((acc) => {
 					const optionElement = document.createElement('option');
-					optionElement.value = opt.replace(' ', '-');
-					optionElement.textContent = opt;
+					optionElement.value = (acc.name || '').replace(/\s+/g, '-');
+					optionElement.textContent = acc.name || '';
 					accountDropdown.appendChild(optionElement);
 				});
 			}
@@ -714,6 +733,59 @@
 						resetDropdowns();
 					});
 				});
+		</script>
+
+		<script>
+			// === Shared with accounts.html ===
+			const ACCOUNTS_KEY = 'saveior.accounts';
+
+			function ensureAccountDefaults() {
+				const current = JSON.parse(
+					localStorage.getItem(ACCOUNTS_KEY) || 'null'
+				);
+				if (Array.isArray(current) && current.length) return;
+				const defaults = [
+					{ id: 'init-cash', name: 'Cash', type: 'Cash', balance: 0 },
+					{
+						id: 'init-cc',
+						name: 'Credit Card',
+						type: 'Credit Card',
+						balance: 0,
+					},
+					{ id: 'init-dc', name: 'Debit Card', type: 'Debit Card', balance: 0 },
+				];
+				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(defaults));
+			}
+
+			function getStoredAccounts() {
+				ensureAccountDefaults();
+				return JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+			}
+
+			function populateAccountDropdown(dropdownEl, placeholderText) {
+				const accounts = getStoredAccounts();
+
+				dropdownEl.innerHTML = '';
+				const def = document.createElement('option');
+				def.textContent = placeholderText;
+				def.disabled = true;
+				def.selected = true;
+				dropdownEl.appendChild(def);
+
+				accounts.forEach((acc) => {
+					const opt = document.createElement('option');
+					// keep your value normalization with dashes, but text stays pretty
+					opt.value = (acc.name || '').replace(/\s+/g, '-');
+					opt.textContent = acc.name || '';
+					dropdownEl.appendChild(opt);
+				});
+			}
+
+			// Call on DOM ready to fill initial choices
+			document.addEventListener('DOMContentLoaded', () => {
+				const el = document.getElementById('accountDropdown');
+				if (el) populateAccountDropdown(el, 'Account');
+			});
 		</script>
 
 		<script
