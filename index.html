@@ -369,67 +369,94 @@
 
 				let entry = document.createElement('div');
 				entry.className = 'entry-item ' + type;
+
+				// Store metadata for easy recalculation on delete
+				entry.dataset.amount = currentAmount;
+				entry.dataset.type = type;
+
 				let categoryIcon = '';
-				if (category === 'Food') {
+				if (category === 'Food')
 					categoryIcon = '<i class="fa-solid fa-utensils"></i>';
-				} else if (category === 'Transportation') {
+				else if (category === 'Transportation')
 					categoryIcon = '<i class="fa-solid fa-bus"></i>';
-				} else if (category === 'Bills') {
+				else if (category === 'Bills')
 					categoryIcon = '<i class="fa-solid fa-file-invoice"></i>';
-				} else if (category === 'Tax') {
+				else if (category === 'Tax')
 					categoryIcon = '<i class="fa-solid fa-money-bill-wave"></i>';
-				} else if (category === 'Shopping') {
+				else if (category === 'Shopping')
 					categoryIcon = '<i class="fa-solid fa-basket-shopping"></i>';
-				} else if (category === 'Salary') {
+				else if (category === 'Salary')
 					categoryIcon = '<i class="fa-solid fa-briefcase"></i>';
-				} else if (category === 'Allowance') {
+				else if (category === 'Allowance')
 					categoryIcon = '<i class="fa-solid fa-coins"></i>';
-				} else if (category === 'Part-Time') {
+				else if (category === 'Part-Time')
 					categoryIcon = '<i class="fa-solid fa-clock"></i>';
-				} else if (category === 'Investment') {
+				else if (category === 'Investment')
 					categoryIcon = '<i class="fa-solid fa-chart-line"></i>';
-				} else if (category === 'Bonus') {
+				else if (category === 'Bonus')
 					categoryIcon = '<i class="fa-solid fa-gift"></i>';
-				} else if (category === 'Cash') {
+				else if (category === 'Cash')
 					categoryIcon = '<i class="fa-solid fa-money-bill"></i>';
-				} else if (category === 'Credit Card') {
+				else if (category === 'Credit Card')
 					categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
-				} else {
+				else if (category === 'Debit Card')
 					categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
-				}
+				else categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
 
 				let accountIcon = '';
-				if (account === 'Cash') {
+				if (account === 'Cash')
 					accountIcon = '<i class="fa-solid fa-money-bill"></i>';
-				} else if (account === 'Credit Card') {
+				else if (account === 'Credit Card')
 					accountIcon = '<i class="fa-solid fa-credit-card"></i>';
-				} else if (account === 'Debit Card') {
+				else if (account === 'Debit Card')
 					accountIcon = '<i class="fa-solid fa-credit-card"></i>';
-				}
 
 				entry.innerHTML = `
-            <div style="display:flex; justify-content:space-between; width:100%;">
-              <div>
-                <div>${categoryIcon} ${category}</div>
-                <div style="color: gray; font-size: 12px;">${accountIcon} ${account}</div>
-                <div style="color: gray; font-size: 12px; font-weight: 500">${desc}</div>
-              </div>
-              <div>
-                ₱${currentAmount.toFixed(2)}
-              </div>
-            </div>
-        `;
+		<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+			<div>
+				<div>${categoryIcon} ${category}</div>
+				<div style="color: gray; font-size: 12px;">${accountIcon} ${account}</div>
+				<div style="color: gray; font-size: 12px; font-weight: 500">${desc}</div>
+			</div>
+			<div style="display:flex; align-items:center; gap:10px;">
+				<div>₱${currentAmount.toFixed(2)}</div>
+				<button class="btn btn-sm btn-outline-danger delete-btn">
+					<i class="fa-solid fa-trash"></i>
+				</button>
+			</div>
+		</div>
+	`;
 
-				document.getElementById('expense-list').appendChild(entry);
+				entriesList.appendChild(entry);
 
-				if (type === 'income') {
-					totalIncome += currentAmount;
-				} else if (type === 'expense') {
-					totalExpenses += currentAmount;
-				}
+				// Update totals
+				if (type === 'income') totalIncome += currentAmount;
+				else if (type === 'expense') totalExpenses += currentAmount;
 
 				updateSummary();
 				cancelEntry(type);
+
+				// Add delete button event
+				entry
+					.querySelector('.delete-btn')
+					.addEventListener('click', function () {
+						deleteEntry(entry);
+					});
+			}
+
+			function deleteEntry(entry) {
+				const amount = parseFloat(entry.dataset.amount);
+				const type = entry.dataset.type;
+
+				// Subtract from totals
+				if (type === 'income') totalIncome -= amount;
+				else if (type === 'expense') totalExpenses -= amount;
+
+				// Remove from DOM
+				entry.remove();
+
+				// Update summary
+				updateSummary();
 			}
 
 			function cancelEntry(type) {
@@ -472,6 +499,9 @@
 				if (document.getElementById('transfer').checked) {
 					updateCategoryOptions('transfer');
 				}
+
+				document.getElementById('accountDropdown').classList.remove('active');
+				document.getElementById('categoryDropdown').classList.remove('active');
 			}
 
 			function updateSummary() {
