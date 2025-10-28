@@ -289,21 +289,30 @@ nav {
 	bottom: 0;
 }
 
-/* Account & Category dropdowns */
+/* Custom dropdown */
 .custom-dropdown {
 	flex: 1;
 	margin: 0 3px;
 	border-radius: 30px;
 	padding: 8px 15px;
 	border: 1px solid var(--gray);
-	background-color: var(--white);
-	color: var(--bluegreen);
+	background-color: var(--gray);
+	color: #555;
 	font-weight: 500;
-	transition: all 0.3s ease;
 }
 
 .custom-dropdown:focus {
 	border-color: var(--bluegreen);
 	box-shadow: 0 0 5px rgba(22, 66, 74, 0.4);
 	outline: none;
+}
+
+.custom-dropdown.active {
+	background-color: #198754;
+	color: white;
+	border-color: #198754;
+}
+
+.custom-dropdown.active option:first-child {
+	display: none;
 }

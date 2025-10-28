@@ -646,6 +646,44 @@
 					currentAmount = null;
 				}
 			});
+
+			function handleDropdownColor(dropdownId) {
+				const dropdown = document.getElementById(dropdownId);
+				dropdown.addEventListener('change', function () {
+					const selectedValue = this.value;
+					const defaultTexts = [
+						'Account',
+						'From Account',
+						'Category',
+						'To Account',
+					];
+
+					if (defaultTexts.includes(this.options[this.selectedIndex].text)) {
+						this.classList.remove('active');
+					} else {
+						this.classList.add('active');
+					}
+				});
+			}
+
+			// Apply to both dropdowns
+			handleDropdownColor('accountDropdown');
+			handleDropdownColor('categoryDropdown');
+
+			function resetDropdowns() {
+				document.querySelectorAll('.custom-dropdown').forEach((d) => {
+					d.selectedIndex = 0;
+					d.classList.remove('active');
+				});
+			}
+
+			document
+				.querySelectorAll('input[name="transactionType"]')
+				.forEach((radio) => {
+					radio.addEventListener('change', () => {
+						resetDropdowns();
+					});
+				});
 		</script>
 
 		<script
