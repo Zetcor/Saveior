@@ -25,13 +25,10 @@
 			src="https://kit.fontawesome.com/203f7bcb2a.js"
 			crossorigin="anonymous"
 		></script>
-
-		<!-- Your styles -->
 		<link rel="stylesheet" href="styles.css" />
 		<style>
-			/* page-specific tweaks */
 			.accounts-list {
-				display: block; /* stacked */
+				display: block;
 				padding: 8px 0;
 			}
 			.account-card {
@@ -40,7 +37,7 @@
 				background: #fff;
 				border-radius: 16px;
 				padding: 16px;
-				margin: 0 auto 12px auto; /* standalone div per account */
+				margin: 0 auto 12px auto;
 				box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
 					rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 			}
@@ -163,7 +160,6 @@
 						</div>
 					</div>
 
-					<!-- Each account is its own standalone div (no row/wrapper) -->
 					<div id="accountsList" class="accounts-list"></div>
 
 					<p class="muted mt-2">
@@ -175,11 +171,8 @@
 		</div>
 
 		<script>
-			// === Shared storage schema ===
-			// localStorage key for accounts shared across pages
 			const ACCOUNTS_KEY = 'saveior.accounts';
 
-			// Ensure defaults exist (name + balance only)
 			function ensureDefaults() {
 				const current = JSON.parse(
 					localStorage.getItem(ACCOUNTS_KEY) || 'null'
@@ -202,7 +195,6 @@
 				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(list));
 			}
 
-			// === UI rendering ===
 			const accountsList = document.getElementById('accountsList');
 
 			function iconFor(name) {
@@ -228,19 +220,24 @@
             <div class="account-title">${iconFor(acc.name)} ${acc.name}</div>
             <div class="balance-lg">₱ <span data-field="balance">${Number(
 							acc.balance || 0
-						).toFixed(2)}</span></div>
+						).toLocaleString('en-US', {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						})}</span></div>
           </div>
 
           <div class="d-flex gap-2 align-items-center mt-3">
             <input type="number" step="0.01" min="0" class="form-control" placeholder="0.00" value="${Number(
 							acc.balance || 0
-						).toFixed(2)}" data-role="edit-amount"/>
+						).toLocaleString('en-US', {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						})}" data-role="edit-amount"/>
             <button class="btn btn-primary" data-action="save"><i class="bi bi-check2-circle"></i> Save</button>
             <button class="btn btn-outline-danger" data-action="remove"><i class="bi bi-trash3"></i></button>
           </div>
         `;
 
-					// Save balance
 					card
 						.querySelector('[data-action="save"]')
 						.addEventListener('click', () => {
@@ -255,10 +252,12 @@
 							);
 							setAccounts(list);
 							card.querySelector('[data-field="balance"]').textContent =
-								val.toFixed(2);
+								val.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								});
 						});
 
-					// Remove account
 					card
 						.querySelector('[data-action="remove"]')
 						.addEventListener('click', () => {
@@ -268,12 +267,10 @@
 							render();
 						});
 
-					// Append each standalone account div to the page
 					accountsList.appendChild(card);
 				});
 			}
 
-			// Add new account (name only)
 			document.getElementById('addAccountBtn').addEventListener('click', () => {
 				const nameEl = document.getElementById('newAccountName');
 				const name = nameEl.value.trim();
@@ -294,7 +291,6 @@
 				render();
 			});
 
-			// Boot
 			ensureDefaults();
 			render();
 		</script>
