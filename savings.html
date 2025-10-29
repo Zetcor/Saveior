@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Saveior | Savings</title>
+
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+			type="image/x-icon"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<script
+			src="https://kit.fontawesome.com/203f7bcb2a.js"
+			crossorigin="anonymous"
+		></script>
+
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="savings.css" />
+	</head>
+	<body>
+		<div class="rounded-container">
+			<!-- Navbar -->
+			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
+				<div class="navbar-container">
+					<a class="nav-logo text-decoration-none fs-4" href="index.html">
+						<img
+							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+							alt="Logo"
+						/>
+						Saveior
+					</a>
+				</div>
+
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div
+						class="collapse navbar-collapse justify-content-center"
+						id="navbarSupportedContent"
+					>
+						<ul
+							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
+						>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Dashboard</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="index.html"
+									>Records</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Budgets</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="accounts.html"
+									>Accounts</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Categories</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link px-4 active" href="savings.html">Savings</a>
+							</li>
+							<a href="#" class="nav-link d-lg-none">Settings</a>
+							<a href="#" class="nav-link d-lg-none">Accounts</a>
+						</ul>
+					</div>
+					<div class="ms-lg-auto mt-2 mt-lg-0">
+						<div
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+						>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-gear"></i>
+							</button>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-user"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<div class="tracker-container" style="margin-top: 40px">
+				<div class="calculator-container" style="flex: 1 1 100%">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="m-0 fw-bold">Savings Goals</h4>
+						<div class="savings-toolbar d-flex gap-2">
+							<button
+								id="addGoalBtn"
+								class="btn btn-success"
+								data-bs-toggle="modal"
+								data-bs-target="#goalModal"
+							>
+								<i class="bi bi-plus-circle"></i> Add Goal
+							</button>
+						</div>
+					</div>
+
+					<div id="goalsGrid" class="row g-3"></div>
+
+					<div id="emptyState" class="empty-state d-none mt-3">
+						<div class="mb-1"><i class="bi bi-flag"></i> No goals yet.</div>
+						<div class="mb-2">
+							Create your first savings goal and track progress at a glance.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="goalModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<form id="goalForm" class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Add Goal</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label class="form-label">Goal Name</label>
+							<input
+								type="text"
+								class="form-control"
+								id="goalName"
+								placeholder="e.g., Trip to Jerusalem"
+								required
+							/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Goal Amount</label>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class="form-control"
+								id="goalAmount"
+								placeholder="e.g., 100000"
+								required
+							/>
+						</div>
+						<div class="mb-1">
+							<label class="form-label">Note (optional)</label>
+							<textarea
+								class="form-control"
+								id="goalNote"
+								rows="2"
+								placeholder="Short note"
+							></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-light" data-bs-dismiss="modal" type="button">
+							Cancel
+						</button>
+						<button class="btn btn-success" type="submit">
+							<i class="bi bi-check2-circle"></i> Save Goal
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div
+			class="modal fade"
+			id="goalDetailModal"
+			tabindex="-1"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-lg modal-dialog-centered">
+				<div class="modal-content" id="goalDetailContent">
+					<div class="modal-header">
+						<h5 class="modal-title goal-title">Goal Details</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="goal-sheet">
+							<div class="p-3 p-md-4">
+								<div class="goal-headline" id="uiGoalTitle">Goal Name</div>
+								<div class="goal-sub" id="uiSavedLine">₱0.00 Saved</div>
+
+								<div class="progress-outer mx-auto" style="max-width: 640px">
+									<div id="uiProgressBar" class="progress-inner">0%</div>
+								</div>
+
+								<div class="goal-stats-row mx-auto" style="max-width: 660px">
+									<div class="goal-stat">
+										<div class="label">Remaining</div>
+										<div class="value" id="uiRemaining">₱0.00</div>
+									</div>
+									<div></div>
+									<div class="goal-stat">
+										<div class="label">Goal</div>
+										<div class="value" id="uiGoalAmount">₱0.00</div>
+									</div>
+								</div>
+							</div>
+
+							<hr class="hr-lite" />
+
+							<div class="goal-sheet-bottom">
+								<div class="d-flex justify-content-center mb-2">
+									<button
+										class="add-saving-pill"
+										id="addSavingBtn"
+										type="button"
+									>
+										<i class="bi bi-plus"></i> Add saving
+									</button>
+								</div>
+
+								<div class="d-flex justify-content-center mb-2">
+									<button type="button" id="targetChip" class="target-chip">
+										<span id="uiTargetText">Target on —</span>
+										<i class="bi bi-calendar-event"></i>
+									</button>
+									<input
+										type="date"
+										id="detailTargetDate"
+										class="hidden-date"
+									/>
+								</div>
+
+								<div class="time-remaining" id="uiTimeToGo">—</div>
+
+								<div class="break-tiles">
+									<div class="tile">
+										<div class="mini">Daily</div>
+										<div class="amt" id="needDaily">₱0.00</div>
+									</div>
+									<div class="tile">
+										<div class="mini">Weekly</div>
+										<div class="amt" id="needWeekly">₱0.00</div>
+									</div>
+									<div class="tile">
+										<div class="mini">Monthly</div>
+										<div class="amt" id="needMonthly">₱0.00</div>
+									</div>
+								</div>
+
+								<div class="mt-3">
+									<h6 class="m-0">Savings Entries</h6>
+									<div id="savingsList" class="list-group mt-2"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button
+							class="btn btn-outline-danger"
+							id="deleteGoalBtn"
+							type="button"
+						>
+							<i class="bi bi-trash3"></i> Delete Goal
+						</button>
+						<button class="btn btn-light" data-bs-dismiss="modal" type="button">
+							Close
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="savingModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<form id="savingForm" class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Add Saving</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label class="form-label">Amount</label>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class="form-control"
+								id="savingAmount"
+								placeholder="e.g., 500"
+								required
+							/>
+						</div>
+						<div class="mb-1">
+							<label class="form-label">Note (optional)</label>
+							<textarea
+								class="form-control"
+								id="savingNote"
+								rows="2"
+								placeholder="Short note"
+							></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-light" data-bs-dismiss="modal" type="button">
+							Cancel
+						</button>
+						<button class="btn btn-success" type="submit">
+							<i class="bi bi-check2-circle"></i> Save
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script>
+			const GOALS_KEY = 'saveior.savings.goals';
+
+			const uid = () =>
+				crypto.randomUUID
+					? crypto.randomUUID()
+					: Date.now() + '_' + Math.random().toString(16).slice(2);
+			const formatPHP = (n) =>
+				'₱' +
+				Number(n || 0).toLocaleString('en-US', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				});
+
+			function daysBetween(fromISO, toISO) {
+				if (!toISO) return null;
+				const start = new Date(fromISO);
+				const end = new Date(toISO + 'T00:00:00');
+				return Math.ceil((end - start) / 86400000);
+			}
+			function humanizeDays(d) {
+				if (d === null || isNaN(d)) return '—';
+				if (d < 0) return 'Past due';
+				const y = Math.floor(d / 365);
+				const m = Math.floor((d % 365) / 30);
+				const rem = d % 30;
+				if (y > 0 && m > 0)
+					return `${y} Year${y > 1 ? 's' : ''} ${m} Month${
+						m > 1 ? 's' : ''
+					} To Go`;
+				if (y > 0) return `${y} Year${y > 1 ? 's' : ''} To Go`;
+				if (m > 0 && rem > 0)
+					return `${m} Month${m > 1 ? 's' : ''} ${rem} Day${
+						rem > 1 ? 's' : ''
+					} To Go`;
+				if (m > 0) return `${m} Month${m > 1 ? 's' : ''} To Go`;
+				return `${d} Day${d !== 1 ? 's' : ''} To Go`;
+			}
+
+			function getGoals() {
+				try {
+					return JSON.parse(localStorage.getItem(GOALS_KEY) || '[]');
+				} catch {
+					return [];
+				}
+			}
+			function setGoals(list) {
+				localStorage.setItem(GOALS_KEY, JSON.stringify(list));
+			}
+			function sumSaved(goal) {
+				return (goal.savings || []).reduce(
+					(a, s) => a + Number(s.amount || 0),
+					0
+				);
+			}
+
+			const goalsGrid = document.getElementById('goalsGrid');
+			const emptyState = document.getElementById('emptyState');
+
+			function renderGoals() {
+				const goals = getGoals();
+				goalsGrid.innerHTML = '';
+				emptyState.classList.toggle('d-none', goals.length > 0);
+
+				goals.forEach((g) => {
+					const saved = sumSaved(g);
+					const remaining = Math.max(0, Number(g.targetAmount) - saved);
+					const pct = Math.min(
+						100,
+						Math.round((saved / Math.max(1, g.targetAmount)) * 100)
+					);
+					const days = g.targetDate
+						? daysBetween(new Date().toISOString().slice(0, 10), g.targetDate)
+						: null;
+
+					const col = document.createElement('div');
+					col.className = 'col-12';
+					col.innerHTML = `
+			<div class="goal-card p-3" data-id="${g.id}">
+				<div class="d-flex justify-content-between align-items-start">
+					<div class="goal-name">${g.name}</div>
+					<span class="pill">${pct}%</span>
+				</div>
+
+				${g.note ? `<div class="muted mb-1">${g.note}</div>` : ''}
+
+				<!-- Progress bar only -->
+				<div class="progress mb-1">
+					<div class="progress-bar" style="width:${pct}%"></div>
+				</div>
+
+				<!-- Saved value below the progress -->
+				<div class="saved mb-2">
+					<span class="muted me-1">Saved</span>${formatPHP(saved)}
+				</div>
+
+				<!-- two-column stats -->
+				<div class="stats-2col">
+					<div class="stat-label">Remaining</div>
+					<div class="stat-val">${formatPHP(remaining)}</div>
+					<div class="stat-label">Goal</div>
+					<div class="stat-val">${formatPHP(g.targetAmount)}</div>
+				</div>
+
+				<!-- single date line -->
+				<div class="goal-footer mt-2">
+					${
+						g.targetDate
+							? `<span class="date-pill"><i class="bi bi-calendar"></i>${g.targetDate}</span>`
+							: `<span class="muted">No target date</span>`
+					}
+				</div>
+			</div>
+		`;
+
+					col
+						.querySelector('.goal-card')
+						.addEventListener('click', () => openGoalDetail(g.id));
+					goalsGrid.appendChild(col);
+				});
+			}
+
+			document.getElementById('addGoalBtn').addEventListener('click', () => {
+				const form = document.getElementById('goalForm');
+				if (form) form.reset();
+			});
+
+			document.getElementById('goalForm').addEventListener('submit', (e) => {
+				e.preventDefault();
+				const name = document.getElementById('goalName').value.trim();
+				const amount = parseFloat(document.getElementById('goalAmount').value);
+				const note = document.getElementById('goalNote').value.trim();
+				if (!name) return alert('Please enter a goal name.');
+				if (!(amount >= 0)) return alert('Please enter a valid goal amount.');
+
+				const goals = getGoals();
+				goals.push({
+					id: uid(),
+					name,
+					targetAmount: amount,
+					note,
+					targetDate: '',
+					savings: [],
+					createdAt: new Date().toISOString(),
+				});
+				setGoals(goals);
+
+				bootstrap.Modal.getInstance(
+					document.getElementById('goalModal')
+				)?.hide();
+				renderGoals();
+			});
+
+			const goalDetailModalEl = document.getElementById('goalDetailModal');
+			let currentGoalId = null;
+
+			function openGoalDetail(goalId) {
+				currentGoalId = goalId;
+				const goals = getGoals();
+				const g = goals.find((x) => x.id === goalId);
+				if (!g) return;
+				const modalInstance =
+					bootstrap.Modal.getOrCreateInstance(goalDetailModalEl);
+
+				document.getElementById('uiGoalTitle').textContent = g.name;
+
+				const saved = sumSaved(g);
+				const remaining = Math.max(0, Number(g.targetAmount) - saved);
+				const pct = Math.min(
+					100,
+					Math.round((saved / Math.max(1, g.targetAmount)) * 100)
+				);
+
+				document.getElementById('uiSavedLine').textContent = `${formatPHP(
+					saved
+				)} Saved`;
+				document.getElementById('uiRemaining').textContent =
+					formatPHP(remaining);
+				document.getElementById('uiGoalAmount').textContent = formatPHP(
+					g.targetAmount
+				);
+
+				const bar = document.getElementById('uiProgressBar');
+				bar.style.width = pct + '%';
+				bar.textContent = pct + '%';
+
+				const targetDateInput = document.getElementById('detailTargetDate'); // hidden
+				targetDateInput.value = g.targetDate || '';
+				document.getElementById('uiTargetText').textContent = g.targetDate
+					? `Target on ${g.targetDate}`
+					: 'Target on —';
+				updateCountdownAndBreakdown(g);
+
+				document.getElementById('targetChip').onclick = () => {
+					if (targetDateInput.showPicker) targetDateInput.showPicker();
+					else targetDateInput.click();
+				};
+
+				targetDateInput.onchange = () => {
+					g.targetDate = targetDateInput.value || '';
+					setGoals(goals);
+					document.getElementById('uiTargetText').textContent = g.targetDate
+						? `Target on ${g.targetDate}`
+						: 'Target on —';
+					updateCountdownAndBreakdown(g);
+					renderGoals();
+				};
+
+				renderSavingsList(g);
+
+				document.getElementById('deleteGoalBtn').onclick = () => {
+					if (!confirm(`Delete goal "${g.name}"? This cannot be undone.`))
+						return;
+					setGoals(goals.filter((x) => x.id !== g.id));
+					modalInstance.hide();
+					renderGoals();
+				};
+
+				document.getElementById('addSavingBtn').onclick = () => {
+					document.getElementById('savingForm').reset();
+					bootstrap.Modal.getOrCreateInstance(
+						document.getElementById('savingModal')
+					).show();
+				};
+
+				modalInstance.show();
+			}
+
+			function updateCountdownAndBreakdown(goal) {
+				const saved = sumSaved(goal);
+				const remaining = Math.max(0, Number(goal.targetAmount) - saved);
+				let days = null;
+				if (goal.targetDate)
+					days = daysBetween(
+						new Date().toISOString().slice(0, 10),
+						goal.targetDate
+					);
+				document.getElementById('uiTimeToGo').textContent = humanizeDays(days);
+
+				let daily = 0,
+					weekly = 0,
+					monthly = 0;
+				if (typeof days === 'number' && days > 0) {
+					daily = remaining / days;
+					weekly = remaining / (days / 7);
+					monthly = remaining / (days / 30);
+				}
+				document.getElementById('needDaily').textContent = formatPHP(daily);
+				document.getElementById('needWeekly').textContent = formatPHP(weekly);
+				document.getElementById('needMonthly').textContent = formatPHP(monthly);
+			}
+
+			function renderSavingsList(goal) {
+				const wrap = document.getElementById('savingsList');
+				wrap.innerHTML = '';
+				const entries = [...(goal.savings || [])].sort(
+					(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+				);
+				if (entries.length === 0) {
+					wrap.innerHTML = `<div class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="muted">No savings yet. Add your first saving.</div>
+      </div>`;
+					return;
+				}
+				entries.forEach((s) => {
+					const item = document.createElement('div');
+					item.className =
+						'list-group-item d-flex justify-content-between align-items-center';
+					item.innerHTML = `
+        <div>
+          <div class="fw-semibold">${formatPHP(s.amount)}</div>
+          <div class="muted" style="font-size:.85rem">${
+						s.note ? s.note + ' • ' : ''
+					}${new Date(s.createdAt).toLocaleString()}</div>
+        </div>
+        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash3"></i></button>
+      `;
+					item.querySelector('button').onclick = () => {
+						if (!confirm('Remove this saving entry?')) return;
+						const goals = getGoals();
+						const g = goals.find((x) => x.id === goal.id);
+						if (!g) return;
+						g.savings = (g.savings || []).filter((x) => x.id !== s.id);
+						setGoals(goals);
+						openGoalDetail(goal.id);
+						renderGoals();
+					};
+					wrap.appendChild(item);
+				});
+			}
+
+			document.getElementById('savingForm').addEventListener('submit', (e) => {
+				e.preventDefault();
+				const amt = parseFloat(document.getElementById('savingAmount').value);
+				const note = document.getElementById('savingNote').value.trim();
+				if (!(amt > 0)) return alert('Enter a valid amount.');
+
+				const goals = getGoals();
+				const g = goals.find((x) => x.id === currentGoalId);
+				if (!g) return;
+
+				g.savings = g.savings || [];
+				g.savings.push({
+					id: uid(),
+					amount: amt,
+					note,
+					createdAt: new Date().toISOString(),
+				});
+				setGoals(goals);
+
+				bootstrap.Modal.getInstance(
+					document.getElementById('savingModal')
+				)?.hide();
+				openGoalDetail(currentGoalId);
+				renderGoals();
+			});
+
+			renderGoals();
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
