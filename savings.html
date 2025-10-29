@@ -65,7 +65,7 @@
 							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
 						>
 							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="#">Dashboard</a>
+								<a class="nav-link text-light px-4" href="dashboard.html">Dashboard</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-light px-4" href="index.html"
@@ -322,7 +322,14 @@
 								required
 							/>
 						</div>
-						<div class="mb-1">
+						
+						<div class="mb-3">
+							<label class="form-label">Account</label>
+							<select class="form-select" id="savingAccount" required>
+								<option value="" disabled selected>Select account</option>
+							</select>
+						</div>
+<div class="mb-1">
 							<label class="form-label">Note (optional)</label>
 							<textarea
 								class="form-control"
@@ -346,6 +353,27 @@
 
 		<script>
 			const GOALS_KEY = 'saveior.savings.goals';
+const ACCOUNTS_KEY = 'saveior.accounts';
+const TRANSACTIONS_KEY = 'saveior.transactions';
+
+function ensureAccountDefaults() {
+  const current = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+  if (current.length > 0) return;
+  const defaults = [
+    { id: (crypto.randomUUID?crypto.randomUUID():Date.now()+'_1'), name: 'Cash', balance: 0 },
+    { id: (crypto.randomUUID?crypto.randomUUID():Date.now()+'_2'), name: 'Credit Card', balance: 0 },
+    { id: (crypto.randomUUID?crypto.randomUUID():Date.now()+'_3'), name: 'Debit Card', balance: 0 },
+  ];
+  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(defaults));
+}
+function getAccounts() {
+  ensureAccountDefaults();
+  try { return JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]'); } catch { return []; }
+}
+function setAccounts(list) {
+  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(list));
+}
+
 
 			const uid = () =>
 				crypto.randomUUID
@@ -563,6 +591,18 @@
 				};
 
 				document.getElementById('addSavingBtn').onclick = () => {
+					// populate accounts in the saving modal
+					const sel = document.getElementById('savingAccount');
+					if (sel) {
+						sel.innerHTML = '<option value="" disabled selected>Select account</option>';
+						getAccounts().forEach(acc => {
+							const opt = document.createElement('option');
+							opt.value = acc.id;
+							opt.textContent = acc.name + ' — ' + (acc.balance!=null ? ('₱' + Number(acc.balance).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})) : '');
+							sel.appendChild(opt);
+						});
+					}
+
 					document.getElementById('savingForm').reset();
 					bootstrap.Modal.getOrCreateInstance(
 						document.getElementById('savingModal')
@@ -643,15 +683,44 @@
         <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash3"></i></button>
       `;
 					item.querySelector('button').onclick = () => {
-						if (!confirm('Remove this saving entry?')) return;
-						const goals = getGoals();
-						const g = goals.find((x) => x.id === goal.id);
-						if (!g) return;
-						g.savings = (g.savings || []).filter((x) => x.id !== s.id);
-						setGoals(goals);
-						openGoalDetail(goal.id);
-						renderGoals();
-					};
+            if (!confirm('Remove this saving entry?')) return;
+            const goals = getGoals();
+            const g = goals.find((x) => x.id === goal.id);
+            if (!g) return;
+
+            // Refund silently to the original account if available; otherwise prompt user which account to refund to.
+            try {
+                if (s.accountId && s.amount) {
+                    const accounts = getAccounts();
+                    const idx = accounts.findIndex(a => a.id === s.accountId);
+                    if (idx >= 0) {
+                        accounts[idx].balance = Number(accounts[idx].balance || 0) + Number(s.amount || 0);
+                        setAccounts(accounts);
+                    }
+                } else if (s.amount) {
+                    const accounts = getAccounts();
+                    if (accounts.length > 0) {
+                        const choices = accounts.map((a, i) => `${i+1}. ${a.name}`).join('');
+                        const ans = prompt(`Which account should receive the refund of ${formatPHP(s.amount)}?
+${choices}
+Enter number:`);
+                        const num = parseInt(ans, 10);
+                        if (num >= 1 && num <= accounts.length) {
+                            accounts[num-1].balance = Number(accounts[num-1].balance || 0) + Number(s.amount || 0);
+                            setAccounts(accounts);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Refund failed:', e);
+            }
+
+            // Remove the saving entry and update UI
+            g.savings = (g.savings || []).filter((x) => x.id !== s.id);
+            setGoals(goals);
+            openGoalDetail(goal.id);
+            renderGoals();
+        };
 					wrap.appendChild(item);
 				});
 			}
@@ -660,14 +729,29 @@
 				e.preventDefault();
 				const amt = parseFloat(document.getElementById('savingAmount').value);
 				const note = document.getElementById('savingNote').value.trim();
+				const accountSel = document.getElementById('savingAccount');
+				const accountId = accountSel ? accountSel.value : '';
 				if (!(amt > 0)) return alert('Enter a valid amount.');
+				if (!accountId) return alert('Please select an account.');
 
-				const goals = getGoals();
+				// fetch account
+				const accounts = getAccounts();
+				const accIdx = accounts.findIndex(a => a.id === accountId);
+				if (accIdx < 0) return alert('Selected account not found.');
+				const acc = accounts[accIdx];
+				// prevent overdraft on cash/debit
+				if ((acc.name.toLowerCase().includes('cash') || acc.name.toLowerCase().includes('debit')) && Number(acc.balance) < amt) {
+					return alert('Insufficient balance in ' + acc.name + '.');
+				}
+				// deduct
+				accounts[accIdx].balance = Number(accounts[accIdx].balance || 0) - amt;
+				setAccounts(accounts);
+            const goals = getGoals();
 				const g = goals.find((x) => x.id === currentGoalId);
 				if (!g) return;
 
 				g.savings = g.savings || [];
-				g.savings.push({
+				g.savings.push({ accountId, accountName: acc.name,
 					id: uid(),
 					amount: amt,
 					note,
