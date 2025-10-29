@@ -576,24 +576,45 @@
 				const saved = sumSaved(goal);
 				const remaining = Math.max(0, Number(goal.targetAmount) - saved);
 				let days = null;
+
 				if (goal.targetDate)
 					days = daysBetween(
 						new Date().toISOString().slice(0, 10),
 						goal.targetDate
 					);
+
 				document.getElementById('uiTimeToGo').textContent = humanizeDays(days);
 
 				let daily = 0,
 					weekly = 0,
 					monthly = 0;
+
 				if (typeof days === 'number' && days > 0) {
 					daily = remaining / days;
-					weekly = remaining / (days / 7);
-					monthly = remaining / (days / 30);
+
+					if (days < 7) {
+						document.getElementById('needWeekly').textContent = 'N/A';
+						document.getElementById('needMonthly').textContent = 'N/A';
+					} else if (days < 30) {
+						document.getElementById('needWeekly').textContent = formatPHP(
+							remaining / (days / 7)
+						);
+						document.getElementById('needMonthly').textContent = 'N/A';
+					} else {
+						document.getElementById('needWeekly').textContent = formatPHP(
+							remaining / (days / 7)
+						);
+						document.getElementById('needMonthly').textContent = formatPHP(
+							remaining / (days / 30)
+						);
+					}
+
+					document.getElementById('needDaily').textContent = formatPHP(daily);
+				} else {
+					document.getElementById('needDaily').textContent = 'N/A';
+					document.getElementById('needWeekly').textContent = 'N/A';
+					document.getElementById('needMonthly').textContent = 'N/A';
 				}
-				document.getElementById('needDaily').textContent = formatPHP(daily);
-				document.getElementById('needWeekly').textContent = formatPHP(weekly);
-				document.getElementById('needMonthly').textContent = formatPHP(monthly);
 			}
 
 			function renderSavingsList(goal) {
