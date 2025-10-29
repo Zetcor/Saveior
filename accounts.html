@@ -415,6 +415,14 @@
 
 			ensureDefaults();
 			render();
+
+			window.addEventListener('focus', () => {
+				render();
+			});
+
+			window.addEventListener('storage', (e) => {
+				if (e.key === 'saveior.accounts') render();
+			});
 		</script>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

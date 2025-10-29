@@ -134,27 +134,11 @@
 						<select
 							id="accountDropdown"
 							class="form-select custom-dropdown"
-							aria-label="Select Account"
-						>
-							<option selected disabled>Account</option>
-						</select>
-
+						></select>
 						<select
 							id="categoryDropdown"
 							class="form-select custom-dropdown"
-							aria-label="Select Category"
-						>
-							<option selected disabled>Category</option>
-						</select>
-					</div>
-
-					<div class="transfer-row" id="transferFields">
-						<select id="transferFrom" class="form-select">
-							<option selected disabled>From Account</option>
-						</select>
-						<select id="transferTo" class="form-select">
-							<option selected disabled>To Account</option>
-						</select>
+						></select>
 					</div>
 
 					<textarea
@@ -321,28 +305,16 @@
 			let currentAmount = null;
 
 			const ACCOUNTS_KEY = 'saveior.accounts';
+			const TRANSACTIONS_KEY = 'saveior.transactions';
 
 			function ensureAccountDefaults() {
-				const current = JSON.parse(
-					localStorage.getItem(ACCOUNTS_KEY) || 'null'
-				);
-				if (Array.isArray(current) && current.length) return;
+				const current = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+				if (current.length > 0) return;
+
 				const defaults = [
-					{
-						id: crypto?.randomUUID ? crypto.randomUUID() : 'init-cash',
-						name: 'Cash',
-						balance: 0,
-					},
-					{
-						id: crypto?.randomUUID ? crypto.randomUUID() : 'init-cc',
-						name: 'Credit Card',
-						balance: 0,
-					},
-					{
-						id: crypto?.randomUUID ? crypto.randomUUID() : 'init-dc',
-						name: 'Debit Card',
-						balance: 0,
-					},
+					{ id: crypto.randomUUID(), name: 'Cash', balance: 0 },
+					{ id: crypto.randomUUID(), name: 'Credit Card', balance: 0 },
+					{ id: crypto.randomUUID(), name: 'Debit Card', balance: 0 },
 				];
 				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(defaults));
 			}
@@ -353,22 +325,48 @@
 			}
 
 			function updateAccountBalanceByName(accountName, amountChange) {
-				const data = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+				const data = getStoredAccounts();
 				const idx = data.findIndex((a) => a.name === accountName);
 				if (idx >= 0) {
 					data[idx].balance =
 						(Number(data[idx].balance) || 0) + Number(amountChange);
 					localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(data));
-				} else {
-					console.warn('Account not found for balance update:', accountName);
 				}
 			}
 
+			function getStoredTransactions() {
+				return JSON.parse(localStorage.getItem(TRANSACTIONS_KEY) || '[]');
+			}
+
+			function saveStoredTransactions(transactions) {
+				localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(transactions));
+			}
+
+			function addTransactionToStorage(entryData) {
+				const transactions = getStoredTransactions();
+				transactions.push(entryData);
+				saveStoredTransactions(transactions);
+			}
+
+			function deleteTransactionFromStorage(index) {
+				const transactions = getStoredTransactions();
+				transactions.splice(index, 1);
+				saveStoredTransactions(transactions);
+			}
+
 			function resetAccountOptions(type) {
-				const accounts = getStoredAccounts();
 				const accountDropdown = document.getElementById('accountDropdown');
 				accountDropdown.innerHTML = '';
+
+				const ACCOUNTS_KEY = 'saveior.accounts';
+				function getStoredAccounts() {
+					const data = localStorage.getItem(ACCOUNTS_KEY);
+					return data ? JSON.parse(data) : [];
+				}
+
+				const accounts = getStoredAccounts();
 				const placeholder = type === 'transfer' ? 'From Account' : 'Account';
+
 				const defaultOption = document.createElement('option');
 				defaultOption.textContent = placeholder;
 				defaultOption.disabled = true;
@@ -377,27 +375,10 @@
 
 				accounts.forEach((acc) => {
 					const optionElement = document.createElement('option');
-					optionElement.value = acc.name;
+					optionElement.value = acc.name || '';
 					optionElement.textContent = acc.name || '';
 					accountDropdown.appendChild(optionElement);
 				});
-
-				const from = document.getElementById('transferFrom');
-				const to = document.getElementById('transferTo');
-				if (from && to) {
-					from.innerHTML = '<option selected disabled>From Account</option>';
-					to.innerHTML = '<option selected disabled>To Account</option>';
-					accounts.forEach((acc) => {
-						const o1 = document.createElement('option');
-						o1.value = acc.name;
-						o1.textContent = acc.name;
-						from.appendChild(o1);
-						const o2 = document.createElement('option');
-						o2.value = acc.name;
-						o2.textContent = acc.name;
-						to.appendChild(o2);
-					});
-				}
 			}
 
 			function updateCategoryOptions(type) {
@@ -410,23 +391,20 @@
 					options = ['Salary', 'Allowance', 'Part-Time', 'Investment', 'Bonus'];
 				} else if (type === 'expense') {
 					options = ['Food', 'Transportation', 'Bills', 'Tax', 'Shopping'];
-				} else {
-					options = [];
+				} else if (type === 'transfer') {
+					const ACCOUNTS_KEY = 'saveior.accounts';
+					const accounts = JSON.parse(
+						localStorage.getItem(ACCOUNTS_KEY) || '[]'
+					);
+					options = accounts.map((a) => a.name);
 				}
 
-				if (type !== 'transfer') {
-					const defaultOption = document.createElement('option');
-					defaultOption.textContent = 'Category';
-					defaultOption.disabled = true;
-					defaultOption.selected = true;
-					categoryDropdown.appendChild(defaultOption);
-				} else {
-					const defaultOption = document.createElement('option');
-					defaultOption.textContent = 'To Account';
-					defaultOption.disabled = true;
-					defaultOption.selected = true;
-					categoryDropdown.appendChild(defaultOption);
-				}
+				const defaultOption = document.createElement('option');
+				defaultOption.textContent =
+					type === 'transfer' ? 'To Account' : 'Category';
+				defaultOption.disabled = true;
+				defaultOption.selected = true;
+				categoryDropdown.appendChild(defaultOption);
 
 				options.forEach((opt) => {
 					const optionElement = document.createElement('option');
@@ -436,38 +414,30 @@
 				});
 			}
 
-			function handleDropdownColor(dropdownId) {
-				const dropdown = document.getElementById(dropdownId);
+			function handleDropdownColor(id) {
+				const dropdown = document.getElementById(id);
 				if (!dropdown) return;
 				dropdown.addEventListener('change', function () {
-					const defaultTexts = [
+					const defaults = [
 						'Account',
 						'From Account',
 						'Category',
 						'To Account',
 					];
-					if (
-						this.options[this.selectedIndex] &&
-						defaultTexts.includes(this.options[this.selectedIndex].text)
-					) {
+					if (defaults.includes(this.options[this.selectedIndex].text))
 						this.classList.remove('active');
-					} else this.classList.add('active');
+					else this.classList.add('active');
 				});
 			}
 
-			handleDropdownColor('accountDropdown');
-			handleDropdownColor('categoryDropdown');
-
-			function press(value) {
-				document.getElementById('display').value += value;
+			function press(val) {
+				document.getElementById('display').value += val;
 				liveCalculate();
 			}
-
 			function clearDisplay() {
 				document.getElementById('display').value = '';
 				currentAmount = null;
 			}
-
 			function liveCalculate() {
 				try {
 					let expr = document
@@ -481,7 +451,6 @@
 					currentAmount = null;
 				}
 			}
-
 			function calculateResult() {
 				try {
 					let expr = document
@@ -498,191 +467,225 @@
 					currentAmount = null;
 				}
 			}
-
 			function deleteLast() {
-				let display = document.getElementById('display');
-				display.value = display.value.slice(0, -1);
+				let d = document.getElementById('display');
+				d.value = d.value.slice(0, -1);
 				liveCalculate();
 			}
 
-			document.addEventListener('keydown', function (event) {
+			document.addEventListener('keydown', (e) => {
 				if (document.activeElement.id === 'desc-input') return;
-				const key = event.key;
-				if (!isNaN(key) || '+-*/.'.includes(key)) {
-					press(key);
-				} else if (key === 'Enter') {
-					event.preventDefault();
+				const key = e.key;
+				if (!isNaN(key) || '+-*/.'.includes(key)) press(key);
+				else if (key === 'Enter') {
+					e.preventDefault();
 					calculateResult();
-				} else if (key === 'Backspace') {
-					deleteLast();
-				} else if (key === 'Escape') {
-					clearDisplay();
-				}
+				} else if (key === 'Backspace') deleteLast();
+				else if (key === 'Escape') clearDisplay();
 			});
 
+			function getCategoryIcon(category) {
+				if (category === 'Food') return '<i class="fa-solid fa-utensils"></i>';
+				if (category === 'Transportation')
+					return '<i class="fa-solid fa-bus"></i>';
+				if (category === 'Bills')
+					return '<i class="fa-solid fa-file-invoice"></i>';
+				if (category === 'Tax')
+					return '<i class="fa-solid fa-money-bill-wave"></i>';
+				if (category === 'Shopping')
+					return '<i class="fa-solid fa-basket-shopping"></i>';
+				if (category === 'Salary')
+					return '<i class="fa-solid fa-sack-dollar"></i>';
+				if (category === 'Allowance')
+					return '<i class="fa-solid fa-coins"></i>';
+				if (category === 'Part-Time')
+					return '<i class="fa-solid fa-clock"></i>';
+				if (category === 'Investment')
+					return '<i class="fa-solid fa-chart-line"></i>';
+				if (category === 'Bonus') return '<i class="fa-solid fa-gift"></i>';
+				if (category === 'Cash')
+					return '<i class="fa-solid fa-money-bill"></i>';
+				if (category === 'Credit Card')
+					return '<i class="fa-solid fa-credit-card"></i>';
+				if (category === 'Debit Card')
+					return '<i class="fa-solid fa-credit-card"></i>';
+				return '<i class="fa-solid fa-credit-card"></i>';
+			}
+
+			function getAccountIcon(account) {
+				if (account === 'Cash') return '<i class="fa-solid fa-money-bill"></i>';
+				if (account === 'Credit Card')
+					return '<i class="fa-solid fa-credit-card"></i>';
+				if (account === 'Debit Card')
+					return '<i class="fa-solid fa-credit-card"></i>';
+				return '<i class="fa-solid fa-wallet"></i>';
+			}
+
+			function renderTransaction(entryData, index) {
+				const list = document.getElementById('expense-list');
+				const entry = document.createElement('div');
+				entry.className = `entry-item ${entryData.type}`;
+				entry.dataset.amount = entryData.amount;
+				entry.dataset.type = entryData.type;
+				entry.dataset.index = index;
+				entry.dataset.account = entryData.account || '';
+
+				let htmlContent = '';
+
+				if (entryData.type === 'transfer') {
+					htmlContent = `
+			<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+				<div>
+					<div><i class="fa-solid fa-right-left"></i> Transfer</div>
+					<div style="color: gray; font-size: 12px;">From: ${entryData.from} → To: ${
+						entryData.to
+					}</div>
+					<div style="color: gray; font-size: 12px; font-weight: 500">${
+						entryData.desc || ''
+					}</div>
+				</div>
+				<div style="display:flex; align-items:center; gap:10px;">
+					<div>₱${Number(entryData.amount).toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					})}</div>
+					<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
+				</div>
+			</div>`;
+				} else {
+					htmlContent = `
+			<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+				<div>
+					<div>${getCategoryIcon(entryData.category)} ${entryData.category}</div>
+					<div style="color: gray; font-size: 12px;">${getAccountIcon(
+						entryData.account
+					)} ${entryData.account}</div>
+					<div style="color: gray; font-size: 12px; font-weight: 500">${
+						entryData.desc || ''
+					}</div>
+				</div>
+				<div style="display:flex; align-items:center; gap:10px;">
+					<div>₱${Number(entryData.amount).toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					})}</div>
+					<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
+				</div>
+			</div>`;
+				}
+
+				entry.innerHTML = htmlContent;
+				list.prepend(entry);
+				entry
+					.querySelector('.delete-btn')
+					.addEventListener('click', () => deleteEntry(entry));
+			}
+
 			function saveEntry() {
-				let category = (
-					document.getElementById('categoryDropdown').value || ''
-				).toString();
-				let account = (
-					document.getElementById('accountDropdown').value || ''
-				).toString();
+				let category = document.getElementById('categoryDropdown').value || '';
+				let account = document.getElementById('accountDropdown').value || '';
 				let desc = document.getElementById('desc-input').value.trim();
 				let type =
 					document.querySelector('input[name="transactionType"]:checked')
 						?.value || null;
-				let entriesList = document.getElementById('expense-list');
-				entriesList.style.backgroundColor = '#ffffff';
+
+				if (!currentAmount || isNaN(currentAmount) || currentAmount <= 0) {
+					alert('Enter a valid amount!');
+					return;
+				}
 
 				if (type === 'transfer') {
-					const from = document.getElementById('transferFrom').value;
-					const to = document.getElementById('transferTo').value;
+					if (!account || !category) {
+						alert('Please select both From Account and To Account!');
+						return;
+					}
 
-					if (!from || !to || from === 'From Account' || to === 'To Account') {
-						alert('Please select both From and To accounts for transfer.');
+					if (account === category) {
+						alert('You cannot transfer to the same account!');
 						return;
 					}
-					if (from === to) {
-						alert('Cannot transfer to the same account.');
+				} else {
+					if (!account) {
+						alert('Please select an account!');
 						return;
 					}
-					if (
-						currentAmount === null ||
-						isNaN(currentAmount) ||
-						currentAmount <= 0
-					) {
-						alert('Enter a valid amount for transfer!');
+					if (!category) {
+						alert('Please select a category!');
+						return;
+					}
+				}
+
+				let entryData = {
+					type,
+					account,
+					category,
+					desc,
+					amount: currentAmount,
+					date: new Date().toISOString(),
+				};
+
+				if (type === 'transfer') {
+					const from = document.getElementById('accountDropdown').value;
+					const to = document.getElementById('categoryDropdown').value;
+					if (!from || !to || from === to) {
+						alert('Please select valid From and To accounts!');
 						return;
 					}
 
 					updateAccountBalanceByName(from, -currentAmount);
 					updateAccountBalanceByName(to, currentAmount);
 
-					const entry = document.createElement('div');
-					entry.className = 'entry-item transfer';
-					entry.dataset.amount = currentAmount;
-					entry.dataset.type = 'transfer';
-					entry.dataset.from = from;
-					entry.dataset.to = to;
-
-					entry.innerHTML = `
-					<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-						<div>
-						<div><i class="fa-solid fa-right-left"></i> Transfer</div>
-						<div style="color: gray; font-size: 12px;">From: ${from} → To: ${to}</div>
-						<div style="color: gray; font-size: 12px; font-weight: 500">${desc}</div>
-						</div>
-						<div style="display:flex; align-items:center; gap:10px;">
-						<div>₱${Number(currentAmount).toLocaleString('en-US', {
-							minimumFractionDigits: 2,
-							maximumFractionDigits: 2,
-						})}</div>
-						<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
-						</div>
-					</div>
-					`;
-
-					entriesList.prepend(entry);
-					entry
-						.querySelector('.delete-btn')
-						.addEventListener('click', () => deleteEntry(entry));
-					cancelEntry(type);
-					updateSummary();
-					return;
-				}
-
-				if (account === '' || account === 'Account') {
-					alert('Please select an account!');
-					return;
-				}
-				if (category === '' || category === 'Category') {
-					alert('Please select a category!');
-					return;
-				}
-				if (
-					currentAmount === null ||
-					isNaN(currentAmount) ||
-					currentAmount <= 0
-				) {
-					alert('Enter a valid amount!');
-					return;
-				}
-
-				if (type === 'expense')
-					updateAccountBalanceByName(account, -currentAmount);
-				else if (type === 'income')
+					entryData.from = from;
+					entryData.to = to;
+					entryData.category = `Transfer: ${from} → ${to}`;
+				} else if (type === 'income') {
 					updateAccountBalanceByName(account, currentAmount);
+					totalIncome += currentAmount;
+				} else if (type === 'expense') {
+					updateAccountBalanceByName(account, -currentAmount);
+					totalExpenses += currentAmount;
+				}
 
-				const entry = document.createElement('div');
-				entry.className = 'entry-item ' + type;
-				entry.dataset.amount = currentAmount;
-				entry.dataset.type = type;
-				entry.dataset.account = account;
-
-				let categoryIcon = '';
-				if (category === 'Food')
-					categoryIcon = '<i class="fa-solid fa-utensils"></i>';
-				else if (category === 'Transportation')
-					categoryIcon = '<i class="fa-solid fa-bus"></i>';
-				else if (category === 'Bills')
-					categoryIcon = '<i class="fa-solid fa-file-invoice"></i>';
-				else if (category === 'Tax')
-					categoryIcon = '<i class="fa-solid fa-money-bill-wave"></i>';
-				else if (category === 'Shopping')
-					categoryIcon = '<i class="fa-solid fa-basket-shopping"></i>';
-				else categoryIcon = '<i class="fa-solid fa-credit-card"></i>';
-
-				let accountIcon = '';
-				if (account === 'Cash')
-					accountIcon = '<i class="fa-solid fa-money-bill"></i>';
-				else accountIcon = '<i class="fa-solid fa-credit-card"></i>';
-
-				entry.innerHTML = `
-					<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-					<div>
-						<div>${categoryIcon} ${category}</div>
-						<div style="color: gray; font-size: 12px;">${accountIcon} ${account}</div>
-						<div style="color: gray; font-size: 12px; font-weight: 500">${desc}</div>
-					</div>
-					<div style="display:flex; align-items:center; gap:10px;">
-						<div>₱${Number(currentAmount).toLocaleString('en-US', {
-							minimumFractionDigits: 2,
-							maximumFractionDigits: 2,
-						})}</div>
-						<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
-					</div>
-					</div>
-				`;
-
-				entriesList.prepend(entry);
-
-				if (type === 'income') totalIncome += Number(currentAmount);
-				else if (type === 'expense') totalExpenses += Number(currentAmount);
-
+				addTransactionToStorage(entryData);
+				renderTransaction(entryData);
 				updateSummary();
 				cancelEntry(type);
+			}
 
-				entry
-					.querySelector('.delete-btn')
-					.addEventListener('click', function () {
-						deleteEntry(entry);
-					});
+			function validateTransferAccounts() {
+				const fromAcc = document.getElementById('accountDropdown').value;
+				const toAcc = document.getElementById('categoryDropdown').value;
+
+				if (fromAcc === toAcc) {
+					alert('You cannot transfer to the same account!');
+					return false;
+				}
+				return true;
 			}
 
 			function deleteEntry(entry) {
+				const idx = parseInt(entry.dataset.index);
 				const amount = parseFloat(entry.dataset.amount || '0');
 				const type = entry.dataset.type;
+				const account = entry.dataset.account;
+
+				const confirmDelete = confirm(
+					'Are you sure you want to delete this transaction?'
+				);
+				if (!confirmDelete) return;
 
 				if (type === 'income') {
 					totalIncome -= amount;
-					updateAccountBalanceByName(entry.dataset.account, -amount);
+					updateAccountBalanceByName(account, -amount);
 				} else if (type === 'expense') {
 					totalExpenses -= amount;
-					updateAccountBalanceByName(entry.dataset.account, amount);
+					updateAccountBalanceByName(account, amount);
 				} else if (type === 'transfer') {
 					updateAccountBalanceByName(entry.dataset.from, amount);
 					updateAccountBalanceByName(entry.dataset.to, -amount);
 				}
+
+				deleteTransactionFromStorage(idx);
 				entry.remove();
 				updateSummary();
 			}
@@ -691,21 +694,9 @@
 				document.getElementById('desc-input').value = '';
 				document.getElementById('display').value = '';
 				currentAmount = null;
-
-				const t =
-					type ||
-					document.querySelector('input[name="transactionType"]:checked')
-						?.value ||
-					'expense';
+				const t = type || 'expense';
 				resetAccountOptions(t);
-
-				if (document.getElementById('income').checked)
-					updateCategoryOptions('income');
-				if (document.getElementById('expense').checked)
-					updateCategoryOptions('expense');
-				if (document.getElementById('transfer').checked)
-					updateCategoryOptions('transfer');
-
+				updateCategoryOptions(t);
 				document.getElementById('accountDropdown').classList.remove('active');
 				document.getElementById('categoryDropdown').classList.remove('active');
 			}
@@ -732,49 +723,54 @@
 			}
 
 			function setTypeUI(type) {
-				const transferFields = document.getElementById('transferFields');
 				const accDropdown = document.getElementById('accountDropdown');
 				const categoryDropdown = document.getElementById('categoryDropdown');
 
-				if (type === 'transfer') {
-					transferFields.style.display = 'flex';
-					accDropdown.style.display = 'none';
-					categoryDropdown.style.display = 'none';
-				} else {
-					transferFields.style.display = 'none';
-					accDropdown.style.display = 'block';
-					categoryDropdown.style.display = 'block';
-				}
 				resetAccountOptions(type);
 				updateCategoryOptions(type);
-			}
 
-			document
-				.querySelectorAll('input[name="transactionType"]')
-				.forEach((radio) => {
-					radio.addEventListener('change', (e) => {
-						setTypeUI(e.target.value);
-						document.getElementById('desc-input').value = '';
-						document.getElementById('display').value = '';
-						currentAmount = null;
-						document.querySelectorAll('.custom-dropdown').forEach((d) => {
-							d.selectedIndex = 0;
-							d.classList.remove('active');
-						});
-					});
-				});
-
-			function attachDropdownColorHandlers() {
-				handleDropdownColor('accountDropdown');
-				handleDropdownColor('categoryDropdown');
-				handleDropdownColor('transferFrom');
-				handleDropdownColor('transferTo');
+				if (type === 'transfer') {
+					accDropdown.options[0].textContent = 'From Account';
+					categoryDropdown.options[0].textContent = 'To Account';
+				} else {
+					accDropdown.options[0].textContent = 'Account';
+					categoryDropdown.options[0].textContent = 'Category';
+				}
 			}
 
 			document.addEventListener('DOMContentLoaded', function () {
 				resetAccountOptions('expense');
 				updateCategoryOptions('expense');
-				attachDropdownColorHandlers();
+				handleDropdownColor('accountDropdown');
+				handleDropdownColor('categoryDropdown');
+				handleDropdownColor('transferFrom');
+				handleDropdownColor('transferTo');
+
+				const transactions = getStoredTransactions();
+				document.getElementById('expense-list').innerHTML = '';
+
+				transactions.forEach((t, index) => {
+					renderTransaction(t, index);
+					if (t.type === 'income') totalIncome += t.amount;
+					else if (t.type === 'expense') totalExpenses += t.amount;
+				});
+				updateSummary();
+
+				document
+					.querySelectorAll('input[name="transactionType"]')
+					.forEach((radio) => {
+						radio.addEventListener('change', (e) => {
+							setTypeUI(e.target.value);
+							document.getElementById('desc-input').value = '';
+							document.getElementById('display').value = '';
+							currentAmount = null;
+							document.querySelectorAll('.custom-dropdown').forEach((d) => {
+								d.selectedIndex = 0;
+								d.classList.remove('active');
+							});
+						});
+					});
+
 				setTypeUI(
 					document.querySelector('input[name="transactionType"]:checked').value
 				);

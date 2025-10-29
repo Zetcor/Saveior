@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Saveior | Dashboard</title>
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+			type="image/x-icon"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<script
+			src="https://kit.fontawesome.com/203f7bcb2a.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="styles.css" />
+
+		<style>
+			.page-wrap {
+				max-width: 1000px;
+				margin: 40px auto 20px;
+				padding: 20px;
+			}
+			.dash-grid {
+				display: grid;
+				grid-template-columns: 1.1fr 1fr;
+				gap: 20px;
+			}
+			@media (max-width: 992px) {
+				.dash-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.panel {
+				background: #fff;
+				border-radius: 20px;
+				padding: 16px;
+				box-shadow: rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+			}
+			.panel h5 {
+				font-weight: 700;
+				margin: 0 0 10px;
+			}
+
+			.goal-card {
+				background: #f8f9fa;
+				border-radius: 14px;
+				padding: 12px 14px;
+				margin-bottom: 10px;
+			}
+			.goal-top {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.goal-name {
+				font-weight: 700;
+			}
+			.goal-progress {
+				height: 8px;
+				background: #e9ecef;
+				border-radius: 999px;
+				overflow: hidden;
+				margin-top: 6px;
+			}
+			.goal-progress > span {
+				display: block;
+				height: 100%;
+				background: #198754;
+			}
+
+			.tx-card {
+				background: #fff;
+				border-radius: 20px;
+				overflow: hidden;
+			}
+			.tx-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 14px 16px;
+				border-bottom: 1px solid #e9ecef;
+			}
+			.tx-list {
+				padding: 6px 0;
+			}
+			.tx-item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 10px 16px;
+				border-bottom: 1px solid #f1f3f5;
+			}
+			.tx-item:last-child {
+				border-bottom: 0;
+			}
+			.tx-left {
+				line-height: 1.1;
+			}
+			.tx-cat {
+				font-weight: 700;
+			}
+			.tx-date {
+				font-size: 0.82rem;
+				color: #6b7280;
+			}
+			.tx-amt {
+				font-weight: 800;
+			}
+			.tx-amt.income {
+				color: #2e7d32;
+			}
+			.tx-amt.expense {
+				color: #c62828;
+			}
+			.tx-amt.transfer {
+				color: #1761eb;
+			}
+
+			.summary-row {
+				margin-top: 20px;
+				background: #fff;
+				border-radius: 20px;
+				padding: 14px 18px;
+				box-shadow: rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 10px;
+			}
+			.sum-cell {
+				text-align: center;
+			}
+			.sum-big {
+				font-size: 1.4rem;
+				font-weight: 900;
+			}
+			.sum-inc {
+				color: #2e7d32;
+			}
+			.sum-exp {
+				color: #c62828;
+			}
+			.sum-tot {
+				color: #c47e00;
+			}
+			.sum-label {
+				font-weight: 700;
+				letter-spacing: 0.04em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="rounded-container">
+			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
+				<div class="navbar-container">
+					<a class="nav-logo text-decoration-none fs-4" href="dashboard.html">
+						<img
+							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+							alt="Logo"
+						/>
+						Saveior
+					</a>
+				</div>
+
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div
+						class="collapse navbar-collapse justify-content-center"
+						id="navbarSupportedContent"
+					>
+						<ul
+							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
+						>
+							<li class="nav-item">
+								<a class="nav-link px-4 active" href="dashboard.html"
+									>Dashboard</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="index.html"
+									>Records</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Budgets</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="accounts.html"
+									>Accounts</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="#">Categories</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light px-4" href="savings.html"
+									>Savings</a
+								>
+							</li>
+							<a href="#" class="nav-link d-lg-none">Settings</a>
+							<a href="#" class="nav-link d-lg-none">Accounts</a>
+						</ul>
+					</div>
+
+					<div class="ms-lg-auto mt-2 mt-lg-0">
+						<div
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+						>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-gear"></i>
+							</button>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-user"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<div class="page-wrap">
+				<div class="dash-grid">
+					<div class="panel">
+						<h5>Goals</h5>
+						<div id="goalsList"></div>
+						<div class="mt-2">
+							<a href="savings.html" class="btn btn-sm btn-success">
+								<i class="bi bi-plus-circle"></i> Add a goal
+							</a>
+						</div>
+					</div>
+
+					<div class="tx-card">
+						<div class="tx-head">
+							<h5 class="m-0 fw-bold">Transactions</h5>
+							<i class="bi bi-funnel"></i>
+						</div>
+						<div id="txList" class="tx-list"></div>
+					</div>
+				</div>
+
+				<div class="summary-row">
+					<div class="sum-cell">
+						<div id="sumIncome" class="sum-big sum-inc">₱0.00</div>
+						<div class="sum-label">INCOME</div>
+					</div>
+					<div class="sum-cell">
+						<div id="sumExpense" class="sum-big sum-exp">₱0.00</div>
+						<div class="sum-label">EXPENSE</div>
+					</div>
+					<div class="sum-cell">
+						<div id="sumTotal" class="sum-big sum-tot">₱0.00</div>
+						<div class="sum-label">TOTAL</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const TRANSACTIONS_KEY = 'saveior.transactions';
+			const GOALS_KEY = 'saveior.savings.goals';
+
+			const fmt = (n) =>
+				'₱' +
+				Number(n || 0).toLocaleString('en-US', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				});
+			const getJSON = (k, fallback) => {
+				try {
+					return JSON.parse(
+						localStorage.getItem(k) || JSON.stringify(fallback)
+					);
+				} catch {
+					return fallback;
+				}
+			};
+
+			function renderTransactions() {
+				const mount = document.getElementById('txList');
+				const txs = getJSON(TRANSACTIONS_KEY, []);
+				if (!txs.length) {
+					mount.innerHTML =
+						'<div class="px-3 py-2 text-muted">No transactions yet.</div>';
+					return;
+				}
+				const recent = txs.slice(-5).reverse();
+				mount.innerHTML = recent
+					.map(
+						(tx) => `
+        <div class="tx-item">
+          <div class="tx-left">
+            <div class="tx-cat">${tx.category || '—'}</div>
+            <div class="tx-date">${new Date(tx.date).toLocaleDateString(
+							'en-PH',
+							{ day: '2-digit', month: 'short', year: 'numeric' }
+						)}</div>
+          </div>
+          <div class="tx-amt ${tx.type}">
+            ${
+							tx.type === 'expense'
+								? '-' + fmt(tx.amount)
+								: tx.type === 'income'
+								? '+' + fmt(tx.amount)
+								: fmt(tx.amount)
+						}
+          </div>
+        </div>
+      `
+					)
+					.join('');
+			}
+
+			function renderGoals() {
+				const mount = document.getElementById('goalsList');
+				const goals = getJSON(GOALS_KEY, []);
+				if (!goals.length) {
+					mount.innerHTML = '<div class="text-muted">No goals yet.</div>';
+					return;
+				}
+				mount.innerHTML = goals
+					.map((g) => {
+						const saved = (g.savings || []).reduce(
+							(a, s) => a + Number(s.amount || 0),
+							0
+						);
+						const pct = Math.min(
+							100,
+							Math.round((saved / Math.max(1, g.targetAmount)) * 100)
+						);
+						return `
+          <div class="goal-card">
+            <div class="goal-top">
+              <div class="goal-name">${g.name}</div>
+              <div class="fw-bold">${pct}%</div>
+            </div>
+            <div class="goal-progress"><span style="width:${pct}%"></span></div>
+            <div class="small mt-1"><span class="text-muted me-1">Saved</span>${fmt(
+							saved
+						)} / ${fmt(g.targetAmount)}</div>
+          </div>`;
+					})
+					.join('');
+			}
+
+			function renderSummary() {
+				const txs = getJSON(TRANSACTIONS_KEY, []);
+				let income = 0,
+					expense = 0;
+				txs.forEach((t) => {
+					if (t.type === 'income') income += Number(t.amount || 0);
+					else if (t.type === 'expense') expense += Number(t.amount || 0);
+				});
+				const total = income - expense;
+				document.getElementById('sumIncome').textContent = fmt(income);
+				document.getElementById('sumExpense').textContent = fmt(expense);
+				document.getElementById('sumTotal').textContent = fmt(total);
+			}
+
+			renderTransactions();
+			renderGoals();
+			renderSummary();
+		</script>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
