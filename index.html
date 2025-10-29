@@ -63,7 +63,9 @@
 							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
 						>
 							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="dashboard.html">Dashboard</a>
+								<a class="nav-link text-light px-4" href="dashboard.html"
+									>Dashboard</a
+								>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link px-4 active" href="#">Records</a>
@@ -530,13 +532,12 @@
 				entry.dataset.index = index;
 				entry.dataset.account = entryData.account || '';
 
-				
 				// Store transfer endpoints for delete reversal
 				if (entryData.type === 'transfer') {
 					entry.dataset.from = entryData.from || '';
 					entry.dataset.to = entryData.to || '';
 				}
-let htmlContent = '';
+				let htmlContent = '';
 
 				if (entryData.type === 'transfer') {
 					htmlContent = `
