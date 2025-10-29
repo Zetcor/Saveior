@@ -237,34 +237,61 @@
 				let totalBudget = 0;
 				let totalSpent = 0;
 
-				CATEGORIES.forEach((category) => {
-					const limit = Number(budgets[category] || 0);
-					const used = Number(spent[category] || 0);
-					const remaining = limit - used;
+			CATEGORIES.forEach((category) => {
+				const limit = Number(budgets[category] || 0);
+				const used = Number(spent[category] || 0);
+				const remaining = limit - used;
 
-					totalBudget += limit;
-					totalSpent += used;
+				totalBudget += limit;
+				totalSpent += used;
 
-					const remainingClass =
-						remaining < 0 ? "text-danger fw-bold" : "text-primary";
+				const remainingClass = remaining < 0 ? "text-danger fw-bold" : "text-primary";
 
-					const col = document.createElement("div");
-					col.className = "col-12 col-md-6 col-lg-4";
-					col.innerHTML = `
-						<div class="goal-card p-3" style="cursor:pointer;" onclick="openEditBudget('${category}')">
-							<div class="d-flex justify-content-between align-items-center">
-								<h5 class="fw-bold mb-0">${category}</h5>
-							</div>
-							<hr>
-							<div class="small">
-								<div>Limit: ₱${limit.toLocaleString()}</div>
-								<div class="text-danger">Spent: ₱${used.toLocaleString()}</div>
-								<div class="${remainingClass}">Remaining: ₱${remaining.toLocaleString()}</div>
-							</div>
+				// calculate percentage of limit used
+				const pct = limit > 0 ? Math.min((used / limit) * 100, 100) : 0;
+				const progressColor =
+					pct >= 90 ? "bg-danger" : pct >= 70 ? "bg-warning" : "bg-success";
+
+				const col = document.createElement("div");
+				col.className = "col-12 col-md-6 col-lg-4";
+
+				col.innerHTML = `
+					<div class="goal-card p-3" style="cursor:pointer;" onclick="openEditBudget('${category}')">
+						<div class="d-flex justify-content-between align-items-center">
+							<h5 class="fw-bold mb-0">${category}</h5>
 						</div>
-					`;
-					list.appendChild(col);
-				});
+						<hr>
+
+						<!-- Two-column stats layout -->
+						<div class="stats-2col mb-3">
+							<div class="stat-label">Spent</div>
+							<div class="stat-val text-danger">₱${used.toLocaleString()}</div>
+							<div class="stat-label">Remaining</div>
+							<div class="stat-val ${remainingClass}">₱${remaining.toLocaleString()}</div>
+						</div>
+
+						<!-- Progress bar -->
+						<div class="progress mb-2" style="height: 10px;">
+							<div class="progress-bar ${progressColor}"
+								role="progressbar"
+								style="width: ${pct}%;"
+								aria-valuenow="${pct}"
+								aria-valuemin="0"
+								aria-valuemax="100"></div>
+						</div>
+
+						<!-- Limit and percentage summary below progress -->
+						<div class="d-flex justify-content-between small text-muted">
+							<span>${pct.toFixed(1)}% used</span>
+							<span>Limit: ₱${limit.toLocaleString()}</span>
+						</div>
+					</div>
+				`;
+
+				list.appendChild(col);
+			});
+
+
 
 				document.getElementById("total-budget").textContent =
 					"₱" + totalBudget.toLocaleString();
