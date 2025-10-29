@@ -229,10 +229,7 @@
           <div class="d-flex gap-2 align-items-center mt-3">
             <input type="number" step="0.01" min="0" class="form-control" placeholder="0.00" value="${Number(
 							acc.balance || 0
-						).toLocaleString('en-US', {
-							minimumFractionDigits: 2,
-							maximumFractionDigits: 2,
-						})}" data-role="edit-amount"/>
+						).toFixed(2)}" data-role="edit-amount"/>
             <button class="btn btn-primary" data-action="save"><i class="bi bi-check2-circle"></i> Save</button>
             <button class="btn btn-outline-danger" data-action="remove"><i class="bi bi-trash3"></i></button>
           </div>
