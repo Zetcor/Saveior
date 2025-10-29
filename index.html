@@ -372,7 +372,6 @@
 				let entry = document.createElement('div');
 				entry.className = 'entry-item ' + type;
 
-				// Store metadata for easy recalculation on delete
 				entry.dataset.amount = currentAmount;
 				entry.dataset.type = type;
 
@@ -451,11 +450,13 @@
 				const amount = parseFloat(entry.dataset.amount);
 				const type = entry.dataset.type;
 
+				if (!confirm('Are you sure you want to delete this transaction?'))
+					return;
+
 				if (type === 'income') totalIncome -= amount;
 				else if (type === 'expense') totalExpenses -= amount;
 
 				entry.remove();
-
 				updateSummary();
 			}
 
@@ -467,7 +468,6 @@
 				const accountDropdown = document.getElementById('accountDropdown');
 				accountDropdown.innerHTML = '';
 
-				// 🔄 NEW: pull accounts dynamically from localStorage
 				const ACCOUNTS_KEY = 'saveior.accounts';
 				function getStoredAccounts() {
 					const data = localStorage.getItem(ACCOUNTS_KEY);
@@ -639,7 +639,6 @@
 				const accountDropdown = document.getElementById('accountDropdown');
 				accountDropdown.innerHTML = '';
 
-				// 🔄 NEW: pull accounts dynamically from localStorage
 				const ACCOUNTS_KEY = 'saveior.accounts';
 
 				function getStoredAccounts() {
@@ -650,14 +649,12 @@
 				const accounts = getStoredAccounts();
 				const placeholder = type === 'transfer' ? 'From Account' : 'Account';
 
-				// Create default placeholder option
 				const defaultOption = document.createElement('option');
 				defaultOption.textContent = placeholder;
 				defaultOption.disabled = true;
 				defaultOption.selected = true;
 				accountDropdown.appendChild(defaultOption);
 
-				// Populate dropdown from localStorage accounts
 				accounts.forEach((acc) => {
 					const optionElement = document.createElement('option');
 					optionElement.value = (acc.name || '').replace(/\s+/g, '-');
@@ -715,7 +712,6 @@
 				});
 			}
 
-			// Apply to both dropdowns
 			handleDropdownColor('accountDropdown');
 			handleDropdownColor('categoryDropdown');
 
@@ -736,7 +732,6 @@
 		</script>
 
 		<script>
-			// === Shared with accounts.html ===
 			const ACCOUNTS_KEY = 'saveior.accounts';
 
 			function ensureAccountDefaults() {
@@ -781,7 +776,6 @@
 				});
 			}
 
-			// Call on DOM ready to fill initial choices
 			document.addEventListener('DOMContentLoaded', () => {
 				const el = document.getElementById('accountDropdown');
 				if (el) populateAccountDropdown(el, 'Account');
