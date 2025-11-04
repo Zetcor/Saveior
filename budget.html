@@ -266,16 +266,25 @@
               <hr>
               <div class="stats-2col mb-3">
                 <div class="stat-label">Spent</div>
-                <div class="stat-val text-danger">₱${used.toLocaleString()}</div>
+                <div class="stat-val text-danger">₱${used.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}</div>
                 <div class="stat-label">Remaining</div>
-                <div class="stat-val ${remainingClass}">₱${remaining.toLocaleString()}</div>
+                <div class="stat-val ${remainingClass}">₱${remaining.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}</div>
               </div>
               <div class="progress mb-2" style="height: 10px;">
                 <div class="progress-bar ${progressColor}" role="progressbar" style="width: ${pct}%"></div>
               </div>
               <div class="d-flex justify-content-between small text-muted">
                 <span>${pct.toFixed(1)}% used</span>
-                <span>Limit: ₱${limit.toLocaleString()}</span>
+                <span>Limit: ₱${limit.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}</span>
               </div>
             </div>
           `;
@@ -285,11 +294,20 @@
 
         // update summary totals
         document.getElementById("total-budget").textContent =
-          "₱" + totalBudget.toLocaleString();
+          "₱" + totalBudget.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								});
         document.getElementById("total-spent").textContent =
-          "₱" + totalSpent.toLocaleString();
+          "₱" + totalSpent.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								});
         document.getElementById("total-remaining").textContent =
-          "₱" + (totalBudget - totalSpent).toLocaleString();
+          "₱" + (totalBudget - totalSpent).toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								});
       }
 
       // edit category budget
@@ -314,7 +332,10 @@
 
           if (currentTotalBudget + amount > totalFunds) {
             alert(
-              `Your total budgets cannot exceed your available funds (₱${totalFunds.toLocaleString()}).`
+              `Your total budgets cannot exceed your available funds (₱${totalFunds.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}).`
             );
             return;
           }
