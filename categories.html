@@ -233,23 +233,30 @@
       const emptyExpenseState = document.getElementById("emptyExpenseState");
       const emptyIncomeState = document.getElementById("emptyIncomeState");
 
-      // Default categories
-      const defaultCategories = {
-        expense: [
-          { id: crypto.randomUUID(), name: "Food", type: "Expense" },
-          { id: crypto.randomUUID(), name: "Transportation", type: "Expense" },
-          { id: crypto.randomUUID(), name: "Bills", type: "Expense" },
-          { id: crypto.randomUUID(), name: "Tax", type: "Expense" },
-          { id: crypto.randomUUID(), name: "Shopping", type: "Expense" },
-        ],
-        income: [
-          { id: crypto.randomUUID(), name: "Salary", type: "Income" },
-          { id: crypto.randomUUID(), name: "Allowance", type: "Income" },
-          { id: crypto.randomUUID(), name: "Part-time", type: "Income" },
-          { id: crypto.randomUUID(), name: "Investment", type: "Income" },
-          { id: crypto.randomUUID(), name: "Bonus", type: "Income" },
-        ],
-      };
+
+      function ensureCategoryDefaults() {
+        const current = JSON.parse(localStorage.getItem(CATEGORIES_KEY) || 'null');
+        if (current && current.expense && current.income) return;
+
+        const defaults = {
+            expense: [
+                { id: crypto.randomUUID(), name: 'Food', type: 'Expense' },
+                { id: crypto.randomUUID(), name: 'Transportation', type: 'Expense' },
+                { id: crypto.randomUUID(), name: 'Bills', type: 'Expense' },
+                { id: crypto.randomUUID(), name: 'Tax', type: 'Expense' },
+                { id: crypto.randomUUID(), name: 'Shopping', type: 'Expense' },
+            ],
+            income: [
+                { id: crypto.randomUUID(), name: 'Salary', type: 'Income' },
+                { id: crypto.randomUUID(), name: 'Allowance', type: 'Income' },
+                { id: crypto.randomUUID(), name: 'Part-time', type: 'Income' },
+                { id: crypto.randomUUID(), name: 'Investment', type: 'Income' },
+                { id: crypto.randomUUID(), name: 'Bonus', type: 'Income' },
+            ],
+        };
+        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaults));
+      }
+
 
       function ensureDefaults() {
         const stored = JSON.parse(localStorage.getItem(CATEGORIES_KEY) || "null");
