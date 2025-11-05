@@ -387,3 +387,110 @@ nav .navbar-container {
 .delete-btn i {
 	font-size: 12px;
 }
+
+@media (max-width: 991.98px) {
+	nav.navbar {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		padding: 8px 16px;
+		gap: 8px;
+	}
+
+	nav .navbar-container {
+		height: 56px;
+		padding: 0 10px;
+	}
+
+	nav > .navbar-container {
+		height: 56px;
+	}
+
+	.navbar-collapse .navbar-container.center-nav {
+		height: auto !important;
+		overflow: visible;
+		width: 100%;
+		padding: 12px 14px;
+	}
+
+	.navbar .navbar-toggler {
+		margin-left: auto;
+		border: 0;
+		outline: 0;
+		width: 44px;
+		height: 44px;
+		border-radius: 999px;
+		background: var(--darkgreen);
+		color: var(--white);
+		display: inline-flex !important;
+		align-items: center;
+		justify-content: center;
+	}
+	.navbar .navbar-toggler-icon {
+		width: 1.35rem;
+		height: 1.35rem;
+		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(240,240,240,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+		background-size: 100% 100%;
+	}
+
+	.navbar-collapse {
+		width: 100%;
+		margin-top: 8px;
+	}
+
+	.center-nav {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 8px;
+	}
+	.center-nav > li {
+		width: 100%;
+	}
+	.center-nav .nav-link {
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
+
+	.center-nav.navbar-container {
+		width: 100%;
+		padding: 10px 12px;
+	}
+
+	.center-nav {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 8px !important;
+	}
+	.center-nav > li {
+		width: 100%;
+	}
+	.center-nav .nav-link {
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
+
+	.right-actions {
+		display: none !important;
+	}
+
+	.navbar.sticky-top {
+		top: 12px;
+	}
+}
+
+@media (min-width: 992px) {
+	.navbar .navbar-toggler {
+		display: none !important;
+	}
+	.center-nav {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		top: 0;
+		bottom: 0;
+		margin: auto 0;
+		width: max-content;
+	}
+}
