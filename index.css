@@ -149,3 +149,9 @@
 	letter-spacing: 0.05em;
 	opacity: 0.9;
 }
+
+#goalsList {
+  max-height: 300px; /* Adjust this value based on your layout */
+  overflow-y: auto;
+}
+
