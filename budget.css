@@ -81,7 +81,6 @@
 	}
 }
 
-
 .stats-2col {
 	display: grid;
 	grid-template-columns: 1fr auto;
@@ -103,4 +102,70 @@
 }
 .progress-bar.animated {
 	animation: progressAnimation 2s ease-in-out;
+}
+
+.page-wrap {
+	max-width: 1000px;
+	margin: 40px auto 20px;
+	padding: 20px;
+}
+
+.panel {
+	background: #fff;
+	border-radius: 20px;
+	padding: 16px;
+	box-shadow: rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+}
+
+.panel h5 {
+	font-weight: 700;
+	margin: 0 0 10px;
+}
+
+.summary-row {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background: linear-gradient(135deg, var(--darkgreen), var(--bluegreen));
+	color: var(--white);
+	border-radius: 24px;
+	padding: 26px 20px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+	margin-bottom: 40px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-row:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.sum-cell {
+	text-align: center;
+}
+
+.sum-big {
+	font-size: 1.8rem;
+	font-weight: 900;
+	margin-bottom: 6px;
+}
+
+.sum-inc {
+	color: #9deea1;
+}
+
+.sum-exp {
+	color: #ff8b8b;
+}
+
+.sum-tot {
+	color: #ffe28a;
+}
+
+.sum-label {
+	font-weight: 600;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	opacity: 0.9;
 }

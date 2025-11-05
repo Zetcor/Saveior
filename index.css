@@ -1,0 +1,151 @@
+.page-wrap {
+	max-width: 1000px;
+	margin: 40px auto 20px;
+	padding: 20px;
+}
+.dash-grid {
+	display: grid;
+	grid-template-columns: 1.1fr 1fr;
+	gap: 20px;
+}
+@media (max-width: 992px) {
+	.dash-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.panel {
+	background: #fff;
+	border-radius: 20px;
+	padding: 16px;
+	box-shadow: rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+}
+
+.panel h5 {
+	font-weight: 700;
+	margin: 0 0 10px;
+}
+
+.goal-card {
+	background: #f8f9fa;
+	border-radius: 14px;
+	padding: 12px 14px;
+	margin-bottom: 10px;
+}
+.goal-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.goal-name {
+	font-weight: 700;
+}
+.goal-progress {
+	height: 8px;
+	background: #e9ecef;
+	border-radius: 999px;
+	overflow: hidden;
+	margin-top: 6px;
+}
+.goal-progress > span {
+	display: block;
+	height: 100%;
+	background: #198754;
+}
+
+.tx-card {
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+	overflow: hidden;
+}
+.tx-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 14px 16px;
+	border-bottom: 1px solid #e9ecef;
+}
+.tx-list {
+	padding: 6px 0;
+}
+.tx-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 16px;
+	border-bottom: 1px solid #f1f3f5;
+}
+.tx-item:last-child {
+	border-bottom: 0;
+}
+.tx-left {
+	line-height: 1.1;
+}
+.tx-cat {
+	font-weight: 700;
+}
+.tx-date {
+	font-size: 0.82rem;
+	color: #6b7280;
+}
+.tx-amt {
+	font-weight: 800;
+}
+.tx-amt.income {
+	color: #2e7d32;
+}
+.tx-amt.expense {
+	color: #c62828;
+}
+.tx-amt.transfer {
+	color: #1761eb;
+}
+
+.summary-row {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background: linear-gradient(135deg, var(--darkgreen), var(--bluegreen));
+	color: var(--white);
+	border-radius: 24px;
+	padding: 26px 20px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+	margin-bottom: 40px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-row:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.sum-cell {
+	text-align: center;
+}
+
+.sum-big {
+	font-size: 1.8rem;
+	font-weight: 900;
+	margin-bottom: 6px;
+}
+
+.sum-inc {
+	color: #9deea1;
+}
+
+.sum-exp {
+	color: #ff8b8b;
+}
+
+.sum-tot {
+	color: #ffe28a;
+}
+
+.sum-label {
+	font-weight: 600;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	opacity: 0.9;
+}
