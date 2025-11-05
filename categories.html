@@ -1,399 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saveior | Categories</title>
-    <link
-      rel="icon"
-      href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-      type="image/x-icon"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/203f7bcb2a.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="accounts.css" />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Saveior | Categories</title>
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+			type="image/x-icon"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<script
+			src="https://kit.fontawesome.com/203f7bcb2a.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="accounts.css" />
+	</head>
 
-  <body>
-    <div class="rounded-container">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg container-fluid sticky-top">
-        <div class="navbar-container">
-          <a class="nav-logo text-decoration-none fs-4" href="index.html">
-            <img
-              src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-              alt="Logo"
-            />
-            Saveior
-          </a>
-        </div>
+	<body>
+		<div class="rounded-container">
+			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
+				<div class="navbar-container">
+					<a class="nav-logo text-decoration-none fs-4" href="index.html">
+						<img
+							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+							alt="Logo"
+						/>
+						Saveior
+					</a>
+				</div>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+				<button
+					class="navbar-toggler d-lg-none"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div
-            class="collapse navbar-collapse justify-content-center"
-            id="navbarSupportedContent"
-          >
-            <ul
-              class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
-            >
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="index.html">Dashboard</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="records.html">Records</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="budget.html">Budgets</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="accounts.html">Accounts</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-4 active" href="categories.html">Categories</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light px-4" href="savings.html">Savings</a>
-              </li>
-            </ul>
-          </div>
-          <div class="ms-lg-auto mt-2 mt-lg-0">
-            <div
-              class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
-            >
-              <button class="icon-btn d-none d-lg-flex">
-                <i class="fa-solid fa-gear"></i>
-              </button>
-              <button class="icon-btn d-none d-lg-flex">
-                <i class="fa-solid fa-user"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul
+						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
+					>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="index.html"
+								>Dashboard</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="records.html"
+								>Records</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="accounts.html"
+								>Accounts</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active px-4" href="categories.html"
+								>Categories</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="savings.html"
+								>Savings</a
+							>
+						</li>
+					</ul>
 
-      <!-- Content -->
-      <div class="tracker-container" style="margin-top: 40px">
-        <div class="calculator-container" style="flex: 1 1 100%">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="m-0 fw-bold">Categories</h4>
-            <button
-              id="openAddCategoryModal"
-              class="btn btn-success"
-              data-bs-toggle="modal"
-              data-bs-target="#categoryModal"
-            >
-              <i class="bi bi-plus-circle"></i> Add Category
-            </button>
-          </div>
+					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
+						<div
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
+						>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-gear"></i>
+							</button>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-user"></i>
+							</button>
+							<button
+								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+								id="goPremiumBtn"
+							>
+								<i class="bi bi-star-fill me-2"></i> Go Premium
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
 
-          <!-- Expense Categories -->
-          <h5 class="fw-semibold mt-4 mb-3 text-danger">
-            <i class="bi bi-arrow-down-circle"></i> Expense Categories
-          </h5>
-          <div id="expenseCategoriesList" class="row g-3"></div>
+			<!-- Content -->
+			<div class="tracker-container" style="margin-top: 40px">
+				<div class="calculator-container" style="flex: 1 1 100%">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="m-0 fw-bold">Categories</h4>
+						<button
+							id="openAddCategoryModal"
+							class="btn btn-success"
+							data-bs-toggle="modal"
+							data-bs-target="#categoryModal"
+						>
+							<i class="bi bi-plus-circle"></i> Add Category
+						</button>
+					</div>
 
-          <!-- Expense Empty State -->
-          <div id="emptyExpenseState" class="empty-state d-none text-center mt-3">
-            <div class="mb-1">
-              <i class="bi bi-wallet2"></i> No expense categories yet.
-            </div>
-            <div class="mb-2">
-              Create your first expense category to start tracking spending.
-            </div>
-          </div>
+					<!-- Expense Categories -->
+					<h5 class="fw-semibold mt-4 mb-3 text-danger">
+						<i class="bi bi-arrow-down-circle"></i> Expense Categories
+					</h5>
+					<div id="expenseCategoriesList" class="row g-3"></div>
 
-          <!-- Income Categories -->
-          <h5 class="fw-semibold mt-4 mb-3 text-success">
-            <i class="bi bi-arrow-up-circle"></i> Income Categories
-          </h5>
-          <div id="incomeCategoriesList" class="row g-3"></div>
+					<!-- Expense Empty State -->
+					<div
+						id="emptyExpenseState"
+						class="empty-state d-none text-center mt-3"
+					>
+						<div class="mb-1">
+							<i class="bi bi-wallet2"></i> No expense categories yet.
+						</div>
+						<div class="mb-2">
+							Create your first expense category to start tracking spending.
+						</div>
+					</div>
 
-          <!-- Income Empty State -->
-          <div id="emptyIncomeState" class="empty-state d-none text-center mt-3">
-            <div class="mb-1">
-              <i class="bi bi-wallet2"></i> No income categories yet.
-            </div>
-            <div class="mb-2">
-              Create your first income category to start tracking earnings.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+					<!-- Income Categories -->
+					<h5 class="fw-semibold mt-4 mb-3 text-success">
+						<i class="bi bi-arrow-up-circle"></i> Income Categories
+					</h5>
+					<div id="incomeCategoriesList" class="row g-3"></div>
 
-    <!-- Add Category Modal -->
-    <div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <form id="categoryForm" class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Category</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Category Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="newCategoryName"
-                placeholder="e.g., Groceries"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Category Type</label>
-              <div class="d-flex gap-3">
-                <label>
-                  <input type="radio" name="categoryType" value="Expense" checked />
-                  Expense
-                </label>
-                <label>
-                  <input type="radio" name="categoryType" value="Income" />
-                  Income
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light" data-bs-dismiss="modal" type="button">
-              Cancel
-            </button>
-            <button class="btn btn-success" type="submit">
-              <i class="bi bi-check2-circle"></i> Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+					<!-- Income Empty State -->
+					<div
+						id="emptyIncomeState"
+						class="empty-state d-none text-center mt-3"
+					>
+						<div class="mb-1">
+							<i class="bi bi-wallet2"></i> No income categories yet.
+						</div>
+						<div class="mb-2">
+							Create your first income category to start tracking earnings.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <!-- Category Detail Modal -->
-    <div class="modal fade" id="categoryDetailModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="categoryDetailTitle">Category Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body text-center">
-            <input
-              type="text"
-              id="renameCategoryInput"
-              class="form-control text-center mb-3"
-              placeholder="Rename category"
-            />
-            <button id="renameCategoryBtn" class="btn btn-success w-100 mb-2">
-              <i class="bi bi-pencil-square"></i> Rename
-            </button>
-            <button id="deleteCategoryBtn" class="btn btn-outline-danger w-100">
-              <i class="bi bi-trash3"></i> Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+		<!-- Add Category Modal -->
+		<div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<form id="categoryForm" class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Add Category</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label class="form-label">Category Name</label>
+							<input
+								type="text"
+								class="form-control"
+								id="newCategoryName"
+								placeholder="e.g., Groceries"
+								required
+							/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Category Type</label>
+							<div class="d-flex gap-3">
+								<label>
+									<input
+										type="radio"
+										name="categoryType"
+										value="Expense"
+										checked
+									/>
+									Expense
+								</label>
+								<label>
+									<input type="radio" name="categoryType" value="Income" />
+									Income
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-light" data-bs-dismiss="modal" type="button">
+							Cancel
+						</button>
+						<button class="btn btn-success" type="submit">
+							<i class="bi bi-check2-circle"></i> Save
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-    <script>
-      const CATEGORIES_KEY = "saveior.categories";
-      let currentCategory = null;
+		<!-- Category Detail Modal -->
+		<div
+			class="modal fade"
+			id="categoryDetailModal"
+			tabindex="-1"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="categoryDetailTitle">
+							Category Details
+						</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+						></button>
+					</div>
+					<div class="modal-body text-center">
+						<input
+							type="text"
+							id="renameCategoryInput"
+							class="form-control text-center mb-3"
+							placeholder="Rename category"
+						/>
+						<button id="renameCategoryBtn" class="btn btn-success w-100 mb-2">
+							<i class="bi bi-pencil-square"></i> Rename
+						</button>
+						<button id="deleteCategoryBtn" class="btn btn-outline-danger w-100">
+							<i class="bi bi-trash3"></i> Delete
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			const CATEGORIES_KEY = 'saveior.categories';
+			const PREMIUM_KEY = 'isPremiumUser';
 
-      const expenseList = document.getElementById("expenseCategoriesList");
-      const incomeList = document.getElementById("incomeCategoriesList");
-      const emptyExpenseState = document.getElementById("emptyExpenseState");
-      const emptyIncomeState = document.getElementById("emptyIncomeState");
+			// --- Limits: Free = 5 per type, Premium = 8 per type ---
+			const isPremium = () => localStorage.getItem(PREMIUM_KEY) === 'true';
+			const maxPerType = () => (isPremium() ? 8 : 5);
 
+			let currentCategory = null;
 
-      function ensureCategoryDefaults() {
-        const current = JSON.parse(localStorage.getItem(CATEGORIES_KEY) || 'null');
-        if (current && current.expense && current.income) return;
+			// UI elements
+			const expenseList = document.getElementById('expenseCategoriesList');
+			const incomeList = document.getElementById('incomeCategoriesList');
+			const emptyExpenseState = document.getElementById('emptyExpenseState');
+			const emptyIncomeState = document.getElementById('emptyIncomeState');
+			const addBtn = document.getElementById('openAddCategoryModal');
 
-        const defaults = {
-            expense: [
-                { id: crypto.randomUUID(), name: 'Food', type: 'Expense' },
-                { id: crypto.randomUUID(), name: 'Transportation', type: 'Expense' },
-                { id: crypto.randomUUID(), name: 'Bills', type: 'Expense' },
-                { id: crypto.randomUUID(), name: 'Tax', type: 'Expense' },
-                { id: crypto.randomUUID(), name: 'Shopping', type: 'Expense' },
-            ],
-            income: [
-                { id: crypto.randomUUID(), name: 'Salary', type: 'Income' },
-                { id: crypto.randomUUID(), name: 'Allowance', type: 'Income' },
-                { id: crypto.randomUUID(), name: 'Part-time', type: 'Income' },
-                { id: crypto.randomUUID(), name: 'Investment', type: 'Income' },
-                { id: crypto.randomUUID(), name: 'Bonus', type: 'Income' },
-            ],
-        };
-        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaults));
-      }
+			// Initialize default categories if none exist
+			function ensureCategoryDefaults() {
+				const current = JSON.parse(
+					localStorage.getItem(CATEGORIES_KEY) || 'null'
+				);
+				if (current && current.expense && current.income) return;
 
+				const defaults = {
+					expense: [
+						{ id: crypto.randomUUID(), name: 'Food', type: 'Expense' },
+						{
+							id: crypto.randomUUID(),
+							name: 'Transportation',
+							type: 'Expense',
+						},
+						{ id: crypto.randomUUID(), name: 'Bills', type: 'Expense' },
+					],
+					income: [
+						{ id: crypto.randomUUID(), name: 'Salary', type: 'Income' },
+						{ id: crypto.randomUUID(), name: 'Allowance', type: 'Income' },
+						{ id: crypto.randomUUID(), name: 'Part-time', type: 'Income' },
+					],
+				};
+				localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaults));
+			}
 
-      function ensureDefaults() {
-        const stored = JSON.parse(localStorage.getItem(CATEGORIES_KEY) || "null");
-        if (stored && stored.expense && stored.income) return;
-        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaultCategories));
-      }
+			function getCategories() {
+				return JSON.parse(localStorage.getItem(CATEGORIES_KEY));
+			}
 
-      function getCategories() {
-        return JSON.parse(localStorage.getItem(CATEGORIES_KEY));
-      }
+			function setCategories(data) {
+				localStorage.setItem(CATEGORIES_KEY, JSON.stringify(data));
+			}
 
-      function setCategories(data) {
-        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(data));
-      }
+			function counts() {
+				const { expense, income } = getCategories();
+				return { expense: expense.length, income: income.length };
+			}
 
-      // render categories
-      function renderCategories() {
-        const { expense, income } = getCategories();
-        expenseList.innerHTML = "";
-        incomeList.innerHTML = "";
+			// ----------- RENDER UI -----------
+			function renderCategories() {
+				const { expense, income } = getCategories();
+				expenseList.innerHTML = '';
+				incomeList.innerHTML = '';
 
-        // toggle expense empty state
-        if (expense.length === 0) {
-          emptyExpenseState.classList.remove("d-none");
-        } else {
-          emptyExpenseState.classList.add("d-none");
-        }
+				emptyExpenseState.classList.toggle('d-none', expense.length > 0);
+				emptyIncomeState.classList.toggle('d-none', income.length > 0);
 
-        // toggle income empty state
-        if (income.length === 0) {
-          emptyIncomeState.classList.remove("d-none");
-        } else {
-          emptyIncomeState.classList.add("d-none");
-        }
+				// Expense category cards
+				expense.forEach((cat) => {
+					const div = document.createElement('div');
+					div.className = 'col-md-4';
+					div.innerHTML = `
+        <div class="goal-card p-3 text-center bg-light" style="cursor:pointer;"
+             data-id="${cat.id}" data-type="Expense">
+          <i class="bi bi-tag-fill text-danger"></i>
+          <div class="fw-semibold mt-2">${cat.name}</div>
+        </div>`;
+					div
+						.querySelector('.goal-card')
+						.addEventListener('click', () => openCategoryDetail(cat));
+					expenseList.appendChild(div);
+				});
 
-        // add expense category
-        expense.forEach((cat) => {
-          const div = document.createElement("div");
-          div.className = "col-md-4";
-          div.innerHTML = `
-            <div class="goal-card p-3 text-center bg-light" 
-                style="cursor:pointer;" 
-                data-id="${cat.id}" 
-                data-type="Expense">
-              <i class="bi bi-tag-fill text-danger"></i>
-              <div class="fw-semibold mt-2">${cat.name}</div>
-            </div>`;
-          div.querySelector(".goal-card").addEventListener("click", () => openCategoryDetail(cat));
-          expenseList.appendChild(div);
-        });
+				// Income category cards
+				income.forEach((cat) => {
+					const div = document.createElement('div');
+					div.className = 'col-md-4';
+					div.innerHTML = `
+        <div class="goal-card p-3 text-center bg-light" style="cursor:pointer;"
+             data-id="${cat.id}" data-type="Income">
+          <i class="bi bi-tag-fill text-success"></i>
+          <div class="fw-semibold mt-2">${cat.name}</div>
+        </div>`;
+					div
+						.querySelector('.goal-card')
+						.addEventListener('click', () => openCategoryDetail(cat));
+					incomeList.appendChild(div);
+				});
+			}
 
-        // add income category
-        income.forEach((cat) => {
-          const div = document.createElement("div");
-          div.className = "col-md-4";
-          div.innerHTML = `
-            <div class="goal-card p-3 text-center bg-light" 
-                style="cursor:pointer;" 
-                data-id="${cat.id}" 
-                data-type="Income">
-              <i class="bi bi-tag-fill text-success"></i>
-              <div class="fw-semibold mt-2">${cat.name}</div>
-            </div>`;
-          div.querySelector(".goal-card").addEventListener("click", () => openCategoryDetail(cat));
-          incomeList.appendChild(div);
-        });
-      }
+			// ---------- View / Edit / Delete Category ----------
+			function openCategoryDetail(cat) {
+				currentCategory = cat;
+				document.getElementById(
+					'categoryDetailTitle'
+				).textContent = `${cat.name} (${cat.type})`;
+				document.getElementById('renameCategoryInput').value = cat.name;
+				bootstrap.Modal.getOrCreateInstance(
+					document.getElementById('categoryDetailModal')
+				).show();
+			}
 
-      // open detail modal
-      function openCategoryDetail(cat) {
-        currentCategory = cat;
-        document.getElementById("categoryDetailTitle").textContent = `${cat.name} (${cat.type})`;
-        document.getElementById("renameCategoryInput").value = cat.name;
-        bootstrap.Modal.getOrCreateInstance(document.getElementById("categoryDetailModal")).show();
-      }
+			document
+				.getElementById('renameCategoryBtn')
+				.addEventListener('click', () => {
+					const newName = document
+						.getElementById('renameCategoryInput')
+						.value.trim();
+					if (!newName) return alert('Enter a category name.');
 
-      // rename category
-      document.getElementById("renameCategoryBtn").addEventListener("click", () => {
-        const newName = document.getElementById("renameCategoryInput").value.trim();
-        if (!newName) return alert("Enter a new name.");
-        const categories = getCategories();
-        const list = currentCategory.type === "Expense" ? categories.expense : categories.income;
-        const cat = list.find((c) => c.id === currentCategory.id);
-        if (cat) cat.name = newName;
-        setCategories(categories);
-        renderCategories();
-        bootstrap.Modal.getInstance(document.getElementById("categoryDetailModal")).hide();
-      });
+					const categories = getCategories();
+					const list =
+						currentCategory.type === 'Expense'
+							? categories.expense
+							: categories.income;
+					const cat = list.find((c) => c.id === currentCategory.id);
+					if (cat) cat.name = newName;
 
-      // delete category
-      document.getElementById("deleteCategoryBtn").addEventListener("click", () => {
-        if (!confirm(`Delete category "${currentCategory.name}"?`)) return;
-        const categories = getCategories();
-        const list = currentCategory.type === "Expense" ? categories.expense : categories.income;
-        const filtered = list.filter((c) => c.id !== currentCategory.id);
-        if (currentCategory.type === "Expense") categories.expense = filtered;
-        else categories.income = filtered;
-        setCategories(categories);
-        renderCategories();
-        bootstrap.Modal.getInstance(document.getElementById("categoryDetailModal")).hide();
-      });
+					setCategories(categories);
+					renderCategories();
+					bootstrap.Modal.getInstance(
+						document.getElementById('categoryDetailModal')
+					).hide();
+				});
 
-      // add category form
-      document.getElementById("categoryForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const name = document.getElementById("newCategoryName").value.trim();
-        const type = document.querySelector('input[name="categoryType"]:checked').value;
-        if (!name) return alert("Please enter a category name.");
+			document
+				.getElementById('deleteCategoryBtn')
+				.addEventListener('click', () => {
+					if (!confirm(`Delete "${currentCategory.name}"?`)) return;
 
-        const categories = getCategories();
+					const categories = getCategories();
+					const key = currentCategory.type === 'Expense' ? 'expense' : 'income';
+					categories[key] = categories[key].filter(
+						(c) => c.id !== currentCategory.id
+					);
 
-        if (type === "Expense") {
-          if (categories.expense.some((c) => c.name.toLowerCase() === name.toLowerCase()))
-            return alert("Expense category already exists.");
-          categories.expense.push({ id: crypto.randomUUID(), name, type });
-        }
+					setCategories(categories);
+					renderCategories();
+					bootstrap.Modal.getInstance(
+						document.getElementById('categoryDetailModal')
+					).hide();
+				});
 
-        if (type === "Income") {
-          if (categories.income.some((c) => c.name.toLowerCase() === name.toLowerCase()))
-            return alert("Income category already exists.");
-          categories.income.push({ id: crypto.randomUUID(), name, type });
-        }
+			// ---------- Add Category (Form Submit) ----------
+			document
+				.getElementById('categoryForm')
+				.addEventListener('submit', function (e) {
+					e.preventDefault();
+					const name = document.getElementById('newCategoryName').value.trim();
+					const type = document.querySelector(
+						'input[name="categoryType"]:checked'
+					).value;
 
-        setCategories(categories);
-        renderCategories();
-        bootstrap.Modal.getInstance(document.getElementById("categoryModal")).hide();
-        e.target.reset();
-      });
+					if (!name) return alert('Please enter a category name.');
 
-      ensureDefaults();
-      renderCategories();
+					const categories = getCategories();
+					const cap = maxPerType();
+					const key = type === 'Expense' ? 'expense' : 'income';
 
-      window.addEventListener("storage", (e) => {
-        if (e.key === CATEGORIES_KEY) renderCategories();
-      });
-    </script>
+					if (categories[key].length >= cap) {
+						alert(
+							`You have reached the maximum of ${cap} ${type.toLowerCase()} categories.`
+						);
+						return;
+					}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+					if (
+						categories[key].some(
+							(c) => c.name.toLowerCase() === name.toLowerCase()
+						)
+					) {
+						alert(`${type} category already exists.`);
+						return;
+					}
+
+					categories[key].push({ id: crypto.randomUUID(), name, type });
+					setCategories(categories);
+					renderCategories();
+					bootstrap.Modal.getInstance(
+						document.getElementById('categoryModal')
+					).hide();
+					e.target.reset();
+				});
+
+			// ---------- INIT ----------
+			ensureCategoryDefaults();
+			renderCategories();
+
+			window.addEventListener('storage', (e) => {
+				if (e.key === CATEGORIES_KEY) renderCategories();
+			});
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
 </html>

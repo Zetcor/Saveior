@@ -43,7 +43,7 @@
 				</div>
 
 				<button
-					class="navbar-toggler"
+					class="navbar-toggler d-lg-none"
 					type="button"
 					data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent"
@@ -55,51 +55,52 @@
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<div
-						class="collapse navbar-collapse justify-content-center"
-						id="navbarSupportedContent"
+					<ul
+						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
 					>
-						<ul
-							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
-						>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="index.html"
-									>Dashboard</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link px-4 active" href="records.html">Records</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="accounts.html"
-									>Accounts</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="categories.html">Categories</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="savings.html"
-									>Savings</a
-								>
-							</li>
-							<a href="#" class="nav-link d-lg-none">Settings</a>
-							<a href="#" class="nav-link d-lg-none">Accounts</a>
-						</ul>
-					</div>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="index.html"
+								>Dashboard</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active px-4" href="records.html">Records</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="accounts.html"
+								>Accounts</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="categories.html"
+								>Categories</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="savings.html"
+								>Savings</a
+							>
+						</li>
+					</ul>
 
-					<div class="ms-lg-auto mt-2 mt-lg-0">
+					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
 						<div
-							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
 						>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-gear"></i>
 							</button>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-user"></i>
+							</button>
+							<button
+								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+								id="goPremiumBtn"
+							>
+								<i class="bi bi-star-fill me-2"></i> Go Premium
 							</button>
 						</div>
 					</div>
@@ -301,418 +302,488 @@
 			</div>
 		</div>
 
-<script>
-let totalIncome = 0;
-let totalExpenses = 0;
-let currentAmount = null;
+		<script>
+			let totalIncome = 0;
+			let totalExpenses = 0;
+			let currentAmount = null;
 
-const ACCOUNTS_KEY = 'saveior.accounts';
-const TRANSACTIONS_KEY = 'saveior.transactions';
-const CATEGORIES_KEY = "saveior.categories";
+			const ACCOUNTS_KEY = 'saveior.accounts';
+			const TRANSACTIONS_KEY = 'saveior.transactions';
+			const CATEGORIES_KEY = 'saveior.categories';
 
-// Ensure defaults
-function ensureAccountDefaults() {
-	const current = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
-	if (current.length > 0) return;
+			// Ensure defaults
+			function ensureAccountDefaults() {
+				const current = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+				if (current.length > 0) return;
 
-	const defaults = [
-		{ id: crypto.randomUUID(), name: 'Cash', balance: 0 },
-		{ id: crypto.randomUUID(), name: 'Credit Card', balance: 0 },
-		{ id: crypto.randomUUID(), name: 'Debit Card', balance: 0 },
-	];
-	localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(defaults));
-}
+				const defaults = [
+					{ id: crypto.randomUUID(), name: 'Cash', balance: 0 },
+					{ id: crypto.randomUUID(), name: 'Credit Card', balance: 0 },
+					{ id: crypto.randomUUID(), name: 'Debit Card', balance: 0 },
+				];
+				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(defaults));
+			}
 
-function ensureCategoriesDefaults() {
-const current = JSON.parse(localStorage.getItem(CATEGORIES_KEY) || 'null');
-if (current && current.expense && current.income) return;
+			function ensureCategoriesDefaults() {
+				const current = JSON.parse(
+					localStorage.getItem(CATEGORIES_KEY) || 'null'
+				);
+				if (current && current.expense && current.income) return;
 
-const defaults = {
-	expense: [
-		{ id: crypto.randomUUID(), name: 'Food', type: 'Expense' },
-		{ id: crypto.randomUUID(), name: 'Transportation', type: 'Expense' },
-		{ id: crypto.randomUUID(), name: 'Bills', type: 'Expense' },
-		{ id: crypto.randomUUID(), name: 'Tax', type: 'Expense' },
-		{ id: crypto.randomUUID(), name: 'Shopping', type: 'Expense' },
-	],
-	income: [
-		{ id: crypto.randomUUID(), name: 'Salary', type: 'Income' },
-		{ id: crypto.randomUUID(), name: 'Allowance', type: 'Income' },
-		{ id: crypto.randomUUID(), name: 'Part-time', type: 'Income' },
-		{ id: crypto.randomUUID(), name: 'Investment', type: 'Income' },
-		{ id: crypto.randomUUID(), name: 'Bonus', type: 'Income' },
-	],
-};
-localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaults));
-}
+				const defaults = {
+					expense: [
+						{ id: crypto.randomUUID(), name: 'Food', type: 'Expense' },
+						{
+							id: crypto.randomUUID(),
+							name: 'Transportation',
+							type: 'Expense',
+						},
+						{ id: crypto.randomUUID(), name: 'Bills', type: 'Expense' },
+						{ id: crypto.randomUUID(), name: 'Tax', type: 'Expense' },
+						{ id: crypto.randomUUID(), name: 'Shopping', type: 'Expense' },
+					],
+					income: [
+						{ id: crypto.randomUUID(), name: 'Salary', type: 'Income' },
+						{ id: crypto.randomUUID(), name: 'Allowance', type: 'Income' },
+						{ id: crypto.randomUUID(), name: 'Part-time', type: 'Income' },
+						{ id: crypto.randomUUID(), name: 'Investment', type: 'Income' },
+						{ id: crypto.randomUUID(), name: 'Bonus', type: 'Income' },
+					],
+				};
+				localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaults));
+			}
 
-// Get stored data
-function getStoredAccounts() {
-	ensureAccountDefaults();
-	return JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
-}
+			// Get stored data
+			function getStoredAccounts() {
+				ensureAccountDefaults();
+				return JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+			}
 
-function getStoredCategories() {
-	ensureCategoriesDefaults();
-	return JSON.parse(localStorage.getItem(CATEGORIES_KEY) || '[]');
-}
+			function getStoredCategories() {
+				ensureCategoriesDefaults();
+				return JSON.parse(localStorage.getItem(CATEGORIES_KEY) || '[]');
+			}
 
-function getStoredTransactions() {
-	return JSON.parse(localStorage.getItem(TRANSACTIONS_KEY) || '[]');
-}
+			function getStoredTransactions() {
+				return JSON.parse(localStorage.getItem(TRANSACTIONS_KEY) || '[]');
+			}
 
-function saveStoredTransactions(transactions) {
-	localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(transactions));
-}
+			function saveStoredTransactions(transactions) {
+				localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(transactions));
+			}
 
-function addTransactionToStorage(entryData) {
-	const transactions = getStoredTransactions();
-	transactions.push(entryData);
-	saveStoredTransactions(transactions);
-}
+			function addTransactionToStorage(entryData) {
+				const transactions = getStoredTransactions();
+				transactions.push(entryData);
+				saveStoredTransactions(transactions);
+			}
 
-function deleteTransactionFromStorage(index) {
-	const transactions = getStoredTransactions();
-	transactions.splice(index, 1);
-	saveStoredTransactions(transactions);
-}
+			function deleteTransactionFromStorage(index) {
+				const transactions = getStoredTransactions();
+				transactions.splice(index, 1);
+				saveStoredTransactions(transactions);
+			}
 
-// Update account balance
-function updateAccountBalanceByName(accountName, amountChange) {
-	const data = getStoredAccounts();
-	const idx = data.findIndex((a) => a.name === accountName);
-	if (idx >= 0) {
-		data[idx].balance = (Number(data[idx].balance) || 0) + Number(amountChange);
-		localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(data));
-	}
-}
+			// Update account balance
+			function updateAccountBalanceByName(accountName, amountChange) {
+				const data = getStoredAccounts();
+				const idx = data.findIndex((a) => a.name === accountName);
+				if (idx >= 0) {
+					data[idx].balance =
+						(Number(data[idx].balance) || 0) + Number(amountChange);
+					localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(data));
+				}
+			}
 
-// Reset account dropdown
-function resetAccountOptions(type) {
-	const accountDropdown = document.getElementById('accountDropdown');
-	if (!accountDropdown) return;
+			// Reset account dropdown
+			function resetAccountOptions(type) {
+				const accountDropdown = document.getElementById('accountDropdown');
+				if (!accountDropdown) return;
 
-	accountDropdown.innerHTML = '';
-	const accounts = getStoredAccounts();
-	const placeholder = type === 'transfer' ? 'From Account' : 'Account';
+				accountDropdown.innerHTML = '';
+				const accounts = getStoredAccounts();
+				const placeholder = type === 'transfer' ? 'From Account' : 'Account';
 
-	const defaultOption = document.createElement('option');
-	defaultOption.textContent = placeholder;
-	defaultOption.disabled = true;
-	defaultOption.selected = true;
-	accountDropdown.appendChild(defaultOption);
+				const defaultOption = document.createElement('option');
+				defaultOption.textContent = placeholder;
+				defaultOption.disabled = true;
+				defaultOption.selected = true;
+				accountDropdown.appendChild(defaultOption);
 
-	accounts.forEach((acc) => {
-		const option = document.createElement('option');
-		option.value = acc.name;
-		option.textContent = acc.name;
-		accountDropdown.appendChild(option);
-	});
-}
+				accounts.forEach((acc) => {
+					const option = document.createElement('option');
+					option.value = acc.name;
+					option.textContent = acc.name;
+					accountDropdown.appendChild(option);
+				});
+			}
 
-// Update category dropdown
-function updateCategoryOptions(type) {
-	const categoryDropdown = document.getElementById('categoryDropdown');
-	if (!categoryDropdown) return;
+			// Update category dropdown
+			function updateCategoryOptions(type) {
+				const categoryDropdown = document.getElementById('categoryDropdown');
+				if (!categoryDropdown) return;
 
-	categoryDropdown.innerHTML = '';
-	const categoriesData = getStoredCategories();
-	let categories = [];
+				categoryDropdown.innerHTML = '';
+				const categoriesData = getStoredCategories();
+				let categories = [];
 
-	if (type === 'income') categories = categoriesData.income || [];
-	else if (type === 'expense') categories = categoriesData.expense || [];
-	else if (type === 'transfer') categories = getStoredAccounts(); // for transfers, show accounts
+				if (type === 'income') categories = categoriesData.income || [];
+				else if (type === 'expense') categories = categoriesData.expense || [];
+				else if (type === 'transfer') categories = getStoredAccounts(); // for transfers, show accounts
 
-	const placeholder = type === 'transfer' ? 'To Account' : 'Category';
-	const defaultOption = document.createElement('option');
-	defaultOption.textContent = placeholder;
-	defaultOption.disabled = true;
-	defaultOption.selected = true;
-	categoryDropdown.appendChild(defaultOption);
+				const placeholder = type === 'transfer' ? 'To Account' : 'Category';
+				const defaultOption = document.createElement('option');
+				defaultOption.textContent = placeholder;
+				defaultOption.disabled = true;
+				defaultOption.selected = true;
+				categoryDropdown.appendChild(defaultOption);
 
-	categories.forEach((cat) => {
-		const option = document.createElement('option');
-		option.value = cat.name;
-		option.textContent = cat.name;
-		categoryDropdown.appendChild(option);
-	});
-}
+				categories.forEach((cat) => {
+					const option = document.createElement('option');
+					option.value = cat.name;
+					option.textContent = cat.name;
+					categoryDropdown.appendChild(option);
+				});
+			}
 
-// Dropdown color styling
-function handleDropdownColor(id) {
-	const dropdown = document.getElementById(id);
-	if (!dropdown) return;
-	dropdown.addEventListener('change', function () {
-		const defaults = ['Account', 'From Account', 'Category', 'To Account'];
-		if (defaults.includes(this.options[this.selectedIndex].text)) this.classList.remove('active');
-		else this.classList.add('active');
-	});
-}
+			// Dropdown color styling
+			function handleDropdownColor(id) {
+				const dropdown = document.getElementById(id);
+				if (!dropdown) return;
+				dropdown.addEventListener('change', function () {
+					const defaults = [
+						'Account',
+						'From Account',
+						'Category',
+						'To Account',
+					];
+					if (defaults.includes(this.options[this.selectedIndex].text))
+						this.classList.remove('active');
+					else this.classList.add('active');
+				});
+			}
 
-// Calculator functions
-function press(val) {
-	document.getElementById('display').value += val;
-	liveCalculate();
-}
-function clearDisplay() {
-	document.getElementById('display').value = '';
-	currentAmount = null;
-}
-function liveCalculate() {
-	try {
-		let expr = document.getElementById('display').value.replace(/×/g, '*').replace(/÷/g, '/');
-		if (!expr.trim()) return;
-		let result = eval(expr);
-		if (!isNaN(result)) currentAmount = parseFloat(result);
-	} catch { currentAmount = null; }
-}
-function calculateResult() {
-	try {
-		let expr = document.getElementById('display').value.replace(/×/g, '*').replace(/÷/g, '/');
-		let result = eval(expr);
-		if (!isNaN(result)) {
-			document.getElementById('display').value = result;
-			currentAmount = parseFloat(result);
-		}
-	} catch {
-		alert('Invalid calculation!');
-		currentAmount = null;
-	}
-}
-function deleteLast() {
-	let d = document.getElementById('display');
-	d.value = d.value.slice(0, -1);
-	liveCalculate();
-}
-document.addEventListener('keydown', (e) => {
-	if (document.activeElement.id === 'desc-input') return;
-	const key = e.key;
-	if (!isNaN(key) || '+-*/.'.includes(key)) press(key);
-	else if (key === 'Enter') { e.preventDefault(); calculateResult(); }
-	else if (key === 'Backspace') deleteLast();
-	else if (key === 'Escape') clearDisplay();
-});
+			// Calculator functions
+			function press(val) {
+				document.getElementById('display').value += val;
+				liveCalculate();
+			}
+			function clearDisplay() {
+				document.getElementById('display').value = '';
+				currentAmount = null;
+			}
+			function liveCalculate() {
+				try {
+					let expr = document
+						.getElementById('display')
+						.value.replace(/×/g, '*')
+						.replace(/÷/g, '/');
+					if (!expr.trim()) return;
+					let result = eval(expr);
+					if (!isNaN(result)) currentAmount = parseFloat(result);
+				} catch {
+					currentAmount = null;
+				}
+			}
+			function calculateResult() {
+				try {
+					let expr = document
+						.getElementById('display')
+						.value.replace(/×/g, '*')
+						.replace(/÷/g, '/');
+					let result = eval(expr);
+					if (!isNaN(result)) {
+						document.getElementById('display').value = result;
+						currentAmount = parseFloat(result);
+					}
+				} catch {
+					alert('Invalid calculation!');
+					currentAmount = null;
+				}
+			}
+			function deleteLast() {
+				let d = document.getElementById('display');
+				d.value = d.value.slice(0, -1);
+				liveCalculate();
+			}
+			document.addEventListener('keydown', (e) => {
+				if (document.activeElement.id === 'desc-input') return;
+				const key = e.key;
+				if (!isNaN(key) || '+-*/.'.includes(key)) press(key);
+				else if (key === 'Enter') {
+					e.preventDefault();
+					calculateResult();
+				} else if (key === 'Backspace') deleteLast();
+				else if (key === 'Escape') clearDisplay();
+			});
 
-// Icons
-function getCategoryIcon(category) {
-	const icons = {
-		Food: '<i class="fa-solid fa-utensils"></i>',
-		Transportation: '<i class="fa-solid fa-bus"></i>',
-		Bills: '<i class="fa-solid fa-file-invoice"></i>',
-		Tax: '<i class="fa-solid fa-money-bill-wave"></i>',
-		Shopping: '<i class="fa-solid fa-basket-shopping"></i>',
-		Salary: '<i class="fa-solid fa-sack-dollar"></i>',
-		Allowance: '<i class="fa-solid fa-coins"></i>',
-		'Part-time': '<i class="fa-solid fa-clock"></i>',
-		Investment: '<i class="fa-solid fa-chart-line"></i>',
-		Bonus: '<i class="fa-solid fa-gift"></i>',
-	};
-	return icons[category] || '<i class="fa-solid fa-credit-card"></i>';
-}
-function getAccountIcon(account) {
-	const icons = {
-		Cash: '<i class="fa-solid fa-money-bill"></i>',
-		'Credit Card': '<i class="fa-solid fa-credit-card"></i>',
-		'Debit Card': '<i class="fa-solid fa-credit-card"></i>',
-	};
-	return icons[account] || '<i class="fa-solid fa-wallet"></i>';
-}
+			// Icons
+			function getCategoryIcon(category) {
+				const icons = {
+					Food: '<i class="fa-solid fa-utensils"></i>',
+					Transportation: '<i class="fa-solid fa-bus"></i>',
+					Bills: '<i class="fa-solid fa-file-invoice"></i>',
+					Tax: '<i class="fa-solid fa-money-bill-wave"></i>',
+					Shopping: '<i class="fa-solid fa-basket-shopping"></i>',
+					Salary: '<i class="fa-solid fa-sack-dollar"></i>',
+					Allowance: '<i class="fa-solid fa-coins"></i>',
+					'Part-time': '<i class="fa-solid fa-clock"></i>',
+					Investment: '<i class="fa-solid fa-chart-line"></i>',
+					Bonus: '<i class="fa-solid fa-gift"></i>',
+				};
+				return icons[category] || '<i class="fa-solid fa-credit-card"></i>';
+			}
+			function getAccountIcon(account) {
+				const icons = {
+					Cash: '<i class="fa-solid fa-money-bill"></i>',
+					'Credit Card': '<i class="fa-solid fa-credit-card"></i>',
+					'Debit Card': '<i class="fa-solid fa-credit-card"></i>',
+				};
+				return icons[account] || '<i class="fa-solid fa-wallet"></i>';
+			}
 
-// Render transaction
-function renderTransaction(entryData, index) {
-	const list = document.getElementById('expense-list');
-	const entry = document.createElement('div');
-	entry.className = `entry-item ${entryData.type}`;
-	entry.dataset.amount = entryData.amount;
-	entry.dataset.type = entryData.type;
-	entry.dataset.index = index;
-	entry.dataset.account = entryData.account || '';
+			// Render transaction
+			function renderTransaction(entryData, index) {
+				const list = document.getElementById('expense-list');
+				const entry = document.createElement('div');
+				entry.className = `entry-item ${entryData.type}`;
+				entry.dataset.amount = entryData.amount;
+				entry.dataset.type = entryData.type;
+				entry.dataset.index = index;
+				entry.dataset.account = entryData.account || '';
 
-	if (entryData.type === 'transfer') {
-		entry.dataset.from = entryData.from || '';
-		entry.dataset.to = entryData.to || '';
-	}
+				if (entryData.type === 'transfer') {
+					entry.dataset.from = entryData.from || '';
+					entry.dataset.to = entryData.to || '';
+				}
 
-	let htmlContent = '';
+				let htmlContent = '';
 
-	if (entryData.type === 'transfer') {
-		htmlContent = `
+				if (entryData.type === 'transfer') {
+					htmlContent = `
 		<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
 			<div>
 				<div><i class="fa-solid fa-right-left"></i> Transfer</div>
-				<div style="color: gray; font-size: 12px;">From: ${entryData.from} → To: ${entryData.to}</div>
-				<div style="color: gray; font-size: 12px; font-weight: 500">${entryData.desc || ''}</div>
+				<div style="color: gray; font-size: 12px;">From: ${entryData.from} → To: ${
+						entryData.to
+					}</div>
+				<div style="color: gray; font-size: 12px; font-weight: 500">${
+					entryData.desc || ''
+				}</div>
 			</div>
 			<div style="display:flex; align-items:center; gap:10px;">
-				<div>₱${Number(entryData.amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+				<div>₱${Number(entryData.amount).toLocaleString('en-US', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				})}</div>
 				<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
 			</div>
 		</div>`;
-	} else {
-		htmlContent = `
+				} else {
+					htmlContent = `
 		<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
 			<div>
 				<div>${getCategoryIcon(entryData.category)} ${entryData.category}</div>
-				<div style="color: gray; font-size: 12px;">${getAccountIcon(entryData.account)} ${entryData.account}</div>
-				<div style="color: gray; font-size: 12px; font-weight: 500">${entryData.desc || ''}</div>
+				<div style="color: gray; font-size: 12px;">${getAccountIcon(
+					entryData.account
+				)} ${entryData.account}</div>
+				<div style="color: gray; font-size: 12px; font-weight: 500">${
+					entryData.desc || ''
+				}</div>
 			</div>
 			<div style="display:flex; align-items:center; gap:10px;">
-				<div>₱${Number(entryData.amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+				<div>₱${Number(entryData.amount).toLocaleString('en-US', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				})}</div>
 				<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
 			</div>
 		</div>`;
-	}
+				}
 
-	entry.innerHTML = htmlContent;
-	list.prepend(entry);
-	entry.querySelector('.delete-btn').addEventListener('click', () => deleteEntry(entry));
-}
+				entry.innerHTML = htmlContent;
+				list.prepend(entry);
+				entry
+					.querySelector('.delete-btn')
+					.addEventListener('click', () => deleteEntry(entry));
+			}
 
-// Save entry
-function saveEntry() {
-	let category = document.getElementById('categoryDropdown').value || '';
-	let account = document.getElementById('accountDropdown').value || '';
-	let desc = document.getElementById('desc-input').value.trim();
-	let type = document.querySelector('input[name="transactionType"]:checked')?.value || null;
+			// Save entry
+			function saveEntry() {
+				let category = document.getElementById('categoryDropdown').value || '';
+				let account = document.getElementById('accountDropdown').value || '';
+				let desc = document.getElementById('desc-input').value.trim();
+				let type =
+					document.querySelector('input[name="transactionType"]:checked')
+						?.value || null;
 
-	if (!currentAmount || isNaN(currentAmount) || currentAmount <= 0) {
-		alert('Enter a valid amount!');
-		return;
-	}
+				if (!currentAmount || isNaN(currentAmount) || currentAmount <= 0) {
+					alert('Enter a valid amount!');
+					return;
+				}
 
-	if (type === 'transfer') {
-		if (!account || !category) {
-			alert('Please select both From Account and To Account!');
-			return;
-		}
-		if (account === category) {
-			alert('You cannot transfer to the same account!');
-			return;
-		}
-	} else {
-		if (!account) { alert('Please select an account!'); return; }
-		if (!category) { alert('Please select a category!'); return; }
-	}
+				if (type === 'transfer') {
+					if (!account || !category) {
+						alert('Please select both From Account and To Account!');
+						return;
+					}
+					if (account === category) {
+						alert('You cannot transfer to the same account!');
+						return;
+					}
+				} else {
+					if (!account) {
+						alert('Please select an account!');
+						return;
+					}
+					if (!category) {
+						alert('Please select a category!');
+						return;
+					}
+				}
 
-	let entryData = {
-		type, account, category, desc,
-		amount: currentAmount, date: new Date().toISOString()
-	};
+				let entryData = {
+					type,
+					account,
+					category,
+					desc,
+					amount: currentAmount,
+					date: new Date().toISOString(),
+				};
 
-	if (type === 'transfer') {
-		const from = account;
-		const to = category;
-		updateAccountBalanceByName(from, -currentAmount);
-		updateAccountBalanceByName(to, currentAmount);
-		entryData.from = from;
-		entryData.to = to;
-		entryData.category = `Transfer: ${from} → ${to}`;
-	} else if (type === 'income') {
-		updateAccountBalanceByName(account, currentAmount);
-		totalIncome += currentAmount;
-	} else if (type === 'expense') {
-		updateAccountBalanceByName(account, -currentAmount);
-		totalExpenses += currentAmount;
-	}
+				if (type === 'transfer') {
+					const from = account;
+					const to = category;
+					updateAccountBalanceByName(from, -currentAmount);
+					updateAccountBalanceByName(to, currentAmount);
+					entryData.from = from;
+					entryData.to = to;
+					entryData.category = `Transfer: ${from} → ${to}`;
+				} else if (type === 'income') {
+					updateAccountBalanceByName(account, currentAmount);
+					totalIncome += currentAmount;
+				} else if (type === 'expense') {
+					updateAccountBalanceByName(account, -currentAmount);
+					totalExpenses += currentAmount;
+				}
 
-	addTransactionToStorage(entryData);
-	renderTransaction(entryData);
-	updateSummary();
-	cancelEntry(type);
-}
+				addTransactionToStorage(entryData);
+				renderTransaction(entryData);
+				updateSummary();
+				cancelEntry(type);
+			}
 
-// Delete transaction
-function deleteEntry(entry) {
-	const idx = parseInt(entry.dataset.index);
-	const amount = parseFloat(entry.dataset.amount || '0');
-	const type = entry.dataset.type;
-	const account = entry.dataset.account;
+			// Delete transaction
+			function deleteEntry(entry) {
+				const idx = parseInt(entry.dataset.index);
+				const amount = parseFloat(entry.dataset.amount || '0');
+				const type = entry.dataset.type;
+				const account = entry.dataset.account;
 
-	if (!confirm('Are you sure you want to delete this transaction?')) return;
+				if (!confirm('Are you sure you want to delete this transaction?'))
+					return;
 
-	if (type === 'income') {
-		totalIncome -= amount;
-		updateAccountBalanceByName(account, -amount);
-	} else if (type === 'expense') {
-		totalExpenses -= amount;
-		updateAccountBalanceByName(account, amount);
-	} else if (type === 'transfer') {
-		updateAccountBalanceByName(entry.dataset.from, amount);
-		updateAccountBalanceByName(entry.dataset.to, -amount);
-	}
+				if (type === 'income') {
+					totalIncome -= amount;
+					updateAccountBalanceByName(account, -amount);
+				} else if (type === 'expense') {
+					totalExpenses -= amount;
+					updateAccountBalanceByName(account, amount);
+				} else if (type === 'transfer') {
+					updateAccountBalanceByName(entry.dataset.from, amount);
+					updateAccountBalanceByName(entry.dataset.to, -amount);
+				}
 
-	deleteTransactionFromStorage(idx);
-	entry.remove();
-	updateSummary();
-}
+				deleteTransactionFromStorage(idx);
+				entry.remove();
+				updateSummary();
+			}
 
-// Cancel entry
-function cancelEntry(type) {
-	document.getElementById('desc-input').value = '';
-	document.getElementById('display').value = '';
-	currentAmount = null;
-	const t = type || 'expense';
-	resetAccountOptions(t);
-	updateCategoryOptions(t);
-	document.getElementById('accountDropdown').classList.remove('active');
-	document.getElementById('categoryDropdown').classList.remove('active');
-}
+			// Cancel entry
+			function cancelEntry(type) {
+				document.getElementById('desc-input').value = '';
+				document.getElementById('display').value = '';
+				currentAmount = null;
+				const t = type || 'expense';
+				resetAccountOptions(t);
+				updateCategoryOptions(t);
+				document.getElementById('accountDropdown').classList.remove('active');
+				document.getElementById('categoryDropdown').classList.remove('active');
+			}
 
-// Update summary
-function updateSummary() {
-	document.getElementById('total-income').textContent = '₱' + totalIncome.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-	document.getElementById('total-expenses').textContent = '₱' + totalExpenses.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-	document.getElementById('balance').textContent = '₱' + (totalIncome - totalExpenses).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-}
+			// Update summary
+			function updateSummary() {
+				document.getElementById('total-income').textContent =
+					'₱' +
+					totalIncome.toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
+				document.getElementById('total-expenses').textContent =
+					'₱' +
+					totalExpenses.toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
+				document.getElementById('balance').textContent =
+					'₱' +
+					(totalIncome - totalExpenses).toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
+			}
 
-// Set UI for transaction type
-function setTypeUI(type) {
-	resetAccountOptions(type);
-	updateCategoryOptions(type);
-	const accDropdown = document.getElementById('accountDropdown');
-	const catDropdown = document.getElementById('categoryDropdown');
-	if (type === 'transfer') {
-		accDropdown.options[0].textContent = 'From Account';
-		catDropdown.options[0].textContent = 'To Account';
-	} else {
-		accDropdown.options[0].textContent = 'Account';
-		catDropdown.options[0].textContent = 'Category';
-	}
-}
+			// Set UI for transaction type
+			function setTypeUI(type) {
+				resetAccountOptions(type);
+				updateCategoryOptions(type);
+				const accDropdown = document.getElementById('accountDropdown');
+				const catDropdown = document.getElementById('categoryDropdown');
+				if (type === 'transfer') {
+					accDropdown.options[0].textContent = 'From Account';
+					catDropdown.options[0].textContent = 'To Account';
+				} else {
+					accDropdown.options[0].textContent = 'Account';
+					catDropdown.options[0].textContent = 'Category';
+				}
+			}
 
-// Initialize
-document.addEventListener('DOMContentLoaded', function () {
-	resetAccountOptions('expense');
-	updateCategoryOptions('expense');
+			// Initialize
+			document.addEventListener('DOMContentLoaded', function () {
+				resetAccountOptions('expense');
+				updateCategoryOptions('expense');
 
-	handleDropdownColor('accountDropdown');
-	handleDropdownColor('categoryDropdown');
+				handleDropdownColor('accountDropdown');
+				handleDropdownColor('categoryDropdown');
 
-	const transactions = getStoredTransactions();
-	document.getElementById('expense-list').innerHTML = '';
+				const transactions = getStoredTransactions();
+				document.getElementById('expense-list').innerHTML = '';
 
-	transactions.forEach((t, index) => {
-		renderTransaction(t, index);
-		if (t.type === 'income') totalIncome += t.amount;
-		else if (t.type === 'expense') totalExpenses += t.amount;
-	});
-	updateSummary();
+				transactions.forEach((t, index) => {
+					renderTransaction(t, index);
+					if (t.type === 'income') totalIncome += t.amount;
+					else if (t.type === 'expense') totalExpenses += t.amount;
+				});
+				updateSummary();
 
-	document.querySelectorAll('input[name="transactionType"]').forEach((radio) => {
-		radio.addEventListener('change', (e) => {
-			setTypeUI(e.target.value);
-			cancelEntry(e.target.value);
-			document.querySelectorAll('.custom-dropdown').forEach((d) => {
-				d.selectedIndex = 0;
-				d.classList.remove('active');
+				document
+					.querySelectorAll('input[name="transactionType"]')
+					.forEach((radio) => {
+						radio.addEventListener('change', (e) => {
+							setTypeUI(e.target.value);
+							cancelEntry(e.target.value);
+							document.querySelectorAll('.custom-dropdown').forEach((d) => {
+								d.selectedIndex = 0;
+								d.classList.remove('active');
+							});
+						});
+					});
+
+				setTypeUI(
+					document.querySelector('input[name="transactionType"]:checked').value
+				);
 			});
-		});
-	});
-
-	setTypeUI(document.querySelector('input[name="transactionType"]:checked').value);
-});
-</script>
-
+		</script>
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

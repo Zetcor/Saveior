@@ -30,7 +30,6 @@
 	</head>
 	<body>
 		<div class="rounded-container">
-			<!-- Navbar -->
 			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
 				<div class="navbar-container">
 					<a class="nav-logo text-decoration-none fs-4" href="index.html">
@@ -43,7 +42,7 @@
 				</div>
 
 				<button
-					class="navbar-toggler"
+					class="navbar-toggler d-lg-none"
 					type="button"
 					data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent"
@@ -55,50 +54,52 @@
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<div
-						class="collapse navbar-collapse justify-content-center"
-						id="navbarSupportedContent"
+					<ul
+						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
 					>
-						<ul
-							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
-						>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="index.html"
-									>Dashboard</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="records.html"
-									>Records</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link px-4 active" href="accounts.html"
-									>Accounts</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="categories.html">Categories</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="savings.html"
-									>Savings</a
-								>
-							</li>
-						</ul>
-					</div>
-					<div class="ms-lg-auto mt-2 mt-lg-0">
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="index.html"
+								>Dashboard</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="records.html"
+								>Records</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active px-4" href="accounts.html">Accounts</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="categories.html"
+								>Categories</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="savings.html"
+								>Savings</a
+							>
+						</li>
+					</ul>
+
+					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
 						<div
-							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
 						>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-gear"></i>
 							</button>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-user"></i>
+							</button>
+							<button
+								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+								id="goPremiumBtn"
+							>
+								<i class="bi bi-star-fill me-2"></i> Go Premium
 							</button>
 						</div>
 					</div>
@@ -208,7 +209,7 @@
 						<h2 id="accountBalance" class="text-success fw-bold mb-3">₱0.00</h2>
 						<div class="d-flex justify-content-center gap-2 mb-3">
 							<button id="addFundsBtn" class="btn btn-success">
-								<i class="bi bi-plus-circle"></i> Add Funds
+								<i class="bi bi-plus-circle"></i> Add Amount
 							</button>
 							<button id="withdrawFundsBtn" class="btn btn-warning">
 								<i class="bi bi-dash-circle"></i> Withdraw
@@ -230,7 +231,7 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<form id="fundForm" class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="fundModalTitle">Add Funds</h5>
+						<h5 class="modal-title" id="fundModalTitle">Add Amount</h5>
 						<button
 							type="button"
 							class="btn-close"
@@ -266,14 +267,28 @@
 
 		<script>
 			const ACCOUNTS_KEY = 'saveior.accounts';
-			let currentAccountId = null;
-			let fundAction = null;
+			const PREMIUM_KEY = 'isPremiumUser';
 
+			// ---- Plan rules ----
+			const isPremium = () => localStorage.getItem(PREMIUM_KEY) === 'true';
+			const maxAccounts = () => (isPremium() ? 5 : 3);
+
+			// ---- State ----
+			let currentAccountId = null;
+			let fundAction = null; // 'add' | 'withdraw'
+
+			// ---- UI refs (ensure these IDs exist in your HTML) ----
+			const accountsList = document.getElementById('accountsList');
+			const emptyState = document.getElementById('emptyState');
+			const addBtn = document.getElementById('openAddAccountModal');
+
+			// ---- Storage helpers ----
 			function ensureDefaults() {
 				const current = JSON.parse(
 					localStorage.getItem(ACCOUNTS_KEY) || 'null'
 				);
 				if (Array.isArray(current) && current.length) return;
+
 				const defaults = [
 					{ id: crypto.randomUUID(), name: 'Cash', balance: 0 },
 					{ id: crypto.randomUUID(), name: 'Credit Card', balance: 0 },
@@ -290,6 +305,17 @@
 				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(list));
 			}
 
+			// ---- UI helpers ----
+			function peso(n) {
+				return (
+					'₱' +
+					Number(n || 0).toLocaleString('en-PH', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					})
+				);
+			}
+
 			function iconFor(name) {
 				const t = (name || '').toLowerCase();
 				if (t.includes('credit'))
@@ -300,9 +326,35 @@
 				return '<i class="fa-solid fa-wallet"></i>';
 			}
 
-			const accountsList = document.getElementById('accountsList');
-			const emptyState = document.getElementById('emptyState');
+			// ---- Add button behavior (never disabled; alert at cap) ----
+			function updateAddAccountControl() {
+				const count = getAccounts().length;
 
+				// Default: open modal
+				addBtn.disabled = false;
+				addBtn.onclick = null;
+				addBtn.setAttribute('data-bs-toggle', 'modal');
+				addBtn.setAttribute('data-bs-target', '#accountModal');
+
+				// If at cap -> show alert instead of opening modal
+				if (count >= maxAccounts()) {
+					addBtn.removeAttribute('data-bs-toggle');
+					addBtn.removeAttribute('data-bs-target');
+					addBtn.onclick = () => {
+						if (isPremium()) {
+							alert(
+								`You have reached the maximum of ${maxAccounts()} accounts (Premium).`
+							);
+						} else {
+							alert(
+								`Free users can create up to ${maxAccounts()} accounts. Upgrade to Premium to add more.`
+							);
+						}
+					};
+				}
+			}
+
+			// ---- Render accounts grid ----
 			function render() {
 				const accounts = getAccounts();
 				accountsList.innerHTML = '';
@@ -312,46 +364,65 @@
 					const col = document.createElement('div');
 					col.className = 'col-12';
 					col.innerHTML = `
-						<div class="goal-card p-3" data-id="${acc.id}" style="cursor:pointer;">
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="goal-name">${iconFor(acc.name)} ${acc.name}</div>
-								<div class="balance-lg">₱${Number(acc.balance || 0).toLocaleString('en-US', {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								})}</div>
-							</div>
-						</div>
-					`;
-
+        <div class="goal-card p-3" data-id="${acc.id}" style="cursor:pointer;">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="goal-name">${iconFor(acc.name)} ${acc.name}</div>
+            <div class="balance-lg">${peso(acc.balance)}</div>
+          </div>
+        </div>`;
 					col
 						.querySelector('.goal-card')
 						.addEventListener('click', () => openAccountDetail(acc.id));
 					accountsList.appendChild(col);
 				});
+
+				updateAddAccountControl();
 			}
 
+			// ---- Modals: Add Account ----
 			document.getElementById('accountForm').addEventListener('submit', (e) => {
 				e.preventDefault();
-				const name = document.getElementById('newAccountName').value.trim();
-				const amount = parseFloat(
-					document.getElementById('initialAmount').value
-				);
-				if (!name) return alert('Please enter an account name.');
-				if (isNaN(amount) || amount < 0)
-					return alert('Please enter a valid amount.');
+
 				const accounts = getAccounts();
-				if (accounts.some((a) => a.name.toLowerCase() === name.toLowerCase())) {
-					alert('Account name already exists.');
+
+				// Hard cap check (can’t bypass with dev tools)
+				if (accounts.length >= maxAccounts()) {
+					if (isPremium()) {
+						alert(
+							`You have reached the maximum of ${maxAccounts()} accounts (Premium).`
+						);
+					} else {
+						alert(
+							`Free users can create up to ${maxAccounts()} accounts. Upgrade to Premium to add more.`
+						);
+					}
 					return;
 				}
+
+				const nameEl = document.getElementById('newAccountName');
+				const amountEl = document.getElementById('initialAmount');
+
+				const name = nameEl.value.trim();
+				const amount = parseFloat(amountEl.value);
+
+				if (!name) return alert('Please enter an account name.');
+				if (isNaN(amount) || amount < 0)
+					return alert('Please enter a valid initial amount.');
+				if (accounts.some((a) => a.name.toLowerCase() === name.toLowerCase())) {
+					return alert('Account name already exists.');
+				}
+
 				accounts.push({ id: crypto.randomUUID(), name, balance: amount });
 				setAccounts(accounts);
+
 				bootstrap.Modal.getInstance(
 					document.getElementById('accountModal')
 				).hide();
+				e.target.reset();
 				render();
 			});
 
+			// ---- Account Detail Modal (view / add / withdraw / delete) ----
 			function openAccountDetail(id) {
 				currentAccountId = id;
 				const accounts = getAccounts();
@@ -359,12 +430,9 @@
 				if (!acc) return;
 
 				document.getElementById('accountTitle').textContent = acc.name;
-				document.getElementById('accountBalance').textContent =
-					'₱' +
-					Number(acc.balance || 0).toLocaleString('en-US', {
-						minimumFractionDigits: 2,
-						maximumFractionDigits: 2,
-					});
+				document.getElementById('accountBalance').textContent = peso(
+					acc.balance
+				);
 
 				document.getElementById('addFundsBtn').onclick = () => {
 					fundAction = 'add';
@@ -374,6 +442,7 @@
 						document.getElementById('fundModal')
 					).show();
 				};
+
 				document.getElementById('withdrawFundsBtn').onclick = () => {
 					fundAction = 'withdraw';
 					document.getElementById('fundModalTitle').textContent =
@@ -383,13 +452,14 @@
 						document.getElementById('fundModal')
 					).show();
 				};
+
 				document.getElementById('deleteAccountBtn').onclick = () => {
 					if (!confirm(`Delete account "${acc.name}"?`)) return;
 					setAccounts(accounts.filter((a) => a.id !== id));
 					bootstrap.Modal.getInstance(
 						document.getElementById('accountDetailModal')
 					).hide();
-					render();
+					render(); // After delete, if below cap, Add opens modal again
 				};
 
 				bootstrap.Modal.getOrCreateInstance(
@@ -397,16 +467,20 @@
 				).show();
 			}
 
+			// ---- Add/Withdraw funds ----
 			document.getElementById('fundForm').addEventListener('submit', (e) => {
 				e.preventDefault();
 				const amt = parseFloat(document.getElementById('fundAmount').value);
 				if (!(amt > 0)) return alert('Enter a valid amount.');
+
 				const accounts = getAccounts();
 				const acc = accounts.find((a) => a.id === currentAccountId);
 				if (!acc) return;
+
 				if (fundAction === 'add') acc.balance += amt;
 				else if (fundAction === 'withdraw')
 					acc.balance = Math.max(0, acc.balance - amt);
+
 				setAccounts(accounts);
 				bootstrap.Modal.getInstance(
 					document.getElementById('fundModal')
@@ -415,15 +489,14 @@
 				render();
 			});
 
+			// ---- Init ----
 			ensureDefaults();
 			render();
 
-			window.addEventListener('focus', () => {
-				render();
-			});
-
+			// ---- Sync across tabs & when window regains focus ----
+			window.addEventListener('focus', render);
 			window.addEventListener('storage', (e) => {
-				if (e.key === 'saveior.accounts') render();
+				if (e.key === ACCOUNTS_KEY) render();
 			});
 		</script>
 

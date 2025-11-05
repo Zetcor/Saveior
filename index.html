@@ -32,7 +32,7 @@
 		<div class="rounded-container">
 			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
 				<div class="navbar-container">
-					<a class="nav-logo text-decoration-none fs-4" href="dashboard.html">
+					<a class="nav-logo text-decoration-none fs-4" href="index.html">
 						<img
 							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
 							alt="Logo"
@@ -42,7 +42,7 @@
 				</div>
 
 				<button
-					class="navbar-toggler"
+					class="navbar-toggler d-lg-none"
 					type="button"
 					data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent"
@@ -54,55 +54,52 @@
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<div
-						class="collapse navbar-collapse justify-content-center"
-						id="navbarSupportedContent"
+					<ul
+						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
 					>
-						<ul
-							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
-						>
-							<li class="nav-item">
-								<a class="nav-link px-4 active" href="index.html">Dashboard</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="records.html"
-									>Records</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="budget.html"
-									>Budgets</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="accounts.html"
-									>Accounts</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="categories.html"
-									>Categories</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="savings.html"
-									>Savings</a
-								>
-							</li>
-							<a href="#" class="nav-link d-lg-none">Settings</a>
-							<a href="#" class="nav-link d-lg-none">Accounts</a>
-						</ul>
-					</div>
+						<li class="nav-item">
+							<a class="nav-link active px-4" href="index.html">Dashboard</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="records.html"
+								>Records</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="accounts.html"
+								>Accounts</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="categories.html"
+								>Categories</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="savings.html"
+								>Savings</a
+							>
+						</li>
+					</ul>
 
-					<div class="ms-lg-auto mt-2 mt-lg-0">
+					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
 						<div
-							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
 						>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-gear"></i>
 							</button>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-user"></i>
+							</button>
+							<button
+								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+								id="goPremiumBtn"
+							>
+								<i class="bi bi-star-fill me-2"></i> Go Premium
 							</button>
 						</div>
 					</div>

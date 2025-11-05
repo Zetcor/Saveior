@@ -32,7 +32,6 @@
 	</head>
 	<body>
 		<div class="rounded-container">
-			<!-- Navbar -->
 			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
 				<div class="navbar-container">
 					<a class="nav-logo text-decoration-none fs-4" href="index.html">
@@ -45,7 +44,7 @@
 				</div>
 
 				<button
-					class="navbar-toggler"
+					class="navbar-toggler d-lg-none"
 					type="button"
 					data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent"
@@ -57,50 +56,52 @@
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<div
-						class="collapse navbar-collapse justify-content-center"
-						id="navbarSupportedContent"
+					<ul
+						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
 					>
-						<ul
-							class="nav flex-lg-row flex-column text-center gap-3 navbar-container"
-						>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="index.html"
-									>Dashboard</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="records.html"
-									>Records</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="accounts.html"
-									>Accounts</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light px-4" href="categories.html">Categories</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link px-4 active" href="savings.html">Savings</a>
-							</li>
-							<a href="#" class="nav-link d-lg-none">Settings</a>
-							<a href="#" class="nav-link d-lg-none">Accounts</a>
-						</ul>
-					</div>
-					<div class="ms-lg-auto mt-2 mt-lg-0">
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="index.html"
+								>Dashboard</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="records.html"
+								>Records</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="accounts.html"
+								>Accounts</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="categories.html"
+								>Categories</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active px-4" href="savings.html">Savings</a>
+						</li>
+					</ul>
+
+					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
 						<div
-							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center"
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
 						>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-gear"></i>
 							</button>
 							<button class="icon-btn d-none d-lg-flex">
 								<i class="fa-solid fa-user"></i>
+							</button>
+							<button
+								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+								id="goPremiumBtn"
+							>
+								<i class="bi bi-star-fill me-2"></i> Go Premium
 							</button>
 						</div>
 					</div>
@@ -358,6 +359,12 @@
 			const ACCOUNTS_KEY = 'saveior.accounts';
 			const TRANSACTIONS_KEY = 'saveior.transactions';
 
+			// ==== PLAN LIMITS (ADDED) ====
+			const PREMIUM_KEY = 'isPremiumUser';
+			const isPremium = () => localStorage.getItem(PREMIUM_KEY) === 'true';
+			const maxGoals = () => (isPremium() ? 5 : 3);
+			// =============================
+
 			function ensureAccountDefaults() {
 				const current = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
 				if (current.length > 0) return;
@@ -447,6 +454,37 @@
 
 			const goalsGrid = document.getElementById('goalsGrid');
 			const emptyState = document.getElementById('emptyState');
+			const addGoalBtn = document.getElementById('addGoalBtn'); // (ADDED)
+
+			// Disable the modal and show an alert once the cap is reached (ADDED)
+			function updateAddGoalControl() {
+				if (!addGoalBtn) return;
+				const count = getGoals().length;
+
+				// restore default (modal opens)
+				addGoalBtn.disabled = false;
+				addGoalBtn.onclick = null;
+				addGoalBtn.setAttribute('data-bs-toggle', 'modal');
+				addGoalBtn.setAttribute('data-bs-target', '#goalModal');
+
+				if (count >= maxGoals()) {
+					// block modal open and show plan message
+					addGoalBtn.removeAttribute('data-bs-toggle');
+					addGoalBtn.removeAttribute('data-bs-target');
+					addGoalBtn.onclick = (e) => {
+						e.preventDefault();
+						if (isPremium()) {
+							alert(
+								`You have reached the maximum of ${maxGoals()} savings goals (Premium).`
+							);
+						} else {
+							alert(
+								`Free users can create up to ${maxGoals()} savings goals. Upgrade to Premium to add more.`
+							);
+						}
+					};
+				}
+			}
 
 			function renderGoals() {
 				const goals = getGoals();
@@ -467,64 +505,85 @@
 					const col = document.createElement('div');
 					col.className = 'col-12';
 					col.innerHTML = `
-			<div class="goal-card p-3" data-id="${g.id}">
-				<div class="d-flex justify-content-between align-items-start">
-					<div class="goal-name">${g.name}</div>
-					<span class="pill">${pct}%</span>
-				</div>
+      <div class="goal-card p-3" data-id="${g.id}">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="goal-name">${g.name}</div>
+          <span class="pill">${pct}%</span>
+        </div>
 
-				${g.note ? `<div class="muted mb-1">${g.note}</div>` : ''}
+        ${g.note ? `<div class="muted mb-1">${g.note}</div>` : ''}
 
-				<!-- Progress bar only -->
-				<div class="progress mb-1">
-					<div class="progress-bar" style="width:${pct}%"></div>
-				</div>
+        <!-- Progress bar only -->
+        <div class="progress mb-1">
+          <div class="progress-bar" style="width:${pct}%"></div>
+        </div>
 
-				<!-- Saved value below the progress -->
-				<div class="saved mb-2">
-					<span class="muted me-1">Saved</span>${formatPHP(saved)}
-				</div>
+        <!-- Saved value below the progress -->
+        <div class="saved mb-2">
+          <span class="muted me-1">Saved</span>${formatPHP(saved)}
+        </div>
 
-				<!-- two-column stats -->
-				<div class="stats-2col">
-					<div class="stat-label">Remaining</div>
-					<div class="stat-val">${formatPHP(remaining)}</div>
-					<div class="stat-label">Goal</div>
-					<div class="stat-val">${formatPHP(g.targetAmount)}</div>
-				</div>
+        <!-- two-column stats -->
+        <div class="stats-2col">
+          <div class="stat-label">Remaining</div>
+          <div class="stat-val">${formatPHP(remaining)}</div>
+          <div class="stat-label">Goal</div>
+          <div class="stat-val">${formatPHP(g.targetAmount)}</div>
+        </div>
 
-				<!-- single date line -->
-				<div class="goal-footer mt-2">
-					${
+        <!-- single date line -->
+        <div class="goal-footer mt-2">
+          ${
 						g.targetDate
 							? `<span class="date-pill"><i class="bi bi-calendar"></i>${g.targetDate}</span>`
 							: `<span class="muted">No target date</span>`
 					}
-				</div>
-			</div>
-		`;
+        </div>
+      </div>
+    `;
 
 					col
 						.querySelector('.goal-card')
 						.addEventListener('click', () => openGoalDetail(g.id));
 					goalsGrid.appendChild(col);
 				});
+
+				// keep button behavior in sync with the cap (ADDED)
+				updateAddGoalControl();
 			}
 
-			document.getElementById('addGoalBtn').addEventListener('click', () => {
-				const form = document.getElementById('goalForm');
-				if (form) form.reset();
-			});
+			// Reset form on open, but also guard against cap (ADDED: guard is in updateAddGoalControl)
+			if (addGoalBtn) {
+				addGoalBtn.addEventListener('click', () => {
+					const form = document.getElementById('goalForm');
+					if (form) form.reset();
+				});
+			}
 
 			document.getElementById('goalForm').addEventListener('submit', (e) => {
 				e.preventDefault();
+
+				// HARD CAP on creation (ADDED)
+				const goals = getGoals();
+				if (goals.length >= maxGoals()) {
+					if (isPremium()) {
+						alert(
+							`You have reached the maximum of ${maxGoals()} savings goals (Premium).`
+						);
+					} else {
+						alert(
+							`Free users can create up to ${maxGoals()} savings goals. Upgrade to Premium to add more.`
+						);
+					}
+					return;
+				}
+
 				const name = document.getElementById('goalName').value.trim();
 				const amount = parseFloat(document.getElementById('goalAmount').value);
 				const note = document.getElementById('goalNote').value.trim();
 				if (!name) return alert('Please enter a goal name.');
 				if (!(amount >= 0)) return alert('Please enter a valid goal amount.');
 
-				const goals = getGoals();
 				goals.push({
 					id: uid(),
 					name,
@@ -802,7 +861,12 @@ Enter number:`);
 				renderGoals();
 			});
 
+			// Initial render + keep UI synced when storage changes or tab refocuses (ADDED)
 			renderGoals();
+			window.addEventListener('focus', renderGoals);
+			window.addEventListener('storage', (e) => {
+				if (e.key === GOALS_KEY) renderGoals();
+			});
 		</script>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
