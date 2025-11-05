@@ -27,6 +27,7 @@
 		></script>
 		<link rel="stylesheet" href="styles.css" />
 		<link rel="stylesheet" href="accounts.css" />
+		<link rel="stylesheet" href="plan.css" />
 	</head>
 
 	<body>
@@ -258,24 +259,137 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Premium Plans Modal -->
+		<div
+			class="modal fade premium-modal"
+			id="premiumModal"
+			tabindex="-1"
+			aria-hidden="true"
+			aria-labelledby="premiumModalLabel"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Hero -->
+					<div class="premium-hero">
+						<h5 id="premiumModalLabel">Free plan limit reached</h5>
+						<p>
+							You’ve hit the maximum of <strong>5 categories</strong> on the
+							Free plan. Choose a plan to continue.
+						</p>
+					</div>
+
+					<!-- Plans -->
+					<div class="modal-body">
+						<div class="plan-grid">
+							<!-- Smart Wallet (Active) -->
+							<div class="plan-card ribbon">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">Smart Wallet</h6>
+									<span class="plan-badge">Popular</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Custom categories</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Daily to annual filters</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Up to 5 accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Up to 10 savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Budget reminders/alerts</span>
+									</li>
+								</ul>
+								<button
+									id="chooseSmartWallet"
+									class="btn plan-cta btn-premium-primary w-100"
+									type="button"
+								>
+									Choose Smart Wallet
+								</button>
+							</div>
+
+							<!-- The Vault (Coming soon) -->
+							<div class="plan-card">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">The Vault</h6>
+									<span class="plan-badge">Pro</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Unlimited accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Unlimited savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>All filters available (daily → annual)</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Advanced analytics</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Personalized financial insights</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Best for advanced users</span>
+									</li>
+								</ul>
+								<button
+									class="btn plan-cta btn-premium-ghost w-100"
+									type="button"
+									disabled
+									title="Coming soon"
+								>
+									Coming soon
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<div class="modal-footer modal-footer-muted">
+						<button
+							type="button"
+							class="btn btn-outline-secondary"
+							data-bs-dismiss="modal"
+						>
+							Maybe later
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script>
 			const CATEGORIES_KEY = 'saveior.categories';
 			const PREMIUM_KEY = 'isPremiumUser';
 
-			// --- Limits: Free = 5 per type, Premium = 8 per type ---
+			const FREE_MAX_PER_TYPE = 5;
 			const isPremium = () => localStorage.getItem(PREMIUM_KEY) === 'true';
-			const maxPerType = () => (isPremium() ? 8 : 5);
+			const maxPerType = () => (isPremium() ? 8 : FREE_MAX_PER_TYPE);
 
-			let currentCategory = null;
-
-			// UI elements
 			const expenseList = document.getElementById('expenseCategoriesList');
 			const incomeList = document.getElementById('incomeCategoriesList');
 			const emptyExpenseState = document.getElementById('emptyExpenseState');
 			const emptyIncomeState = document.getElementById('emptyIncomeState');
-			const addBtn = document.getElementById('openAddCategoryModal');
 
-			// Initialize default categories if none exist
+			let currentCategory = null;
+
 			function ensureCategoryDefaults() {
 				const current = JSON.parse(
 					localStorage.getItem(CATEGORIES_KEY) || 'null'
@@ -309,12 +423,49 @@
 				localStorage.setItem(CATEGORIES_KEY, JSON.stringify(data));
 			}
 
-			function counts() {
+			function countPerType() {
 				const { expense, income } = getCategories();
 				return { expense: expense.length, income: income.length };
 			}
 
-			// ----------- RENDER UI -----------
+			function selectedType() {
+				return (
+					document.querySelector('input[name="categoryType"]:checked')?.value ||
+					'Expense'
+				);
+			}
+
+			function atCapFor(type) {
+				const { expense, income } = countPerType();
+				const cap = maxPerType();
+				if (type === 'Expense') return expense >= cap;
+				return income >= cap;
+			}
+
+			function showPremiumModal(messageOverride) {
+				if (messageOverride) {
+					const labelEl = document.querySelector(
+						'#premiumModal .premium-hero p'
+					);
+					if (labelEl) labelEl.innerHTML = messageOverride;
+				}
+				const el = document.getElementById('premiumModal');
+				if (!el) {
+					alert('Free plan limit reached. Upgrade to add more categories.');
+					return;
+				}
+				if (window.bootstrap?.Modal) {
+					bootstrap.Modal.getOrCreateInstance(el, {
+						backdrop: 'static',
+					}).show();
+				} else {
+					el.style.display = 'block';
+					el.classList.add('show');
+					el.setAttribute('aria-modal', 'true');
+					el.removeAttribute('aria-hidden');
+				}
+			}
+
 			function renderCategories() {
 				const { expense, income } = getCategories();
 				expenseList.innerHTML = '';
@@ -323,40 +474,37 @@
 				emptyExpenseState.classList.toggle('d-none', expense.length > 0);
 				emptyIncomeState.classList.toggle('d-none', income.length > 0);
 
-				// Expense category cards
 				expense.forEach((cat) => {
-					const div = document.createElement('div');
-					div.className = 'col-md-4';
-					div.innerHTML = `
+					const col = document.createElement('div');
+					col.className = 'col-md-4';
+					col.innerHTML = `
         <div class="goal-card p-3 text-center bg-light" style="cursor:pointer;"
              data-id="${cat.id}" data-type="Expense">
           <i class="bi bi-tag-fill text-danger"></i>
           <div class="fw-semibold mt-2">${cat.name}</div>
         </div>`;
-					div
+					col
 						.querySelector('.goal-card')
 						.addEventListener('click', () => openCategoryDetail(cat));
-					expenseList.appendChild(div);
+					expenseList.appendChild(col);
 				});
 
-				// Income category cards
 				income.forEach((cat) => {
-					const div = document.createElement('div');
-					div.className = 'col-md-4';
-					div.innerHTML = `
+					const col = document.createElement('div');
+					col.className = 'col-md-4';
+					col.innerHTML = `
         <div class="goal-card p-3 text-center bg-light" style="cursor:pointer;"
              data-id="${cat.id}" data-type="Income">
           <i class="bi bi-tag-fill text-success"></i>
           <div class="fw-semibold mt-2">${cat.name}</div>
         </div>`;
-					div
+					col
 						.querySelector('.goal-card')
 						.addEventListener('click', () => openCategoryDetail(cat));
-					incomeList.appendChild(div);
+					incomeList.appendChild(col);
 				});
 			}
 
-			// ---------- View / Edit / Delete Category ----------
 			function openCategoryDetail(cat) {
 				currentCategory = cat;
 				document.getElementById(
@@ -377,11 +525,23 @@
 					if (!newName) return alert('Enter a category name.');
 
 					const categories = getCategories();
-					const list =
-						currentCategory.type === 'Expense'
-							? categories.expense
-							: categories.income;
-					const cat = list.find((c) => c.id === currentCategory.id);
+					const listKey =
+						currentCategory.type === 'Expense' ? 'expense' : 'income';
+
+					if (
+						categories[listKey].some(
+							(c) =>
+								c.id !== currentCategory.id &&
+								c.name.toLowerCase() === newName.toLowerCase()
+						)
+					) {
+						alert(`${currentCategory.type} category already exists.`);
+						return;
+					}
+
+					const cat = categories[listKey].find(
+						(c) => c.id === currentCategory.id
+					);
 					if (cat) cat.name = newName;
 
 					setCategories(categories);
@@ -409,15 +569,12 @@
 					).hide();
 				});
 
-			// ---------- Add Category (Form Submit) ----------
 			document
 				.getElementById('categoryForm')
 				.addEventListener('submit', function (e) {
 					e.preventDefault();
 					const name = document.getElementById('newCategoryName').value.trim();
-					const type = document.querySelector(
-						'input[name="categoryType"]:checked'
-					).value;
+					const type = selectedType(); // value from radio buttons in the form
 
 					if (!name) return alert('Please enter a category name.');
 
@@ -426,9 +583,8 @@
 					const key = type === 'Expense' ? 'expense' : 'income';
 
 					if (categories[key].length >= cap) {
-						alert(
-							`You have reached the maximum of ${cap} ${type.toLowerCase()} categories.`
-						);
+						const msg = `You’ve hit the maximum of <strong>${FREE_MAX_PER_TYPE} ${type.toLowerCase()} categories</strong> on the Free plan. Choose a plan to continue.`;
+						showPremiumModal(msg);
 						return;
 					}
 
@@ -450,9 +606,17 @@
 					e.target.reset();
 				});
 
-			// ---------- INIT ----------
-			ensureCategoryDefaults();
-			renderCategories();
+			document.addEventListener('DOMContentLoaded', () => {
+				ensureCategoryDefaults();
+				renderCategories();
+
+				const smartBtn = document.getElementById('chooseSmartWallet');
+				if (smartBtn) {
+					smartBtn.addEventListener('click', () => {
+						window.location.href = 'transaction.html';
+					});
+				}
+			});
 
 			window.addEventListener('storage', (e) => {
 				if (e.key === CATEGORIES_KEY) renderCategories();

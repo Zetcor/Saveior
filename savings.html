@@ -26,9 +26,9 @@
 			src="https://kit.fontawesome.com/203f7bcb2a.js"
 			crossorigin="anonymous"
 		></script>
-
 		<link rel="stylesheet" href="styles.css" />
 		<link rel="stylesheet" href="savings.css" />
+		<link rel="stylesheet" href="plan.css" />
 	</head>
 	<body>
 		<div class="rounded-container">
@@ -354,16 +354,131 @@
 			</div>
 		</div>
 
+		<!-- Premium Plans Modal -->
+		<div
+			class="modal fade premium-modal"
+			id="premiumModal"
+			tabindex="-1"
+			aria-hidden="true"
+			aria-labelledby="premiumModalLabel"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Hero -->
+					<div class="premium-hero">
+						<h5 id="premiumModalLabel">Free plan limit reached</h5>
+						<p>
+							You’ve hit the maximum of <strong>3 goals</strong> on the Free
+							plan. Choose a plan to continue.
+						</p>
+					</div>
+
+					<!-- Plans -->
+					<div class="modal-body">
+						<div class="plan-grid">
+							<!-- Smart Wallet (Active) -->
+							<div class="plan-card ribbon">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">Smart Wallet</h6>
+									<span class="plan-badge">Popular</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Custom categories</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Daily to annual filters</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Up to 5 accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Up to 10 savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Budget reminders/alerts</span>
+									</li>
+								</ul>
+								<button
+									id="chooseSmartWallet"
+									class="btn plan-cta btn-premium-primary w-100"
+									type="button"
+								>
+									Choose Smart Wallet
+								</button>
+							</div>
+
+							<!-- The Vault (Coming soon) -->
+							<div class="plan-card">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">The Vault</h6>
+									<span class="plan-badge">Pro</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Unlimited accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Unlimited savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>All filters available (daily → annual)</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Advanced analytics</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Personalized financial insights</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Best for advanced users</span>
+									</li>
+								</ul>
+								<button
+									class="btn plan-cta btn-premium-ghost w-100"
+									type="button"
+									disabled
+									title="Coming soon"
+								>
+									Coming soon
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<div class="modal-footer modal-footer-muted">
+						<button
+							type="button"
+							class="btn btn-outline-secondary"
+							data-bs-dismiss="modal"
+						>
+							Maybe later
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script>
 			const GOALS_KEY = 'saveior.savings.goals';
 			const ACCOUNTS_KEY = 'saveior.accounts';
 			const TRANSACTIONS_KEY = 'saveior.transactions';
 
-			// ==== PLAN LIMITS (ADDED) ====
+			// ====== PLAN LIMITS ======
 			const PREMIUM_KEY = 'isPremiumUser';
 			const isPremium = () => localStorage.getItem(PREMIUM_KEY) === 'true';
-			const maxGoals = () => (isPremium() ? 5 : 3);
-			// =============================
+			const FREE_MAX_GOALS = 3;
+			const maxGoals = () => (isPremium() ? 5 : FREE_MAX_GOALS);
 
 			function ensureAccountDefaults() {
 				const current = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
@@ -403,6 +518,7 @@
 				crypto.randomUUID
 					? crypto.randomUUID()
 					: Date.now() + '_' + Math.random().toString(16).slice(2);
+
 			const formatPHP = (n) =>
 				'₱' +
 				Number(n || 0).toLocaleString('en-US', {
@@ -454,34 +570,51 @@
 
 			const goalsGrid = document.getElementById('goalsGrid');
 			const emptyState = document.getElementById('emptyState');
-			const addGoalBtn = document.getElementById('addGoalBtn'); // (ADDED)
+			const addGoalBtn = document.getElementById('addGoalBtn');
 
-			// Disable the modal and show an alert once the cap is reached (ADDED)
+			// ===== Premium modal helper (uses #premiumModal already used on other pages) =====
+			function showPremiumModal(messageOverride) {
+				if (messageOverride) {
+					const label = document.querySelector('#premiumModal .premium-hero p');
+					if (label) label.innerHTML = messageOverride;
+				}
+				const el = document.getElementById('premiumModal');
+				if (!el) {
+					alert(`Free plan limit reached. Upgrade to add more savings goals.`);
+					return;
+				}
+				if (window.bootstrap?.Modal) {
+					bootstrap.Modal.getOrCreateInstance(el, {
+						backdrop: 'static',
+					}).show();
+				} else {
+					el.style.display = 'block';
+					el.classList.add('show');
+					el.setAttribute('aria-modal', 'true');
+					el.removeAttribute('aria-hidden');
+				}
+			}
+
+			// When at cap, clicking Add Goal should open the Premium modal (not the form modal)
 			function updateAddGoalControl() {
 				if (!addGoalBtn) return;
 				const count = getGoals().length;
 
-				// restore default (modal opens)
+				// default: open Add Goal form
 				addGoalBtn.disabled = false;
 				addGoalBtn.onclick = null;
 				addGoalBtn.setAttribute('data-bs-toggle', 'modal');
 				addGoalBtn.setAttribute('data-bs-target', '#goalModal');
 
+				// at/over cap → show premium modal instead
 				if (count >= maxGoals()) {
-					// block modal open and show plan message
 					addGoalBtn.removeAttribute('data-bs-toggle');
 					addGoalBtn.removeAttribute('data-bs-target');
 					addGoalBtn.onclick = (e) => {
 						e.preventDefault();
-						if (isPremium()) {
-							alert(
-								`You have reached the maximum of ${maxGoals()} savings goals (Premium).`
-							);
-						} else {
-							alert(
-								`Free users can create up to ${maxGoals()} savings goals. Upgrade to Premium to add more.`
-							);
-						}
+						showPremiumModal(
+							`You’ve reached the maximum of <strong>${FREE_MAX_GOALS} savings goals</strong> on the Free plan. Choose a plan to continue.`
+						);
 					};
 				}
 			}
@@ -505,54 +638,45 @@
 					const col = document.createElement('div');
 					col.className = 'col-12';
 					col.innerHTML = `
-      <div class="goal-card p-3" data-id="${g.id}">
-        <div class="d-flex justify-content-between align-items-start">
-          <div class="goal-name">${g.name}</div>
-          <span class="pill">${pct}%</span>
+        <div class="goal-card p-3" data-id="${g.id}">
+          <div class="d-flex justify-content-between align-items-start">
+            <div class="goal-name">${g.name}</div>
+            <span class="pill">${pct}%</span>
+          </div>
+
+          ${g.note ? `<div class="muted mb-1">${g.note}</div>` : ''}
+
+          <div class="progress mb-1"><div class="progress-bar" style="width:${pct}%"></div></div>
+          <div class="saved mb-2"><span class="muted me-1">Saved</span>${formatPHP(
+						saved
+					)}</div>
+
+          <div class="stats-2col">
+            <div class="stat-label">Remaining</div>
+            <div class="stat-val">${formatPHP(remaining)}</div>
+            <div class="stat-label">Goal</div>
+            <div class="stat-val">${formatPHP(g.targetAmount)}</div>
+          </div>
+
+          <div class="goal-footer mt-2">
+            ${
+							g.targetDate
+								? `<span class="date-pill"><i class="bi bi-calendar"></i>${g.targetDate}</span>`
+								: `<span class="muted">No target date</span>`
+						}
+          </div>
         </div>
-
-        ${g.note ? `<div class="muted mb-1">${g.note}</div>` : ''}
-
-        <!-- Progress bar only -->
-        <div class="progress mb-1">
-          <div class="progress-bar" style="width:${pct}%"></div>
-        </div>
-
-        <!-- Saved value below the progress -->
-        <div class="saved mb-2">
-          <span class="muted me-1">Saved</span>${formatPHP(saved)}
-        </div>
-
-        <!-- two-column stats -->
-        <div class="stats-2col">
-          <div class="stat-label">Remaining</div>
-          <div class="stat-val">${formatPHP(remaining)}</div>
-          <div class="stat-label">Goal</div>
-          <div class="stat-val">${formatPHP(g.targetAmount)}</div>
-        </div>
-
-        <!-- single date line -->
-        <div class="goal-footer mt-2">
-          ${
-						g.targetDate
-							? `<span class="date-pill"><i class="bi bi-calendar"></i>${g.targetDate}</span>`
-							: `<span class="muted">No target date</span>`
-					}
-        </div>
-      </div>
-    `;
-
+      `;
 					col
 						.querySelector('.goal-card')
 						.addEventListener('click', () => openGoalDetail(g.id));
 					goalsGrid.appendChild(col);
 				});
 
-				// keep button behavior in sync with the cap (ADDED)
-				updateAddGoalControl();
+				updateAddGoalControl(); // keep button behavior synced with cap
 			}
 
-			// Reset form on open, but also guard against cap (ADDED: guard is in updateAddGoalControl)
+			// Reset form on open (we let updateAddGoalControl handle cap gating)
 			if (addGoalBtn) {
 				addGoalBtn.addEventListener('click', () => {
 					const form = document.getElementById('goalForm');
@@ -563,18 +687,12 @@
 			document.getElementById('goalForm').addEventListener('submit', (e) => {
 				e.preventDefault();
 
-				// HARD CAP on creation (ADDED)
+				// HARD CAP (also check on submit)
 				const goals = getGoals();
 				if (goals.length >= maxGoals()) {
-					if (isPremium()) {
-						alert(
-							`You have reached the maximum of ${maxGoals()} savings goals (Premium).`
-						);
-					} else {
-						alert(
-							`Free users can create up to ${maxGoals()} savings goals. Upgrade to Premium to add more.`
-						);
-					}
+					showPremiumModal(
+						`You’ve reached the maximum of <strong>${FREE_MAX_GOALS} savings goals</strong> on the Free plan. Choose a plan to continue.`
+					);
 					return;
 				}
 
@@ -634,7 +752,7 @@
 				bar.style.width = pct + '%';
 				bar.textContent = pct + '%';
 
-				const targetDateInput = document.getElementById('detailTargetDate'); // hidden
+				const targetDateInput = document.getElementById('detailTargetDate');
 				targetDateInput.value = g.targetDate || '';
 				document.getElementById('uiTargetText').textContent = g.targetDate
 					? `Target on ${g.targetDate}`
@@ -667,7 +785,6 @@
 				};
 
 				document.getElementById('addSavingBtn').onclick = () => {
-					// populate accounts in the saving modal
 					const sel = document.getElementById('savingAccount');
 					if (sel) {
 						sel.innerHTML =
@@ -688,7 +805,6 @@
 							sel.appendChild(opt);
 						});
 					}
-
 					document.getElementById('savingForm').reset();
 					bootstrap.Modal.getOrCreateInstance(
 						document.getElementById('savingModal')
@@ -817,55 +933,21 @@ Enter number:`);
 				});
 			}
 
-			document.getElementById('savingForm').addEventListener('submit', (e) => {
-				e.preventDefault();
-				const amt = parseFloat(document.getElementById('savingAmount').value);
-				const note = document.getElementById('savingNote').value.trim();
-				const accountSel = document.getElementById('savingAccount');
-				const accountId = accountSel ? accountSel.value : '';
-				if (!(amt > 0)) return alert('Enter a valid amount.');
-				if (!accountId) return alert('Please select an account.');
-
-				const accounts = getAccounts();
-				const accIdx = accounts.findIndex((a) => a.id === accountId);
-				if (accIdx < 0) return alert('Selected account not found.');
-				const acc = accounts[accIdx];
-				if (
-					(acc.name.toLowerCase().includes('cash') ||
-						acc.name.toLowerCase().includes('debit')) &&
-					Number(acc.balance) < amt
-				) {
-					return alert('Insufficient balance in ' + acc.name + '.');
-				}
-				accounts[accIdx].balance = Number(accounts[accIdx].balance || 0) - amt;
-				setAccounts(accounts);
-				const goals = getGoals();
-				const g = goals.find((x) => x.id === currentGoalId);
-				if (!g) return;
-
-				g.savings = g.savings || [];
-				g.savings.push({
-					accountId,
-					accountName: acc.name,
-					id: uid(),
-					amount: amt,
-					note,
-					createdAt: new Date().toISOString(),
-				});
-				setGoals(goals);
-
-				bootstrap.Modal.getInstance(
-					document.getElementById('savingModal')
-				)?.hide();
-				openGoalDetail(currentGoalId);
-				renderGoals();
-			});
-
-			// Initial render + keep UI synced when storage changes or tab refocuses (ADDED)
+			// Initial render + keep UI synced
 			renderGoals();
 			window.addEventListener('focus', renderGoals);
 			window.addEventListener('storage', (e) => {
 				if (e.key === GOALS_KEY) renderGoals();
+			});
+
+			// Bonus: if the premium modal is present, wire Smart Wallet button to redirect
+			document.addEventListener('DOMContentLoaded', () => {
+				const smartBtn = document.getElementById('chooseSmartWallet');
+				if (smartBtn) {
+					smartBtn.addEventListener('click', () => {
+						window.location.href = 'transaction.html';
+					});
+				}
 			});
 		</script>
 

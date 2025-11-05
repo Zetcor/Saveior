@@ -28,6 +28,7 @@
 			crossorigin="anonymous"
 		></script>
 		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="plan.css" />
 	</head>
 	<body>
 		<div class="rounded-container">
@@ -278,7 +279,6 @@
 					</div>
 
 					<div class="save-cancel">
-						<button class="btn btn-danger" onclick="cancelEntry()">Back</button>
 						<button class="btn btn-success" onclick="saveEntry()">Save</button>
 					</div>
 				</div>
@@ -302,6 +302,121 @@
 			</div>
 		</div>
 
+		<!-- Premium Plans Modal -->
+		<div
+			class="modal fade premium-modal"
+			id="premiumModal"
+			tabindex="-1"
+			aria-hidden="true"
+			aria-labelledby="premiumModalLabel"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Hero -->
+					<div class="premium-hero">
+						<h5 id="premiumModalLabel">Free plan limit reached</h5>
+						<p>
+							You’ve hit the maximum of <strong>20 transactions</strong> on the
+							Free plan. Choose a plan to continue.
+						</p>
+					</div>
+
+					<!-- Plans -->
+					<div class="modal-body">
+						<div class="plan-grid">
+							<!-- Smart Wallet (Active) -->
+							<div class="plan-card ribbon">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">Smart Wallet</h6>
+									<span class="plan-badge">Popular</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Custom categories</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Daily to annual filters</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Up to 5 accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Up to 10 savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Budget reminders/alerts</span>
+									</li>
+								</ul>
+								<button
+									id="chooseSmartWallet"
+									class="btn plan-cta btn-premium-primary w-100"
+									type="button"
+								>
+									Choose Smart Wallet
+								</button>
+							</div>
+
+							<!-- The Vault (Coming soon) -->
+							<div class="plan-card">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">The Vault</h6>
+									<span class="plan-badge">Pro</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Unlimited accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Unlimited savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>All filters available (daily → annual)</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Advanced analytics</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Personalized financial insights</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Best for advanced users</span>
+									</li>
+								</ul>
+								<button
+									class="btn plan-cta btn-premium-ghost w-100"
+									type="button"
+									disabled
+									title="Coming soon"
+								>
+									Coming soon
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<div class="modal-footer modal-footer-muted">
+						<button
+							type="button"
+							class="btn btn-outline-secondary"
+							data-bs-dismiss="modal"
+						>
+							Maybe later
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script>
 			let totalIncome = 0;
 			let totalExpenses = 0;
@@ -310,6 +425,7 @@
 			const ACCOUNTS_KEY = 'saveior.accounts';
 			const TRANSACTIONS_KEY = 'saveior.transactions';
 			const CATEGORIES_KEY = 'saveior.categories';
+			const FREE_MAX_TRANSACTIONS = 20; // free plan cap
 
 			// Ensure defaults
 			function ensureAccountDefaults() {
@@ -372,19 +488,26 @@
 				localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(transactions));
 			}
 
+			// Add with cap + return index
 			function addTransactionToStorage(entryData) {
 				const transactions = getStoredTransactions();
+				if (transactions.length >= FREE_MAX_TRANSACTIONS) {
+					return { ok: false, index: -1 };
+				}
 				transactions.push(entryData);
 				saveStoredTransactions(transactions);
+				return { ok: true, index: transactions.length - 1 };
 			}
 
 			function deleteTransactionFromStorage(index) {
 				const transactions = getStoredTransactions();
-				transactions.splice(index, 1);
-				saveStoredTransactions(transactions);
+				if (index >= 0 && index < transactions.length) {
+					transactions.splice(index, 1);
+					saveStoredTransactions(transactions);
+				}
 			}
 
-			// Update account balance
+			// Account balances
 			function updateAccountBalanceByName(accountName, amountChange) {
 				const data = getStoredAccounts();
 				const idx = data.findIndex((a) => a.name === accountName);
@@ -395,7 +518,7 @@
 				}
 			}
 
-			// Reset account dropdown
+			// Dropdowns
 			function resetAccountOptions(type) {
 				const accountDropdown = document.getElementById('accountDropdown');
 				if (!accountDropdown) return;
@@ -418,7 +541,6 @@
 				});
 			}
 
-			// Update category dropdown
 			function updateCategoryOptions(type) {
 				const categoryDropdown = document.getElementById('categoryDropdown');
 				if (!categoryDropdown) return;
@@ -429,7 +551,7 @@
 
 				if (type === 'income') categories = categoriesData.income || [];
 				else if (type === 'expense') categories = categoriesData.expense || [];
-				else if (type === 'transfer') categories = getStoredAccounts(); // for transfers, show accounts
+				else if (type === 'transfer') categories = getStoredAccounts(); // show accounts for transfers
 
 				const placeholder = type === 'transfer' ? 'To Account' : 'Category';
 				const defaultOption = document.createElement('option');
@@ -446,7 +568,6 @@
 				});
 			}
 
-			// Dropdown color styling
 			function handleDropdownColor(id) {
 				const dropdown = document.getElementById(id);
 				if (!dropdown) return;
@@ -463,7 +584,7 @@
 				});
 			}
 
-			// Calculator functions
+			// Calculator
 			function press(val) {
 				document.getElementById('display').value += val;
 				liveCalculate();
@@ -542,7 +663,7 @@
 				return icons[account] || '<i class="fa-solid fa-wallet"></i>';
 			}
 
-			// Render transaction
+			// Render one transaction row/card
 			function renderTransaction(entryData, index) {
 				const list = document.getElementById('expense-list');
 				const entry = document.createElement('div');
@@ -551,6 +672,7 @@
 				entry.dataset.type = entryData.type;
 				entry.dataset.index = index;
 				entry.dataset.account = entryData.account || '';
+				if (entryData.id) entry.dataset.id = entryData.id;
 
 				if (entryData.type === 'transfer') {
 					entry.dataset.from = entryData.from || '';
@@ -558,47 +680,48 @@
 				}
 
 				let htmlContent = '';
-
 				if (entryData.type === 'transfer') {
 					htmlContent = `
-		<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-			<div>
-				<div><i class="fa-solid fa-right-left"></i> Transfer</div>
-				<div style="color: gray; font-size: 12px;">From: ${entryData.from} → To: ${
-						entryData.to
-					}</div>
-				<div style="color: gray; font-size: 12px; font-weight: 500">${
-					entryData.desc || ''
-				}</div>
-			</div>
-			<div style="display:flex; align-items:center; gap:10px;">
-				<div>₱${Number(entryData.amount).toLocaleString('en-US', {
-					minimumFractionDigits: 2,
-					maximumFractionDigits: 2,
-				})}</div>
-				<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
-			</div>
-		</div>`;
+        <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+          <div>
+            <div><i class="fa-solid fa-right-left"></i> Transfer</div>
+            <div style="color: gray; font-size: 12px;">From: ${
+							entryData.from
+						} → To: ${entryData.to}</div>
+            <div style="color: gray; font-size: 12px; font-weight: 500">${
+							entryData.desc || ''
+						}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div>₱${Number(entryData.amount).toLocaleString('en-US', {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						})}</div>
+            <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
+          </div>
+        </div>`;
 				} else {
 					htmlContent = `
-		<div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-			<div>
-				<div>${getCategoryIcon(entryData.category)} ${entryData.category}</div>
-				<div style="color: gray; font-size: 12px;">${getAccountIcon(
-					entryData.account
-				)} ${entryData.account}</div>
-				<div style="color: gray; font-size: 12px; font-weight: 500">${
-					entryData.desc || ''
-				}</div>
-			</div>
-			<div style="display:flex; align-items:center; gap:10px;">
-				<div>₱${Number(entryData.amount).toLocaleString('en-US', {
-					minimumFractionDigits: 2,
-					maximumFractionDigits: 2,
-				})}</div>
-				<button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
-			</div>
-		</div>`;
+        <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+          <div>
+            <div>${getCategoryIcon(entryData.category)} ${
+						entryData.category
+					}</div>
+            <div style="color: gray; font-size: 12px;">${getAccountIcon(
+							entryData.account
+						)} ${entryData.account}</div>
+            <div style="color: gray; font-size: 12px; font-weight: 500">${
+							entryData.desc || ''
+						}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div>₱${Number(entryData.amount).toLocaleString('en-US', {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						})}</div>
+            <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash3"></i></button>
+          </div>
+        </div>`;
 				}
 
 				entry.innerHTML = htmlContent;
@@ -608,7 +731,31 @@
 					.addEventListener('click', () => deleteEntry(entry));
 			}
 
-			// Save entry
+			// SHOW subscription modal
+			function showPremiumModal() {
+				const modalEl = document.getElementById('premiumModal');
+				if (!modalEl) {
+					alert(
+						'Free plan limit reached: 20 transactions.\nUpgrade to add more.'
+					);
+					return;
+				}
+				// Bootstrap present?
+				if (window.bootstrap && bootstrap.Modal) {
+					const m = bootstrap.Modal.getOrCreateInstance(modalEl, {
+						backdrop: 'static',
+					});
+					m.show();
+				} else {
+					// Simple fallback
+					modalEl.style.display = 'block';
+					modalEl.classList.add('show');
+					modalEl.setAttribute('aria-modal', 'true');
+					modalEl.removeAttribute('aria-hidden');
+				}
+			}
+
+			// Save entry (with cap modal)
 			function saveEntry() {
 				let category = document.getElementById('categoryDropdown').value || '';
 				let account = document.getElementById('accountDropdown').value || '';
@@ -642,7 +789,15 @@
 					}
 				}
 
+				// FREE limit → show modal instead of disabling UI
+				const currentCount = getStoredTransactions().length;
+				if (currentCount >= FREE_MAX_TRANSACTIONS) {
+					showPremiumModal();
+					return;
+				}
+
 				let entryData = {
+					id: crypto.randomUUID(),
 					type,
 					account,
 					category,
@@ -651,6 +806,7 @@
 					date: new Date().toISOString(),
 				};
 
+				// Apply balances
 				if (type === 'transfer') {
 					const from = account;
 					const to = category;
@@ -667,22 +823,41 @@
 					totalExpenses += currentAmount;
 				}
 
-				addTransactionToStorage(entryData);
-				renderTransaction(entryData);
+				// Persist (race-safe) and render
+				const result = addTransactionToStorage(entryData);
+				if (!result.ok) {
+					// roll back balances if failed
+					if (type === 'income') {
+						totalIncome -= currentAmount;
+						updateAccountBalanceByName(account, -currentAmount);
+					} else if (type === 'expense') {
+						totalExpenses -= currentAmount;
+						updateAccountBalanceByName(account, currentAmount);
+					} else if (type === 'transfer') {
+						updateAccountBalanceByName(entryData.from, currentAmount);
+						updateAccountBalanceByName(entryData.to, -currentAmount);
+					}
+					showPremiumModal();
+					updateSummary();
+					return;
+				}
+
+				renderTransaction(entryData, result.index);
 				updateSummary();
 				cancelEntry(type);
 			}
 
 			// Delete transaction
 			function deleteEntry(entry) {
-				const idx = parseInt(entry.dataset.index);
-				const amount = parseFloat(entry.dataset.amount || '0');
-				const type = entry.dataset.type;
-				const account = entry.dataset.account;
-
 				if (!confirm('Are you sure you want to delete this transaction?'))
 					return;
 
+				const amount = parseFloat(entry.dataset.amount || '0');
+				const type = entry.dataset.type;
+				const account = entry.dataset.account;
+				const id = entry.dataset.id || null;
+
+				// Adjust balances
 				if (type === 'income') {
 					totalIncome -= amount;
 					updateAccountBalanceByName(account, -amount);
@@ -694,9 +869,28 @@
 					updateAccountBalanceByName(entry.dataset.to, -amount);
 				}
 
-				deleteTransactionFromStorage(idx);
+				// Remove from storage
+				const transactions = getStoredTransactions();
+				let indexToDelete = -1;
+				if (id) indexToDelete = transactions.findIndex((t) => t.id === id);
+				if (indexToDelete === -1) indexToDelete = parseInt(entry.dataset.index);
+				if (indexToDelete >= 0) {
+					transactions.splice(indexToDelete, 1);
+					saveStoredTransactions(transactions);
+				}
+
+				// Remove from DOM + update UI
 				entry.remove();
 				updateSummary();
+
+				// Reindex fallback indices (we prepend)
+				const list = document.getElementById('expense-list');
+				const items = Array.from(
+					list.querySelectorAll('.entry-item')
+				).reverse();
+				items.forEach((el, i) => {
+					el.dataset.index = i;
+				});
 			}
 
 			// Cancel entry
@@ -711,7 +905,7 @@
 				document.getElementById('categoryDropdown').classList.remove('active');
 			}
 
-			// Update summary
+			// Summary
 			function updateSummary() {
 				document.getElementById('total-income').textContent =
 					'₱' +
@@ -733,7 +927,7 @@
 					});
 			}
 
-			// Set UI for transaction type
+			// Type UI
 			function setTypeUI(type) {
 				resetAccountOptions(type);
 				updateCategoryOptions(type);
@@ -748,7 +942,7 @@
 				}
 			}
 
-			// Initialize
+			// Init
 			document.addEventListener('DOMContentLoaded', function () {
 				resetAccountOptions('expense');
 				updateCategoryOptions('expense');
@@ -756,16 +950,28 @@
 				handleDropdownColor('accountDropdown');
 				handleDropdownColor('categoryDropdown');
 
-				const transactions = getStoredTransactions();
+				// Load + ensure IDs for legacy items
+				let transactions = getStoredTransactions();
+				let mutated = false;
+				transactions = transactions.map((t) => {
+					if (!t.id) {
+						t.id = crypto.randomUUID();
+						mutated = true;
+					}
+					return t;
+				});
+				if (mutated) saveStoredTransactions(transactions);
+
 				document.getElementById('expense-list').innerHTML = '';
 
 				transactions.forEach((t, index) => {
 					renderTransaction(t, index);
-					if (t.type === 'income') totalIncome += t.amount;
-					else if (t.type === 'expense') totalExpenses += t.amount;
+					if (t.type === 'income') totalIncome += Number(t.amount) || 0;
+					else if (t.type === 'expense') totalExpenses += Number(t.amount) || 0;
 				});
 				updateSummary();
 
+				// Radio change
 				document
 					.querySelectorAll('input[name="transactionType"]')
 					.forEach((radio) => {
@@ -782,6 +988,15 @@
 				setTypeUI(
 					document.querySelector('input[name="transactionType"]:checked').value
 				);
+
+				// Modal button: Smart Wallet → go to checkout/transaction page
+				const chooseSmart = document.getElementById('chooseSmartWallet');
+				if (chooseSmart) {
+					chooseSmart.addEventListener('click', function () {
+						// You can set any pre-selection flags here if needed
+						window.location.href = 'transaction.html'; // Smart Wallet checkout
+					});
+				}
 			});
 		</script>
 

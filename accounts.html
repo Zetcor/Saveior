@@ -27,6 +27,7 @@
 		></script>
 		<link rel="stylesheet" href="styles.css" />
 		<link rel="stylesheet" href="accounts.css" />
+		<link rel="stylesheet" href="plan.css" />
 	</head>
 	<body>
 		<div class="rounded-container">
@@ -265,24 +266,135 @@
 			</div>
 		</div>
 
+		<!-- Premium Plans Modal -->
+		<div
+			class="modal fade premium-modal"
+			id="premiumModal"
+			tabindex="-1"
+			aria-hidden="true"
+			aria-labelledby="premiumModalLabel"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Hero -->
+					<div class="premium-hero">
+						<h5 id="premiumModalLabel">Free plan limit reached</h5>
+						<p>
+							You’ve hit the maximum of <strong>3 accounts</strong> on the Free
+							plan. Choose a plan to continue.
+						</p>
+					</div>
+
+					<!-- Plans -->
+					<div class="modal-body">
+						<div class="plan-grid">
+							<!-- Smart Wallet (Active) -->
+							<div class="plan-card ribbon">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">Smart Wallet</h6>
+									<span class="plan-badge">Popular</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Custom categories</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Daily to annual filters</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Up to 5 accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Up to 10 savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Budget reminders/alerts</span>
+									</li>
+								</ul>
+								<button
+									id="chooseSmartWallet"
+									class="btn plan-cta btn-premium-primary w-100"
+									type="button"
+								>
+									Choose Smart Wallet
+								</button>
+							</div>
+
+							<!-- The Vault (Coming soon) -->
+							<div class="plan-card">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">The Vault</h6>
+									<span class="plan-badge">Pro</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Unlimited accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Unlimited savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>All filters available (daily → annual)</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Advanced analytics</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Personalized financial insights</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Best for advanced users</span>
+									</li>
+								</ul>
+								<button
+									class="btn plan-cta btn-premium-ghost w-100"
+									type="button"
+									disabled
+									title="Coming soon"
+								>
+									Coming soon
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<div class="modal-footer modal-footer-muted">
+						<button
+							type="button"
+							class="btn btn-outline-secondary"
+							data-bs-dismiss="modal"
+						>
+							Maybe later
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script>
 			const ACCOUNTS_KEY = 'saveior.accounts';
 			const PREMIUM_KEY = 'isPremiumUser';
 
-			// ---- Plan rules ----
 			const isPremium = () => localStorage.getItem(PREMIUM_KEY) === 'true';
 			const maxAccounts = () => (isPremium() ? 5 : 3);
 
-			// ---- State ----
 			let currentAccountId = null;
-			let fundAction = null; // 'add' | 'withdraw'
+			let fundAction = null;
 
-			// ---- UI refs (ensure these IDs exist in your HTML) ----
 			const accountsList = document.getElementById('accountsList');
 			const emptyState = document.getElementById('emptyState');
 			const addBtn = document.getElementById('openAddAccountModal');
 
-			// ---- Storage helpers ----
 			function ensureDefaults() {
 				const current = JSON.parse(
 					localStorage.getItem(ACCOUNTS_KEY) || 'null'
@@ -296,16 +408,13 @@
 				];
 				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(defaults));
 			}
-
 			function getAccounts() {
 				return JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
 			}
-
 			function setAccounts(list) {
 				localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(list));
 			}
 
-			// ---- UI helpers ----
 			function peso(n) {
 				return (
 					'₱' +
@@ -315,7 +424,6 @@
 					})
 				);
 			}
-
 			function iconFor(name) {
 				const t = (name || '').toLowerCase();
 				if (t.includes('credit'))
@@ -326,35 +434,39 @@
 				return '<i class="fa-solid fa-wallet"></i>';
 			}
 
-			// ---- Add button behavior (never disabled; alert at cap) ----
+			function showPremiumModal() {
+				const el = document.getElementById('premiumModal');
+				if (!el)
+					return alert(
+						'Free plan limit reached. Upgrade to add more accounts.'
+					);
+				if (window.bootstrap?.Modal) {
+					bootstrap.Modal.getOrCreateInstance(el, {
+						backdrop: 'static',
+					}).show();
+				} else {
+					el.style.display = 'block';
+					el.classList.add('show');
+					el.setAttribute('aria-modal', 'true');
+					el.removeAttribute('aria-hidden');
+				}
+			}
+
 			function updateAddAccountControl() {
 				const count = getAccounts().length;
 
-				// Default: open modal
 				addBtn.disabled = false;
 				addBtn.onclick = null;
 				addBtn.setAttribute('data-bs-toggle', 'modal');
 				addBtn.setAttribute('data-bs-target', '#accountModal');
 
-				// If at cap -> show alert instead of opening modal
 				if (count >= maxAccounts()) {
 					addBtn.removeAttribute('data-bs-toggle');
 					addBtn.removeAttribute('data-bs-target');
-					addBtn.onclick = () => {
-						if (isPremium()) {
-							alert(
-								`You have reached the maximum of ${maxAccounts()} accounts (Premium).`
-							);
-						} else {
-							alert(
-								`Free users can create up to ${maxAccounts()} accounts. Upgrade to Premium to add more.`
-							);
-						}
-					};
+					addBtn.onclick = () => showPremiumModal();
 				}
 			}
 
-			// ---- Render accounts grid ----
 			function render() {
 				const accounts = getAccounts();
 				accountsList.innerHTML = '';
@@ -379,23 +491,13 @@
 				updateAddAccountControl();
 			}
 
-			// ---- Modals: Add Account ----
 			document.getElementById('accountForm').addEventListener('submit', (e) => {
 				e.preventDefault();
 
 				const accounts = getAccounts();
 
-				// Hard cap check (can’t bypass with dev tools)
 				if (accounts.length >= maxAccounts()) {
-					if (isPremium()) {
-						alert(
-							`You have reached the maximum of ${maxAccounts()} accounts (Premium).`
-						);
-					} else {
-						alert(
-							`Free users can create up to ${maxAccounts()} accounts. Upgrade to Premium to add more.`
-						);
-					}
+					showPremiumModal();
 					return;
 				}
 
@@ -422,7 +524,6 @@
 				render();
 			});
 
-			// ---- Account Detail Modal (view / add / withdraw / delete) ----
 			function openAccountDetail(id) {
 				currentAccountId = id;
 				const accounts = getAccounts();
@@ -459,7 +560,7 @@
 					bootstrap.Modal.getInstance(
 						document.getElementById('accountDetailModal')
 					).hide();
-					render(); // After delete, if below cap, Add opens modal again
+					render();
 				};
 
 				bootstrap.Modal.getOrCreateInstance(
@@ -467,7 +568,6 @@
 				).show();
 			}
 
-			// ---- Add/Withdraw funds ----
 			document.getElementById('fundForm').addEventListener('submit', (e) => {
 				e.preventDefault();
 				const amt = parseFloat(document.getElementById('fundAmount').value);
@@ -489,11 +589,18 @@
 				render();
 			});
 
-			// ---- Init ----
-			ensureDefaults();
-			render();
+			document.addEventListener('DOMContentLoaded', () => {
+				ensureDefaults();
+				render();
 
-			// ---- Sync across tabs & when window regains focus ----
+				const smartBtn = document.getElementById('chooseSmartWallet');
+				if (smartBtn) {
+					smartBtn.addEventListener('click', () => {
+						window.location.href = 'transaction.html';
+					});
+				}
+			});
+
 			window.addEventListener('focus', render);
 			window.addEventListener('storage', (e) => {
 				if (e.key === ACCOUNTS_KEY) render();
