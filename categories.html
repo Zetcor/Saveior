@@ -1,628 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Saveior | Categories</title>
-		<link
-			rel="icon"
-			href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-			type="image/x-icon"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-		/>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-		/>
-		<script
-			src="https://kit.fontawesome.com/203f7bcb2a.js"
-			crossorigin="anonymous"
-		></script>
-		<link rel="stylesheet" href="styles.css" />
-		<link rel="stylesheet" href="accounts.css" />
-		<link rel="stylesheet" href="plan.css" />
-	</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saveior | Categories</title>
+    <link
+      rel="icon"
+      href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/203f7bcb2a.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="accounts.css" />
+    <link rel="stylesheet" href="plan.css" />
+  </head>
 
-	<body>
-		<div class="rounded-container">
-			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
-				<div class="navbar-container">
-					<a class="nav-logo text-decoration-none fs-4" href="index.html">
-						<img
-							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-							alt="Logo"
-						/>
-						Saveior
-					</a>
-				</div>
+  <body>
+    <div class="rounded-container">
+      <nav class="navbar navbar-expand-lg container-fluid sticky-top">
+        <div class="navbar-container">
+          <a class="nav-logo text-decoration-none fs-4" href="index.html">
+            <img
+              src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+              alt="Logo"
+            />
+            Saveior
+          </a>
+        </div>
 
-				<button
-					class="navbar-toggler d-lg-none"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
+        <button
+          class="navbar-toggler d-lg-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul
-						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
-					>
-						<li class="nav-item">
-							<a class="nav-link text-light px-4" href="index.html"
-								>Dashboard</a
-							>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light px-4" href="records.html"
-								>Records</a
-							>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light px-4" href="accounts.html"
-								>Accounts</a
-							>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active px-4" href="categories.html"
-								>Categories</a
-							>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light px-4" href="savings.html"
-								>Savings</a
-							>
-						</li>
-					</ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul
+            class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
+          >
+            <li class="nav-item">
+              <a class="nav-link text-light px-4" href="index.html"
+                >Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light px-4" href="records.html"
+                >Records</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light px-4" href="budget.html">Budgets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light px-4" href="accounts.html"
+                >Accounts</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active px-4" href="categories.html"
+                >Categories</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light px-4" href="goals.html">Goals</a>
+            </li>
+          </ul>
 
-					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
-						<div
-							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
-						>
-							<button class="icon-btn d-none d-lg-flex">
-								<i class="fa-solid fa-gear"></i>
-							</button>
-							<button class="icon-btn d-none d-lg-flex">
-								<i class="fa-solid fa-user"></i>
-							</button>
-							<button
-								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
-								id="goPremiumBtn"
-							>
-								<i class="bi bi-star-fill me-2"></i> Go Premium
-							</button>
-						</div>
-					</div>
-				</div>
-			</nav>
+          <div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
+            <div
+              class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
+            >
+              <button class="icon-btn d-none d-lg-flex">
+                <i class="fa-solid fa-user"></i>
+              </button>
+              <button
+                class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+                id="goPremiumBtn"
+              >
+                <i class="bi bi-star-fill me-2"></i> Go Premium
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
 
-			<!-- Content -->
-			<div class="tracker-container" style="margin-top: 40px">
-				<div class="calculator-container" style="flex: 1 1 100%">
-					<div class="d-flex justify-content-between align-items-center mb-3">
-						<h4 class="m-0 fw-bold">Categories</h4>
-						<div class="accounts-toolbar d-flex gap-2">
-							<button
-								id="openAddCategoryModal"
-								class="btn btn-success"
-								data-bs-toggle="modal"
-								data-bs-target="#categoryModal"
-							>
-								<i class="bi bi-plus-circle"></i> Add Category
-							</button>
-						</div>
-					</div>
+      <!-- Content -->
+      <div class="tracker-container" style="margin-top: 40px">
+        <div class="calculator-container" style="flex: 1 1 100%">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="m-0 fw-bold">Categories</h4>
+            <div class="accounts-toolbar d-flex gap-2">
+              <button
+                id="openAddCategoryModal"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#categoryModal"
+              >
+                <i class="bi bi-plus-circle"></i> Add Category
+              </button>
+            </div>
+          </div>
 
-					<!-- Expense Categories -->
-					<h5 class="fw-semibold mt-4 mb-3 text-danger">
-						<i class="bi bi-arrow-down-circle"></i> Expense Categories
-					</h5>
-					<div id="expenseCategoriesList" class="row g-3"></div>
+          <!-- Expense Categories -->
+          <h5 class="fw-semibold mt-4 mb-3 text-danger">
+            <i class="bi bi-arrow-down-circle"></i> Expense Categories
+          </h5>
+          <div id="expenseCategoriesList" class="row g-3"></div>
 
-					<!-- Expense Empty State -->
-					<div
-						id="emptyExpenseState"
-						class="empty-state d-none text-center mt-3"
-					>
-						<div class="mb-1">
-							<i class="bi bi-wallet2"></i> No expense categories yet.
-						</div>
-						<div class="mb-2">
-							Create your first expense category to start tracking spending.
-						</div>
-					</div>
+          <!-- Expense Empty State -->
+          <div
+            id="emptyExpenseState"
+            class="empty-state d-none text-center mt-3"
+          >
+            <div class="mb-1">
+              <i class="bi bi-wallet2"></i> No expense categories yet.
+            </div>
+            <div class="mb-2">
+              Create your first expense category to start tracking spending.
+            </div>
+          </div>
 
-					<!-- Income Categories -->
-					<h5 class="fw-semibold mt-4 mb-3 text-success">
-						<i class="bi bi-arrow-up-circle"></i> Income Categories
-					</h5>
-					<div id="incomeCategoriesList" class="row g-3"></div>
+          <!-- Income Categories -->
+          <h5 class="fw-semibold mt-4 mb-3 text-success">
+            <i class="bi bi-arrow-up-circle"></i> Savings Categories
+          </h5>
+          <div id="incomeCategoriesList" class="row g-3"></div>
 
-					<!-- Income Empty State -->
-					<div
-						id="emptyIncomeState"
-						class="empty-state d-none text-center mt-3"
-					>
-						<div class="mb-1">
-							<i class="bi bi-wallet2"></i> No income categories yet.
-						</div>
-						<div class="mb-2">
-							Create your first income category to start tracking earnings.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+          <!-- Income Empty State -->
+          <div
+            id="emptyIncomeState"
+            class="empty-state d-none text-center mt-3"
+          >
+            <div class="mb-1">
+              <i class="bi bi-wallet2"></i> No savings categories yet.
+            </div>
+            <div class="mb-2">
+              Create your first savings category to start tracking earnings.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<!-- Add Category Modal -->
-		<div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<form id="categoryForm" class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Add Category</h5>
-						<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
-					</div>
-					<div class="modal-body">
-						<div class="mb-3">
-							<label class="form-label">Category Name</label>
-							<input
-								type="text"
-								class="form-control"
-								id="newCategoryName"
-								placeholder="e.g., Groceries"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label class="form-label">Category Type</label>
-							<div class="d-flex gap-3">
-								<label>
-									<input
-										type="radio"
-										name="categoryType"
-										value="Expense"
-										checked
-									/>
-									Expense
-								</label>
-								<label>
-									<input type="radio" name="categoryType" value="Income" />
-									Income
-								</label>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-light" data-bs-dismiss="modal" type="button">
-							Cancel
-						</button>
-						<button class="btn btn-success" type="submit">
-							<i class="bi bi-check2-circle"></i> Save
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <form id="categoryForm" class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Category</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Category Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="newCategoryName"
+                placeholder="e.g., Groceries"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Category Type</label>
+              <div class="d-flex gap-3">
+                <label>
+                  <input
+                    type="radio"
+                    name="categoryType"
+                    value="Expense"
+                    checked
+                  />
+                  Expense
+                </label>
+                <label>
+                  <input type="radio" name="categoryType" value="Income" />
+                  Savings
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" data-bs-dismiss="modal" type="button">
+              Cancel
+            </button>
+            <button class="btn btn-success" type="submit">
+              <i class="bi bi-check2-circle"></i> Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-		<!-- Category Detail Modal -->
-		<div
-			class="modal fade"
-			id="categoryDetailModal"
-			tabindex="-1"
-			aria-hidden="true"
-		>
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="categoryDetailTitle">
-							Category Details
-						</h5>
-						<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-						></button>
-					</div>
-					<div class="modal-body text-center">
-						<input
-							type="text"
-							id="renameCategoryInput"
-							class="form-control text-center mb-3"
-							placeholder="Rename category"
-						/>
-						<button id="renameCategoryBtn" class="btn btn-success w-100 mb-2">
-							<i class="bi bi-pencil-square"></i> Rename
-						</button>
-						<button id="deleteCategoryBtn" class="btn btn-outline-danger w-100">
-							<i class="bi bi-trash3"></i> Delete
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+    <!-- Category Detail Modal -->
+    <div
+      class="modal fade"
+      id="categoryDetailModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="categoryDetailTitle">
+              Category Details
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <input
+              type="text"
+              id="renameCategoryInput"
+              class="form-control text-center mb-3"
+              placeholder="Rename category"
+            />
+            <button id="renameCategoryBtn" class="btn btn-success w-100 mb-2">
+              <i class="bi bi-pencil-square"></i> Rename
+            </button>
+            <button id="deleteCategoryBtn" class="btn btn-outline-danger w-100">
+              <i class="bi bi-trash3"></i> Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<!-- Premium Plans Modal -->
-		<div
-			class="modal fade premium-modal"
-			id="premiumModal"
-			tabindex="-1"
-			aria-hidden="true"
-			aria-labelledby="premiumModalLabel"
-		>
-			<div class="modal-dialog modal-dialog-centered modal-lg">
-				<div class="modal-content">
-					<!-- Hero -->
-					<div class="premium-hero">
-						<h5 id="premiumModalLabel">Free plan limit reached</h5>
-						<p>
-							You’ve hit the maximum of <strong>5 categories</strong> on the
-							Free plan. Choose a plan to continue.
-						</p>
-					</div>
+    <!-- Premium Plans Modal -->
+    <div
+      class="modal fade premium-modal"
+      id="premiumModal"
+      tabindex="-1"
+      aria-hidden="true"
+      aria-labelledby="premiumModalLabel"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <!-- Hero -->
+          <div class="premium-hero">
+            <h5 id="premiumModalLabel">Free plan limit reached</h5>
+            <p>
+              You’ve hit the maximum of <strong>5 categories</strong> on the
+              Free plan. Choose a plan to continue.
+            </p>
+          </div>
 
-					<!-- Plans -->
-					<div class="modal-body">
-						<div class="plan-grid">
-							<!-- Smart Wallet (Active) -->
-							<div class="plan-card ribbon">
-								<div class="plan-header">
-									<h6 class="plan-title mb-0">Smart Wallet</h6>
-									<span class="plan-badge">Popular</span>
-								</div>
-								<ul class="plan-features">
-									<li><span class="check">✓</span><span>No ads</span></li>
-									<li>
-										<span class="check">✓</span><span>Custom categories</span>
-									</li>
-									<li>
-										<span class="check">✓</span
-										><span>Daily to annual filters</span>
-									</li>
-									<li>
-										<span class="check">✓</span><span>Up to 5 accounts</span>
-									</li>
-									<li>
-										<span class="check">✓</span
-										><span>Up to 10 savings goals</span>
-									</li>
-									<li>
-										<span class="check">✓</span
-										><span>Budget reminders/alerts</span>
-									</li>
-								</ul>
-								<button
-									id="chooseSmartWallet"
-									class="btn plan-cta btn-premium-primary w-100"
-									type="button"
-								>
-									Choose Smart Wallet
-								</button>
-							</div>
+          <!-- Plans -->
+          <div class="modal-body">
+            <div class="plan-grid">
+              <!-- Smart Wallet (Active) -->
+              <div class="plan-card ribbon">
+                <div class="plan-header">
+                  <h6 class="plan-title mb-0">Smart Wallet</h6>
+                  <span class="plan-badge">Popular</span>
+                </div>
+                <ul class="plan-features">
+                  <li><span class="check">✓</span><span>No ads</span></li>
+                  <li>
+                    <span class="check">✓</span><span>Custom categories</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span
+                    ><span>Daily to annual filters</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span><span>Up to 5 accounts</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span
+                    ><span>Up to 10 savings goals</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span
+                    ><span>Budget reminders/alerts</span>
+                  </li>
+                </ul>
+                <button
+                  id="chooseSmartWallet"
+                  class="btn plan-cta btn-premium-primary w-100"
+                  type="button"
+                >
+                  Choose Smart Wallet
+                </button>
+              </div>
 
-							<!-- The Vault (Coming soon) -->
-							<div class="plan-card">
-								<div class="plan-header">
-									<h6 class="plan-title mb-0">The Vault</h6>
-									<span class="plan-badge">Pro</span>
-								</div>
-								<ul class="plan-features">
-									<li><span class="check">✓</span><span>No ads</span></li>
-									<li>
-										<span class="check">✓</span><span>Unlimited accounts</span>
-									</li>
-									<li>
-										<span class="check">✓</span
-										><span>Unlimited savings goals</span>
-									</li>
-									<li>
-										<span class="check">✓</span
-										><span>All filters available (daily → annual)</span>
-									</li>
-									<li>
-										<span class="check">✓</span><span>Advanced analytics</span>
-									</li>
-									<li>
-										<span class="check">✓</span
-										><span>Personalized financial insights</span>
-									</li>
-									<li>
-										<span class="check">✓</span
-										><span>Best for advanced users</span>
-									</li>
-								</ul>
-								<button
-									class="btn plan-cta btn-premium-ghost w-100"
-									type="button"
-									disabled
-									title="Coming soon"
-								>
-									Coming soon
-								</button>
-							</div>
-						</div>
-					</div>
+              <!-- The Vault (Coming soon) -->
+              <div class="plan-card">
+                <div class="plan-header">
+                  <h6 class="plan-title mb-0">The Vault</h6>
+                  <span class="plan-badge">Pro</span>
+                </div>
+                <ul class="plan-features">
+                  <li><span class="check">✓</span><span>No ads</span></li>
+                  <li>
+                    <span class="check">✓</span><span>Unlimited accounts</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span
+                    ><span>Unlimited savings goals</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span
+                    ><span>All filters available (daily → annual)</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span><span>Advanced analytics</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span
+                    ><span>Personalized financial insights</span>
+                  </li>
+                  <li>
+                    <span class="check">✓</span
+                    ><span>Best for advanced users</span>
+                  </li>
+                </ul>
+                <button
+                  class="btn plan-cta btn-premium-ghost w-100"
+                  type="button"
+                  disabled
+                  title="Coming soon"
+                >
+                  Coming soon
+                </button>
+              </div>
+            </div>
+          </div>
 
-					<!-- Footer -->
-					<div class="modal-footer modal-footer-muted">
-						<button
-							type="button"
-							class="btn btn-outline-secondary"
-							data-bs-dismiss="modal"
-						>
-							Maybe later
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+          <!-- Footer -->
+          <div class="modal-footer modal-footer-muted">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Maybe later
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<script>
-			const CATEGORIES_KEY = 'saveior.categories';
-			const PREMIUM_KEY = 'isPremiumUser';
+    <script>
+      const CATEGORIES_KEY = "saveior.categories";
+      const PREMIUM_KEY = "isPremiumUser";
 
-			const FREE_MAX_PER_TYPE = 5;
-			const isPremium = () => localStorage.getItem(PREMIUM_KEY) === 'true';
-			const maxPerType = () => (isPremium() ? 8 : FREE_MAX_PER_TYPE);
+      const FREE_MAX_PER_TYPE = 5;
+      const isPremium = () => localStorage.getItem(PREMIUM_KEY) === "true";
+      const maxPerType = () => (isPremium() ? 8 : FREE_MAX_PER_TYPE);
 
-			const expenseList = document.getElementById('expenseCategoriesList');
-			const incomeList = document.getElementById('incomeCategoriesList');
-			const emptyExpenseState = document.getElementById('emptyExpenseState');
-			const emptyIncomeState = document.getElementById('emptyIncomeState');
+      const expenseList = document.getElementById("expenseCategoriesList");
+      const incomeList = document.getElementById("incomeCategoriesList");
+      const emptyExpenseState = document.getElementById("emptyExpenseState");
+      const emptyIncomeState = document.getElementById("emptyIncomeState");
 
-			let currentCategory = null;
+      let currentCategory = null;
 
-			function ensureCategoryDefaults() {
-				const current = JSON.parse(
-					localStorage.getItem(CATEGORIES_KEY) || 'null'
-				);
-				if (current && current.expense && current.income) return;
+      function ensureCategoryDefaults() {
+        const current = JSON.parse(
+          localStorage.getItem(CATEGORIES_KEY) || "null"
+        );
+        if (current && current.expense && current.income) return;
 
-				const defaults = {
-					expense: [
-						{ id: crypto.randomUUID(), name: 'Food', type: 'Expense' },
-						{
-							id: crypto.randomUUID(),
-							name: 'Transportation',
-							type: 'Expense',
-						},
-						{ id: crypto.randomUUID(), name: 'Bills', type: 'Expense' },
-					],
-					income: [
-						{ id: crypto.randomUUID(), name: 'Salary', type: 'Income' },
-						{ id: crypto.randomUUID(), name: 'Allowance', type: 'Income' },
-						{ id: crypto.randomUUID(), name: 'Part-time', type: 'Income' },
-					],
-				};
-				localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaults));
-			}
+        const defaults = {
+          expense: [
+            { id: crypto.randomUUID(), name: "Food", type: "Expense" },
+            {
+              id: crypto.randomUUID(),
+              name: "Transportation",
+              type: "Expense",
+            },
+            { id: crypto.randomUUID(), name: "Bills", type: "Expense" },
+          ],
+          income: [
+            { id: crypto.randomUUID(), name: "Salary", type: "Income" },
+            { id: crypto.randomUUID(), name: "Allowance", type: "Income" },
+            { id: crypto.randomUUID(), name: "Part-time", type: "Income" },
+          ],
+        };
+        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(defaults));
+      }
 
-			function getCategories() {
-				return JSON.parse(localStorage.getItem(CATEGORIES_KEY));
-			}
+      function getCategories() {
+        return JSON.parse(localStorage.getItem(CATEGORIES_KEY));
+      }
 
-			function setCategories(data) {
-				localStorage.setItem(CATEGORIES_KEY, JSON.stringify(data));
-			}
+      function setCategories(data) {
+        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(data));
+      }
 
-			function countPerType() {
-				const { expense, income } = getCategories();
-				return { expense: expense.length, income: income.length };
-			}
+      function countPerType() {
+        const { expense, income } = getCategories();
+        return { expense: expense.length, income: income.length };
+      }
 
-			function selectedType() {
-				return (
-					document.querySelector('input[name="categoryType"]:checked')?.value ||
-					'Expense'
-				);
-			}
+      function selectedType() {
+        return (
+          document.querySelector('input[name="categoryType"]:checked')?.value ||
+          "Expense"
+        );
+      }
 
-			function atCapFor(type) {
-				const { expense, income } = countPerType();
-				const cap = maxPerType();
-				if (type === 'Expense') return expense >= cap;
-				return income >= cap;
-			}
+      function atCapFor(type) {
+        const { expense, income } = countPerType();
+        const cap = maxPerType();
+        if (type === "Expense") return expense >= cap;
+        return income >= cap;
+      }
 
-			function showPremiumModal(messageOverride) {
-				if (messageOverride) {
-					const labelEl = document.querySelector(
-						'#premiumModal .premium-hero p'
-					);
-					if (labelEl) labelEl.innerHTML = messageOverride;
-				}
-				const el = document.getElementById('premiumModal');
-				if (!el) {
-					alert('Free plan limit reached. Upgrade to add more categories.');
-					return;
-				}
-				if (window.bootstrap?.Modal) {
-					bootstrap.Modal.getOrCreateInstance(el, {
-						backdrop: 'static',
-					}).show();
-				} else {
-					el.style.display = 'block';
-					el.classList.add('show');
-					el.setAttribute('aria-modal', 'true');
-					el.removeAttribute('aria-hidden');
-				}
-			}
+      function showPremiumModal(messageOverride) {
+        if (messageOverride) {
+          const labelEl = document.querySelector(
+            "#premiumModal .premium-hero p"
+          );
+          if (labelEl) labelEl.innerHTML = messageOverride;
+        }
+        const el = document.getElementById("premiumModal");
+        if (!el) {
+          alert("Free plan limit reached. Upgrade to add more categories.");
+          return;
+        }
+        if (window.bootstrap?.Modal) {
+          bootstrap.Modal.getOrCreateInstance(el, {
+            backdrop: "static",
+          }).show();
+        } else {
+          el.style.display = "block";
+          el.classList.add("show");
+          el.setAttribute("aria-modal", "true");
+          el.removeAttribute("aria-hidden");
+        }
+      }
 
-			function renderCategories() {
-				const { expense, income } = getCategories();
-				expenseList.innerHTML = '';
-				incomeList.innerHTML = '';
+      function renderCategories() {
+        const { expense, income } = getCategories();
+        expenseList.innerHTML = "";
+        incomeList.innerHTML = "";
 
-				emptyExpenseState.classList.toggle('d-none', expense.length > 0);
-				emptyIncomeState.classList.toggle('d-none', income.length > 0);
+        emptyExpenseState.classList.toggle("d-none", expense.length > 0);
+        emptyIncomeState.classList.toggle("d-none", income.length > 0);
 
-				expense.forEach((cat) => {
-					const col = document.createElement('div');
-					col.className = 'col-md-4';
-					col.innerHTML = `
+        expense.forEach((cat) => {
+          const col = document.createElement("div");
+          col.className = "col-md-4";
+          col.innerHTML = `
         <div class="goal-card p-3 text-center bg-light" style="cursor:pointer;"
              data-id="${cat.id}" data-type="Expense">
           <i class="bi bi-tag-fill text-danger"></i>
           <div class="fw-semibold mt-2">${cat.name}</div>
         </div>`;
-					col
-						.querySelector('.goal-card')
-						.addEventListener('click', () => openCategoryDetail(cat));
-					expenseList.appendChild(col);
-				});
+          col
+            .querySelector(".goal-card")
+            .addEventListener("click", () => openCategoryDetail(cat));
+          expenseList.appendChild(col);
+        });
 
-				income.forEach((cat) => {
-					const col = document.createElement('div');
-					col.className = 'col-md-4';
-					col.innerHTML = `
+        income.forEach((cat) => {
+          const col = document.createElement("div");
+          col.className = "col-md-4";
+          col.innerHTML = `
         <div class="goal-card p-3 text-center bg-light" style="cursor:pointer;"
              data-id="${cat.id}" data-type="Income">
           <i class="bi bi-tag-fill text-success"></i>
           <div class="fw-semibold mt-2">${cat.name}</div>
         </div>`;
-					col
-						.querySelector('.goal-card')
-						.addEventListener('click', () => openCategoryDetail(cat));
-					incomeList.appendChild(col);
-				});
-			}
+          col
+            .querySelector(".goal-card")
+            .addEventListener("click", () => openCategoryDetail(cat));
+          incomeList.appendChild(col);
+        });
+      }
 
-			function openCategoryDetail(cat) {
-				currentCategory = cat;
-				document.getElementById(
-					'categoryDetailTitle'
-				).textContent = `${cat.name} (${cat.type})`;
-				document.getElementById('renameCategoryInput').value = cat.name;
-				bootstrap.Modal.getOrCreateInstance(
-					document.getElementById('categoryDetailModal')
-				).show();
-			}
+      function openCategoryDetail(cat) {
+        currentCategory = cat;
+        document.getElementById(
+          "categoryDetailTitle"
+        ).textContent = `${cat.name} (${cat.type})`;
+        document.getElementById("renameCategoryInput").value = cat.name;
+        bootstrap.Modal.getOrCreateInstance(
+          document.getElementById("categoryDetailModal")
+        ).show();
+      }
 
-			document
-				.getElementById('renameCategoryBtn')
-				.addEventListener('click', () => {
-					const newName = document
-						.getElementById('renameCategoryInput')
-						.value.trim();
-					if (!newName) return alert('Enter a category name.');
+      document
+        .getElementById("renameCategoryBtn")
+        .addEventListener("click", () => {
+          const newName = document
+            .getElementById("renameCategoryInput")
+            .value.trim();
+          if (!newName) return alert("Enter a category name.");
 
-					const categories = getCategories();
-					const listKey =
-						currentCategory.type === 'Expense' ? 'expense' : 'income';
+          const categories = getCategories();
+          const listKey =
+            currentCategory.type === "Expense" ? "expense" : "income";
 
-					if (
-						categories[listKey].some(
-							(c) =>
-								c.id !== currentCategory.id &&
-								c.name.toLowerCase() === newName.toLowerCase()
-						)
-					) {
-						alert(`${currentCategory.type} category already exists.`);
-						return;
-					}
+          if (
+            categories[listKey].some(
+              (c) =>
+                c.id !== currentCategory.id &&
+                c.name.toLowerCase() === newName.toLowerCase()
+            )
+          ) {
+            alert(`${currentCategory.type} category already exists.`);
+            return;
+          }
 
-					const cat = categories[listKey].find(
-						(c) => c.id === currentCategory.id
-					);
-					if (cat) cat.name = newName;
+          const cat = categories[listKey].find(
+            (c) => c.id === currentCategory.id
+          );
+          if (cat) cat.name = newName;
 
-					setCategories(categories);
-					renderCategories();
-					bootstrap.Modal.getInstance(
-						document.getElementById('categoryDetailModal')
-					).hide();
-				});
+          setCategories(categories);
+          renderCategories();
+          bootstrap.Modal.getInstance(
+            document.getElementById("categoryDetailModal")
+          ).hide();
+        });
 
-			document
-				.getElementById('deleteCategoryBtn')
-				.addEventListener('click', () => {
-					if (!confirm(`Delete "${currentCategory.name}"?`)) return;
+      document
+        .getElementById("deleteCategoryBtn")
+        .addEventListener("click", () => {
+          if (!confirm(`Delete "${currentCategory.name}"?`)) return;
 
-					const categories = getCategories();
-					const key = currentCategory.type === 'Expense' ? 'expense' : 'income';
-					categories[key] = categories[key].filter(
-						(c) => c.id !== currentCategory.id
-					);
+          const categories = getCategories();
+          const key = currentCategory.type === "Expense" ? "expense" : "income";
+          categories[key] = categories[key].filter(
+            (c) => c.id !== currentCategory.id
+          );
 
-					setCategories(categories);
-					renderCategories();
-					bootstrap.Modal.getInstance(
-						document.getElementById('categoryDetailModal')
-					).hide();
-				});
+          setCategories(categories);
+          renderCategories();
+          bootstrap.Modal.getInstance(
+            document.getElementById("categoryDetailModal")
+          ).hide();
+        });
 
-			document
-				.getElementById('categoryForm')
-				.addEventListener('submit', function (e) {
-					e.preventDefault();
-					const name = document.getElementById('newCategoryName').value.trim();
-					const type = selectedType(); // value from radio buttons in the form
+      document
+        .getElementById("categoryForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("newCategoryName").value.trim();
+          const type = selectedType();
 
-					if (!name) return alert('Please enter a category name.');
+          if (!name) return alert("Please enter a category name.");
 
-					const categories = getCategories();
-					const cap = maxPerType();
-					const key = type === 'Expense' ? 'expense' : 'income';
+          const categories = getCategories();
+          const cap = maxPerType();
+          const key = type === "Expense" ? "expense" : "income";
 
-					if (categories[key].length >= cap) {
-						const msg = `You’ve hit the maximum of <strong>${FREE_MAX_PER_TYPE} ${type.toLowerCase()} categories</strong> on the Free plan. Choose a plan to continue.`;
-						showPremiumModal(msg);
-						return;
-					}
+          if (categories[key].length >= cap) {
+            const msg = `You’ve hit the maximum of <strong>${FREE_MAX_PER_TYPE} ${type.toLowerCase()} categories</strong> on the Free plan. Choose a plan to continue.`;
+            showPremiumModal(msg);
+            return;
+          }
 
-					if (
-						categories[key].some(
-							(c) => c.name.toLowerCase() === name.toLowerCase()
-						)
-					) {
-						alert(`${type} category already exists.`);
-						return;
-					}
+          if (
+            categories[key].some(
+              (c) => c.name.toLowerCase() === name.toLowerCase()
+            )
+          ) {
+            alert(`${type} category already exists.`);
+            return;
+          }
 
-					categories[key].push({ id: crypto.randomUUID(), name, type });
-					setCategories(categories);
-					renderCategories();
-					bootstrap.Modal.getInstance(
-						document.getElementById('categoryModal')
-					).hide();
-					e.target.reset();
-				});
+          categories[key].push({ id: crypto.randomUUID(), name, type });
+          setCategories(categories);
+          renderCategories();
+          bootstrap.Modal.getInstance(
+            document.getElementById("categoryModal")
+          ).hide();
+          e.target.reset();
+        });
 
-			document.addEventListener('DOMContentLoaded', () => {
-				ensureCategoryDefaults();
-				renderCategories();
+      document.addEventListener("DOMContentLoaded", () => {
+        ensureCategoryDefaults();
+        renderCategories();
 
-				const smartBtn = document.getElementById('chooseSmartWallet');
-				if (smartBtn) {
-					smartBtn.addEventListener('click', () => {
-						window.location.href = 'transaction.html';
-					});
-				}
-			});
+		const goPremiumBtn = document.getElementById("goPremiumBtn");
+        if (goPremiumBtn) {
+          goPremiumBtn.addEventListener("click", () => {
+            showPremiumModal();
+          });
+        }
 
-			window.addEventListener('storage', (e) => {
-				if (e.key === CATEGORIES_KEY) renderCategories();
-			});
-		</script>
+        const smartBtn = document.getElementById("chooseSmartWallet");
+        if (smartBtn) {
+          smartBtn.addEventListener("click", () => {
+            window.location.href = "transaction.html";
+          });
+        }
+      });
 
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-	</body>
+      window.addEventListener("storage", (e) => {
+        if (e.key === CATEGORIES_KEY) renderCategories();
+      });
+
+	  document.addEventListener("DOMContentLoaded", () => {
+        const goPremiumBtn = document.getElementById("goPremiumBtn");
+        const isPremium = localStorage.getItem("isPremiumUser") === "true";
+
+        if (isPremium && goPremiumBtn) {
+          goPremiumBtn.innerHTML = `<i class="bi bi-star-fill me-2"></i> Premium`;
+          goPremiumBtn.classList.remove("go-premium-btn");
+          goPremiumBtn.classList.add("btn-success");
+          goPremiumBtn.disabled = true;
+          goPremiumBtn.style.backgroundColor = "#FFD700";
+          goPremiumBtn.style.color = "#062807";
+          goPremiumBtn.style.border = "2px solid #062807";
+        } else if (goPremiumBtn) {
+          goPremiumBtn.addEventListener("click", () => {
+            showPremiumModal();
+          });
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
