@@ -923,6 +923,49 @@ Enter number:`);
         });
       }
 
+      document.getElementById("savingForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const amount = parseFloat(
+          document.getElementById("savingAmount").value
+        );
+        const accountId = document.getElementById("savingAccount").value;
+        const note = document.getElementById("savingNote").value.trim();
+
+        if (!(amount > 0)) {
+          alert("Please enter a valid amount.");
+          return;
+        }
+
+        const goals = getGoals();
+        const goal = goals.find((g) => g.id === currentGoalId);
+        if (!goal) return;
+
+        const accounts = getAccounts();
+        const acc = accounts.find((a) => a.id === accountId);
+        if (acc) {
+          acc.balance = Number(acc.balance || 0) - amount;
+          setAccounts(accounts);
+        }
+
+        if (!goal.savings) goal.savings = [];
+        goal.savings.push({
+          id: uid(),
+          amount,
+          accountId,
+          note,
+          createdAt: new Date().toISOString(),
+        });
+
+        setGoals(goals);
+
+        bootstrap.Modal.getInstance(
+          document.getElementById("savingModal")
+        )?.hide();
+        openGoalDetail(goal.id);
+        renderGoals();
+      });
+
       renderGoals();
       window.addEventListener("focus", renderGoals);
       window.addEventListener("storage", (e) => {
@@ -930,7 +973,7 @@ Enter number:`);
       });
 
       document.addEventListener("DOMContentLoaded", () => {
-		const goPremiumBtn = document.getElementById("goPremiumBtn");
+        const goPremiumBtn = document.getElementById("goPremiumBtn");
         if (goPremiumBtn) {
           goPremiumBtn.addEventListener("click", () => {
             showPremiumModal();
@@ -945,7 +988,7 @@ Enter number:`);
         }
       });
 
-	  document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", () => {
         const goPremiumBtn = document.getElementById("goPremiumBtn");
         const isPremium = localStorage.getItem("isPremiumUser") === "true";
 
