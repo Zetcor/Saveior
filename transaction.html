@@ -1,518 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saveior | Checkout</title>
-    <link
-      rel="icon"
-      href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-      type="image/x-icon"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/203f7bcb2a.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="styles.css" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Saveior | Checkout</title>
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+			type="image/x-icon"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<script
+			src="https://kit.fontawesome.com/203f7bcb2a.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="styles.css" />
 
-    <style>
-      body {
-        background-color: var(--white);
-        font-family: "Poppins", sans-serif;
-      }
+		<style>
+			body {
+				background-color: var(--white);
+				font-family: 'Poppins', sans-serif;
+			}
 
-      .checkout-wrapper {
-        max-width: 1100px;
-        margin: 24px auto 48px;
-        padding: 0 20px;
-      }
+			.checkout-wrapper {
+				max-width: 1100px;
+				margin: 24px auto 48px;
+				padding: 0 20px;
+			}
 
-      .checkout-header {
-        text-align: center;
-        margin-bottom: 2rem;
-      }
+			.checkout-header {
+				text-align: center;
+				margin-bottom: 2rem;
+			}
 
-      .checkout-header h2 {
-        color: var(--bluegreen);
-        font-weight: 700;
-        font-size: 1.8rem;
-      }
+			.checkout-header h2 {
+				color: var(--bluegreen);
+				font-weight: 700;
+				font-size: 1.8rem;
+			}
 
-      .checkout-header p {
-        color: var(--darkgreen);
-        font-size: 0.95rem;
-      }
+			.checkout-header p {
+				color: var(--darkgreen);
+				font-size: 0.95rem;
+			}
 
-      .checkout-container {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 2rem;
-      }
+			.checkout-container {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 2rem;
+			}
 
-      .checkout-card {
-        background: #fff;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--gray);
-      }
+			.checkout-card {
+				background: #fff;
+				border-radius: 20px;
+				padding: 30px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+				border: 1px solid var(--gray);
+			}
 
-      .checkout-card h5 {
-        color: var(--darkgreen);
-        font-weight: 700;
-        margin-bottom: 20px;
-      }
+			.checkout-card h5 {
+				color: var(--darkgreen);
+				font-weight: 700;
+				margin-bottom: 20px;
+			}
 
-      .method-btn {
-        background-color: var(--white);
-        border: 1px solid var(--bluegreen);
-        color: var(--bluegreen);
-        padding: 8px 14px;
-        border-radius: 25px;
-        font-weight: 600;
-        transition: 0.3s;
-      }
+			.method-btn {
+				background-color: var(--white);
+				border: 1px solid var(--bluegreen);
+				color: var(--bluegreen);
+				padding: 8px 14px;
+				border-radius: 25px;
+				font-weight: 600;
+				transition: 0.3s;
+			}
 
-      .method-btn.active {
-        background-color: var(--bluegreen);
-        border-color: var(--bluegreen);
-        color: #fff;
-      }
+			.method-btn.active {
+				background-color: var(--bluegreen);
+				border-color: var(--bluegreen);
+				color: #fff;
+			}
 
-      .method-btn:hover {
-        background-color: var(--bluegreen);
-        color: #fff;
-      }
+			.method-btn:hover {
+				background-color: var(--bluegreen);
+				color: #fff;
+			}
 
-      .pay-field {
-        border-radius: 10px;
-        border: 1px solid var(--gray);
-      }
+			.pay-field {
+				border-radius: 10px;
+				border: 1px solid var(--gray);
+			}
 
-      .pay-field:focus {
-        border-color: var(--bluegreen);
-        box-shadow: 0 0 0 0.2rem rgba(22, 66, 74, 0.15);
-      }
+			.pay-field:focus {
+				border-color: var(--bluegreen);
+				box-shadow: 0 0 0 0.2rem rgba(22, 66, 74, 0.15);
+			}
 
-      #payBtn {
-        background-color: var(--bluegreen);
-        border: none;
-      }
+			#payBtn {
+				background-color: var(--bluegreen);
+				border: none;
+			}
 
-      #payBtn:hover {
-        background-color: var(--darkgreen);
-      }
+			#payBtn:hover {
+				background-color: var(--darkgreen);
+			}
 
-      .save-cancel {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 25px;
-      }
+			.save-cancel {
+				display: flex;
+				justify-content: space-between;
+				margin-top: 25px;
+			}
 
-      .summary-box {
-        background-color: var(--lightmint);
-        border: 2px solid var(--bluegreen);
-        border-radius: 20px;
-        padding: 25px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      }
+			.summary-box {
+				background-color: var(--lightmint);
+				border: 2px solid var(--bluegreen);
+				border-radius: 20px;
+				padding: 25px;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+			}
 
-      .summary-header {
-        color: var(--darkgreen);
-        font-weight: 700;
-        margin-bottom: 15px;
-        font-size: 1.1rem;
-      }
+			.summary-header {
+				color: var(--darkgreen);
+				font-weight: 700;
+				margin-bottom: 15px;
+				font-size: 1.1rem;
+			}
 
-      .summary-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 12px;
-        color: var(--darkgreen);
-        font-weight: 600;
-      }
+			.summary-item {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 12px;
+				color: var(--darkgreen);
+				font-weight: 600;
+			}
 
-      .summary-item.flex-column {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-      }
+			.summary-item.flex-column {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 6px;
+			}
 
-      .summary-item.muted {
-        font-weight: 500;
-        opacity: 0.9;
-      }
+			.summary-item.muted {
+				font-weight: 500;
+				opacity: 0.9;
+			}
 
-      .summary-item.total {
-        border-top: 1px solid var(--bluegreen);
-        padding-top: 10px;
-        color: var(--bluegreen);
-        font-weight: 700;
-      }
+			.summary-item.total {
+				border-top: 1px solid var(--bluegreen);
+				padding-top: 10px;
+				color: var(--bluegreen);
+				font-weight: 700;
+			}
 
-      ul.feature-list {
-        list-style: none;
-        padding-left: 0;
-        margin: 5px 0 0;
-      }
+			ul.feature-list {
+				list-style: none;
+				padding-left: 0;
+				margin: 5px 0 0;
+			}
 
-      ul.feature-list li::before {
-        content: "✓";
-        color: var(--darkgreen);
-        margin-right: 8px;
-      }
+			ul.feature-list li::before {
+				content: '✓';
+				color: var(--darkgreen);
+				margin-right: 8px;
+			}
 
-      .price-tag {
-        font-weight: 700;
-        color: var(--bluegreen);
-        font-size: 1.1rem;
-      }
+			.price-tag {
+				font-weight: 700;
+				color: var(--bluegreen);
+				font-size: 1.1rem;
+			}
 
-      @media (max-width: 992px) {
-        .checkout-container {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
+			@media (max-width: 992px) {
+				.checkout-container {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
 
-  <body>
-    <div class="rounded-container">
-      <!-- NAVBAR -->
-      <nav class="navbar navbar-expand-lg container-fluid sticky-top">
-        <div class="navbar-container">
-          <a class="nav-logo text-decoration-none fs-4" href="index.html">
-            <img
-              src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-              alt="Logo"
-            />
-            Saveior
-          </a>
-        </div>
+	<body>
+		<div class="rounded-container">
+			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
+				<div class="navbar-container">
+					<a class="nav-logo text-decoration-none fs-4" href="index.html">
+						<img
+							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+							alt="Logo"
+						/>
+						Saveior
+					</a>
+				</div>
 
-        <button
-          class="navbar-toggler d-lg-none"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+				<button
+					class="navbar-toggler d-lg-none"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul
-            class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
-          >
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="index.html"
-                >Dashboard</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="records.html"
-                >Records</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="budget.html">Budgets</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="accounts.html"
-                >Accounts</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="categories.html"
-                >Categories</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="goals.html">Goals</a>
-            </li>
-          </ul>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul
+						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
+					>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="index.html"
+								>Dashboard</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="records.html"
+								>Records</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="budget.html">Budgets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="accounts.html"
+								>Accounts</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="categories.html"
+								>Categories</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="goals.html">Goals</a>
+						</li>
+					</ul>
 
-          <div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
-            <div
-              class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
-            >
-              <button class="icon-btn d-none d-lg-flex">
-                <i class="fa-solid fa-user"></i>
-              </button>
-              <button
-                class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
-                id="goPremiumBtn"
-              >
-                <i class="bi bi-star-fill me-2"></i> Go Premium
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
+						<div
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
+						>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-user"></i>
+							</button>
+							<button
+								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+								id="goPremiumBtn"
+							>
+								<i class="bi bi-star-fill me-2"></i> Go Premium
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
 
-      <section class="checkout-wrapper">
-        <div class="checkout-header">
-          <h2>
-            <i class="bi bi-shield-check text-success me-2"></i>Secure Checkout
-          </h2>
-          <p>Complete your subscription safely and securely.</p>
-        </div>
+			<section class="checkout-wrapper">
+				<div class="checkout-header">
+					<h2>
+						<i class="bi bi-shield-check text-success me-2"></i>Secure Checkout
+					</h2>
+					<p>Complete your subscription safely and securely.</p>
+				</div>
 
-        <div class="checkout-container">
-          <div class="checkout-card">
-            <h5>Billing & Payment Information</h5>
+				<div class="checkout-container">
+					<div class="checkout-card">
+						<h5>Billing & Payment Information</h5>
 
-            <div class="mb-4">
-              <h6 class="mb-2 text-secondary">Billing Address</h6>
-              <div class="mb-3">
-                <label class="form-label">Full Name</label>
-                <input
-                  type="text"
-                  class="form-control pay-field"
-                  placeholder="e.g. Juan Dela Cruz"
-                />
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Country or Region</label>
-                <input
-                  type="text"
-                  class="form-control pay-field"
-                  placeholder="e.g. Philippines"
-                />
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Address</label>
-                <input
-                  type="text"
-                  class="form-control pay-field"
-                  placeholder="Street, City, ZIP Code"
-                />
-              </div>
-            </div>
+						<div class="mb-4">
+							<h6 class="mb-2 text-secondary">Billing Address</h6>
+							<div class="mb-3">
+								<label class="form-label">Full Name</label>
+								<input
+									type="text"
+									class="form-control pay-field"
+									placeholder="e.g. Juan Dela Cruz"
+								/>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Country or Region</label>
+								<input
+									type="text"
+									class="form-control pay-field"
+									placeholder="e.g. Philippines"
+								/>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Address</label>
+								<input
+									type="text"
+									class="form-control pay-field"
+									placeholder="Street, City, ZIP Code"
+								/>
+							</div>
+						</div>
 
-            <div class="mb-3">
-              <h6 class="mb-2 text-secondary">Payment Method</h6>
-              <div class="d-flex gap-2 mt-3">
-                <button
-                  type="button"
-                  class="method-btn active"
-                  data-method="card"
-                >
-                  <i class="bi bi-credit-card-2-front me-1"></i> Card
-                </button>
-                <button type="button" class="method-btn" data-method="gcash">
-                  <i class="bi bi-phone me-1"></i> GCash
-                </button>
-              </div>
-            </div>
+						<div class="mb-3">
+							<h6 class="mb-2 text-secondary">Payment Method</h6>
+							<div class="d-flex gap-2 mt-3">
+								<button
+									type="button"
+									class="method-btn active"
+									data-method="card"
+								>
+									<i class="bi bi-credit-card-2-front me-1"></i> Card
+								</button>
+								<button type="button" class="method-btn" data-method="gcash">
+									<i class="bi bi-phone me-1"></i> GCash
+								</button>
+							</div>
+						</div>
 
-            <div id="cardFields">
-              <div class="row g-2">
-                <div class="col-md-6">
-                  <label class="form-label">Cardholder Name</label>
-                  <input
-                    id="cardName"
-                    type="text"
-                    class="form-control pay-field"
-                    placeholder="e.g. Juan Dela Cruz"
-                    autocomplete="cc-name"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Card Number</label>
-                  <input
-                    id="cardNumber"
-                    type="tel"
-                    class="form-control pay-field"
-                    inputmode="numeric"
-                    maxlength="19"
-                    placeholder="xxxx xxxx xxxx xxxx"
-                    autocomplete="cc-number"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Expiry</label>
-                  <input
-                    id="exp"
-                    type="text"
-                    class="form-control pay-field"
-                    placeholder="MM/YY"
-                    maxlength="5"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">CVV</label>
-                  <input
-                    id="cvv"
-                    type="tel"
-                    class="form-control pay-field"
-                    inputmode="numeric"
-                    maxlength="4"
-                    placeholder="3–4 digits"
-                    autocomplete="cc-csc"
-                  />
-                </div>
-              </div>
-            </div>
+						<div id="cardFields">
+							<div class="row g-2">
+								<div class="col-md-6">
+									<label class="form-label">Cardholder Name</label>
+									<input
+										id="cardName"
+										type="text"
+										class="form-control pay-field"
+										placeholder="e.g. Juan Dela Cruz"
+										autocomplete="cc-name"
+									/>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label">Card Number</label>
+									<input
+										id="cardNumber"
+										type="tel"
+										class="form-control pay-field"
+										inputmode="numeric"
+										maxlength="19"
+										placeholder="xxxx xxxx xxxx xxxx"
+										autocomplete="cc-number"
+									/>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label">Expiry</label>
+									<input
+										id="exp"
+										type="text"
+										class="form-control pay-field"
+										placeholder="MM/YY"
+										maxlength="5"
+									/>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label">CVV</label>
+									<input
+										id="cvv"
+										type="tel"
+										class="form-control pay-field"
+										inputmode="numeric"
+										maxlength="4"
+										placeholder="3–4 digits"
+										autocomplete="cc-csc"
+									/>
+								</div>
+							</div>
+						</div>
 
-            <div id="gcashFields" class="mt-3 d-none">
-              <label class="form-label">GCash Mobile Number</label>
-              <input
-                id="gcashNumber"
-                type="tel"
-                class="form-control pay-field"
-                inputmode="numeric"
-                maxlength="11"
-                placeholder="09XXXXXXXXX"
-              />
-            </div>
+						<div id="gcashFields" class="mt-3 d-none">
+							<label class="form-label">GCash Mobile Number</label>
+							<input
+								id="gcashNumber"
+								type="tel"
+								class="form-control pay-field"
+								inputmode="numeric"
+								maxlength="11"
+								placeholder="09XXXXXXXXX"
+							/>
+						</div>
 
-            <div class="form-check mt-4">
-              <input class="form-check-input" type="checkbox" id="agree" />
-              <label class="form-check-label" for="agree">
-                I have read and agree to the <a href="#">Terms of Service</a>.
-              </label>
-            </div>
+						<div class="form-check mt-4">
+							<input class="form-check-input" type="checkbox" id="agree" />
+							<label class="form-check-label" for="agree">
+								I have read and agree to the <a href="#">Terms of Service</a>.
+							</label>
+						</div>
 
-            <div class="save-cancel">
-              <button class="btn btn-outline-secondary" id="backBtn">
-                Back
-              </button>
-              <button class="btn btn-success" id="payBtn">Subscribe</button>
-            </div>
-          </div>
+						<div class="save-cancel">
+							<button class="btn btn-outline-secondary" id="backBtn">
+								Back
+							</button>
+							<button class="btn btn-success" id="payBtn">Subscribe</button>
+						</div>
+					</div>
 
-          <div class="summary-box">
-            <div class="summary-header">Order Summary</div>
-            <div class="summary-item flex-column muted">
-              <span id="b-desc" class="fw-bold">Smart Wallet Subscription</span>
-              <ul class="feature-list">
-                <li>No ads</li>
-                <li>Custom categories</li>
-                <li>Daily to annual filters</li>
-                <li>Up to 5 accounts</li>
-                <li>Up to 5 savings goals</li>
-                <li>Budget reminders/alerts</li>
-              </ul>
-              <p class="price-tag mt-2">₱150.00 / month</p>
-            </div>
+					<div class="summary-box">
+						<div class="summary-header">Order Summary</div>
+						<div class="summary-item flex-column muted">
+							<span id="b-desc" class="fw-bold">Smart Wallet Subscription</span>
+							<ul class="feature-list">
+								<li>No ads</li>
+								<li>Custom categories</li>
+								<li>Daily to annual filters</li>
+								<li>Up to 5 accounts</li>
+								<li>Up to 5 savings goals</li>
+								<li>Budget reminders/alerts</li>
+							</ul>
+							<p class="price-tag mt-2">₱150.00 / month</p>
+						</div>
 
-            <div class="summary-item">
-              <span>Amount</span>
-              <span id="b-sub">₱150.00</span>
-            </div>
-            <div class="summary-item">
-              <span>VAT (12%)</span>
-              <span id="b-vat">₱0.00</span>
-            </div>
-            <div class="summary-item total">
-              <span>Total</span>
-              <span id="b-total">₱0.00</span>
-            </div>
-            <p class="small text-muted mt-2">
-              You’ll be charged monthly until you cancel your subscription.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+						<div class="summary-item">
+							<span>Amount</span>
+							<span id="b-sub">₱150.00</span>
+						</div>
+						<div class="summary-item">
+							<span>VAT (12%)</span>
+							<span id="b-vat">₱0.00</span>
+						</div>
+						<div class="summary-item total">
+							<span>Total</span>
+							<span id="b-total">₱0.00</span>
+						</div>
+						<p class="small text-muted mt-2">
+							You’ll be charged monthly until you cancel your subscription.
+						</p>
+					</div>
+				</div>
+			</section>
+		</div>
 
-    <script>
-      const DESCRIPTION = "Smart Wallet Subscription";
-      const AMOUNT = 150.0;
-      const VAT_RATE = 0.12;
+		<script>
+			const DESCRIPTION = 'Smart Wallet Subscription';
+			const AMOUNT = 150.0;
+			const VAT_RATE = 0.12;
 
-      const money = (n) =>
-        (isFinite(n) ? Number(n) : 0).toLocaleString("en-PH", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
+			const money = (n) =>
+				(isFinite(n) ? Number(n) : 0).toLocaleString('en-PH', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				});
 
-      const bDesc = document.getElementById("b-desc");
-      const bSub = document.getElementById("b-sub");
-      const bVat = document.getElementById("b-vat");
-      const bTotal = document.getElementById("b-total");
+			const bDesc = document.getElementById('b-desc');
+			const bSub = document.getElementById('b-sub');
+			const bVat = document.getElementById('b-vat');
+			const bTotal = document.getElementById('b-total');
 
-      function renderBreakdown() {
-        const vat = +(AMOUNT * VAT_RATE).toFixed(2);
-        const total = +(AMOUNT + vat).toFixed(2);
-        bDesc.textContent = DESCRIPTION;
-        bSub.textContent = `₱${money(AMOUNT)}`;
-        bVat.textContent = `₱${money(vat)}`;
-        bTotal.textContent = `₱${money(total)}`;
-      }
+			function renderBreakdown() {
+				const vat = +(AMOUNT * VAT_RATE).toFixed(2);
+				const total = +(AMOUNT + vat).toFixed(2);
+				bDesc.textContent = DESCRIPTION;
+				bSub.textContent = `₱${money(AMOUNT)}`;
+				bVat.textContent = `₱${money(vat)}`;
+				bTotal.textContent = `₱${money(total)}`;
+			}
 
-      const buttons = document.querySelectorAll(".method-btn");
-      const card = document.getElementById("cardFields");
-      const gcash = document.getElementById("gcashFields");
-      buttons.forEach((btn) =>
-        btn.addEventListener("click", () => {
-          buttons.forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          const m = btn.dataset.method;
-          if (m === "gcash") {
-            gcash.classList.remove("d-none");
-            card.classList.add("d-none");
-          } else {
-            card.classList.remove("d-none");
-            gcash.classList.add("d-none");
-          }
-        })
-      );
+			const buttons = document.querySelectorAll('.method-btn');
+			const card = document.getElementById('cardFields');
+			const gcash = document.getElementById('gcashFields');
+			buttons.forEach((btn) =>
+				btn.addEventListener('click', () => {
+					buttons.forEach((b) => b.classList.remove('active'));
+					btn.classList.add('active');
+					const m = btn.dataset.method;
+					if (m === 'gcash') {
+						gcash.classList.remove('d-none');
+						card.classList.add('d-none');
+					} else {
+						card.classList.remove('d-none');
+						gcash.classList.add('d-none');
+					}
+				})
+			);
 
-      document.getElementById("cardNumber").addEventListener("input", (e) => {
-        let v = e.target.value.replace(/\D/g, "").slice(0, 16);
-        e.target.value = v.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
-      });
+			document.getElementById('cardNumber').addEventListener('input', (e) => {
+				let v = e.target.value.replace(/\D/g, '').slice(0, 16);
+				e.target.value = v.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+			});
 
-      document.getElementById("cvv").addEventListener("input", (e) => {
-        e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4);
-      });
+			document.getElementById('cvv').addEventListener('input', (e) => {
+				e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+			});
 
-      document.getElementById("exp").addEventListener("input", function (e) {
-        let input = e.target.value.replace(/\D/g, "").slice(0, 4);
-        if (input.length >= 3) {
-          input = input.slice(0, 2) + "/" + input.slice(2);
-        }
-        e.target.value = input;
-      });
+			document.getElementById('exp').addEventListener('input', function (e) {
+				let input = e.target.value.replace(/\D/g, '').slice(0, 4);
+				if (input.length >= 3) {
+					input = input.slice(0, 2) + '/' + input.slice(2);
+				}
+				e.target.value = input;
+			});
 
-      document.getElementById("payBtn").addEventListener("click", () => {
-        if (!document.getElementById("agree").checked) {
-          alert("Please agree to the Terms of Service.");
-          return;
-        }
+			document.getElementById('payBtn').addEventListener('click', () => {
+				if (!document.getElementById('agree').checked) {
+					alert('Please agree to the Terms of Service.');
+					return;
+				}
 
-        localStorage.setItem("isPremiumUser", "true");
-        localStorage.setItem("subscriptionType", "Smart Wallet Subscription");
-        localStorage.setItem("subscriptionStart", new Date().toISOString());
+				localStorage.setItem('isPremiumUser', 'true');
+				localStorage.setItem('subscriptionType', 'Smart Wallet Subscription');
+				localStorage.setItem('subscriptionStart', new Date().toISOString());
 
-        alert(
-          "Subscription successful! You are now a Smart Wallet Premium user."
-        );
+				alert(
+					'Subscription successful! You are now a Smart Wallet Premium user.'
+				);
 
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1000);
-      });
+				setTimeout(() => {
+					window.location.href = 'index.html';
+				}, 1000);
+			});
 
-      renderBreakdown();
-    </script>
+			renderBreakdown();
+		</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
 </html>

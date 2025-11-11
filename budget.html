@@ -1,395 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saveior | Budgets</title>
-    <link
-      rel="icon"
-      href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-      type="image/x-icon"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/203f7bcb2a.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="budget.css" />
-	<link rel="stylesheet" href="plan.css" />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Saveior | Budgets</title>
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+			type="image/x-icon"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<script
+			src="https://kit.fontawesome.com/203f7bcb2a.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="budget.css" />
+		<link rel="stylesheet" href="plan.css" />
+	</head>
 
-  <body>
-    <div class="rounded-container">
-      <nav class="navbar navbar-expand-lg container-fluid sticky-top">
-        <div class="navbar-container">
-          <a class="nav-logo text-decoration-none fs-4" href="index.html">
-            <img
-              src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
-              alt="Logo"
-            />
-            Saveior
-          </a>
-        </div>
+	<body>
+		<div class="rounded-container">
+			<nav class="navbar navbar-expand-lg container-fluid sticky-top">
+				<div class="navbar-container">
+					<a class="nav-logo text-decoration-none fs-4" href="index.html">
+						<img
+							src="https://raw.githubusercontent.com/Zetcor/Saveior/main/boink.png"
+							alt="Logo"
+						/>
+						Saveior
+					</a>
+				</div>
 
-        <button
-          class="navbar-toggler d-lg-none"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+				<button
+					class="navbar-toggler d-lg-none"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul
-            class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
-          >
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="index.html"
-                >Dashboard</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="records.html"
-                >Records</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active px-4" href="budget.html">Budgets</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="accounts.html"
-                >Accounts</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="categories.html"
-                >Categories</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light px-4" href="goals.html">Goals</a>
-            </li>
-          </ul>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul
+						class="nav flex-lg-row flex-column text-center gap-3 navbar-container center-nav"
+					>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="index.html"
+								>Dashboard</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="records.html"
+								>Records</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active px-4" href="budget.html">Budgets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="accounts.html"
+								>Accounts</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="categories.html"
+								>Categories</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light px-4" href="goals.html">Goals</a>
+						</li>
+					</ul>
 
-          <div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
-            <div
-              class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
-            >
-              <button class="icon-btn d-none d-lg-flex">
-                <i class="fa-solid fa-user"></i>
-              </button>
-              <button
-                class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
-                id="goPremiumBtn"
-              >
-                <i class="bi bi-star-fill me-2"></i> Go Premium
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+					<div class="ms-lg-auto mt-2 mt-lg-0 right-actions">
+						<div
+							class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-end text-center align-items-center gap-2"
+						>
+							<button class="icon-btn d-none d-lg-flex">
+								<i class="fa-solid fa-user"></i>
+							</button>
+							<button
+								class="btn go-premium-btn d-none d-lg-flex align-items-center fw-semibold"
+								id="goPremiumBtn"
+							>
+								<i class="bi bi-star-fill me-2"></i> Go Premium
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
 
-      <!-- Content -->
-      <div class="page-wrap">
-        <!-- Summary Row -->
-        <div class="summary-row">
-          <div class="sum-cell">
-            <div id="total-budget" class="sum-big sum-inc">₱0</div>
-            <div class="sum-label">TOTAL BUDGET</div>
-          </div>
-          <div class="sum-cell">
-            <div id="total-spent" class="sum-big sum-exp">₱0</div>
-            <div class="sum-label">TOTAL SPENT</div>
-          </div>
-          <div class="sum-cell">
-            <div id="total-remaining" class="sum-big sum-tot">₱0</div>
-            <div class="sum-label">REMAINING</div>
-          </div>
-        </div>
+			<div class="page-wrap">
+				<div class="summary-row">
+					<div class="sum-cell">
+						<div id="total-budget" class="sum-big sum-inc">₱0</div>
+						<div class="sum-label">TOTAL BUDGET</div>
+					</div>
+					<div class="sum-cell">
+						<div id="total-spent" class="sum-big sum-exp">₱0</div>
+						<div class="sum-label">TOTAL SPENT</div>
+					</div>
+					<div class="sum-cell">
+						<div id="total-remaining" class="sum-big sum-tot">₱0</div>
+						<div class="sum-label">REMAINING</div>
+					</div>
+				</div>
 
-        <!-- Budgets Section -->
-        <div class="panel mt-3">
-          <h5 class="fw-bold mb-3">Budgets</h5>
+				<div class="panel mt-3">
+					<h5 class="fw-bold mb-3">Budgets</h5>
 
-          <!-- Empty State -->
-          <div
-            id="emptyState"
-            class="empty-state d-none mt-3 text-center text-muted"
-          >
-            <div class="mb-1">
-              <i class="bi bi-wallet2 fs-4"></i>
-            </div>
-            <div class="mb-2">
-              No Categories yet. <br />
-              <span class="text-dark fw-semibold">Tip:</span> Go to Categories
-              to track budget.
-            </div>
-          </div>
+					<div
+						id="emptyState"
+						class="empty-state d-none mt-3 text-center text-muted"
+					>
+						<div class="mb-1">
+							<i class="bi bi-wallet2 fs-4"></i>
+						</div>
+						<div class="mb-2">
+							No Categories yet. <br />
+							<span class="text-dark fw-semibold">Tip:</span> Go to Categories
+							to track budget.
+						</div>
+					</div>
+					<div id="budgetList" class="row g-3"></div>
+				</div>
+			</div>
+		</div>
 
-          <!-- Categories List -->
-          <div id="budgetList" class="row g-3"></div>
-        </div>
-      </div>
-    </div>
+		<div class="modal fade" id="budgetModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<form id="budgetForm" class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Set Budget Limit</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label class="form-label">Category</label>
+							<input
+								type="text"
+								class="form-control"
+								id="budgetCategory"
+								readonly
+							/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Budget Limit (₱)</label>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class="form-control"
+								id="budgetAmount"
+								required
+							/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="resetBudgetBtn">
+							<i class="bi bi-arrow-counterclockwise"></i> Reset
+						</button>
+						<button type="button" class="btn btn-light" data-bs-dismiss="modal">
+							Cancel
+						</button>
+						<button class="btn btn-success" type="submit">
+							<i class="bi bi-check2-circle"></i> Save
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-    <!-- Edit Budget Modal -->
-    <div class="modal fade" id="budgetModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <form id="budgetForm" class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Set Budget Limit</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Category</label>
-              <input
-                type="text"
-                class="form-control"
-                id="budgetCategory"
-                readonly
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Budget Limit (₱)</label>
-              <input
-                type="number"
-                min="0"
-                step="0.01"
-                class="form-control"
-                id="budgetAmount"
-                required
-              />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="resetBudgetBtn">
-              <i class="bi bi-arrow-counterclockwise"></i> Reset
-            </button>
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-              Cancel
-            </button>
-            <button class="btn btn-success" type="submit">
-              <i class="bi bi-check2-circle"></i> Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+		<!-- Premium Plans Modal -->
+		<div
+			class="modal fade premium-modal"
+			id="premiumModal"
+			tabindex="-1"
+			aria-hidden="true"
+			aria-labelledby="premiumModalLabel"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Hero -->
+					<div class="premium-hero">
+						<h5 id="premiumModalLabel">Free plan limit reached</h5>
+						<p>
+							You are on the <strong>Free Plan</strong>. Choose a plan to unlock
+							more features.
+						</p>
+					</div>
 
-    <!-- Premium Plans Modal -->
-    <div
-      class="modal fade premium-modal"
-      id="premiumModal"
-      tabindex="-1"
-      aria-hidden="true"
-      aria-labelledby="premiumModalLabel"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <!-- Hero -->
-          <div class="premium-hero">
-            <h5 id="premiumModalLabel">Free plan limit reached</h5>
-            <p>
-              You are on the <strong>Free Plan</strong>. Choose a plan to unlock
-              more features.
-            </p>
-          </div>
+					<!-- Plans -->
+					<div class="modal-body">
+						<div class="plan-grid">
+							<!-- Smart Wallet (Active) -->
+							<div class="plan-card ribbon">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">Smart Wallet</h6>
+									<span class="plan-badge">Popular</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Custom categories</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Daily to annual filters</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Up to 5 accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Up to 10 savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Budget reminders/alerts</span>
+									</li>
+								</ul>
+								<button
+									id="chooseSmartWallet"
+									class="btn plan-cta btn-premium-primary w-100"
+									type="button"
+								>
+									Choose Smart Wallet
+								</button>
+							</div>
 
-          <!-- Plans -->
-          <div class="modal-body">
-            <div class="plan-grid">
-              <!-- Smart Wallet (Active) -->
-              <div class="plan-card ribbon">
-                <div class="plan-header">
-                  <h6 class="plan-title mb-0">Smart Wallet</h6>
-                  <span class="plan-badge">Popular</span>
-                </div>
-                <ul class="plan-features">
-                  <li><span class="check">✓</span><span>No ads</span></li>
-                  <li>
-                    <span class="check">✓</span><span>Custom categories</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span
-                    ><span>Daily to annual filters</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span><span>Up to 5 accounts</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span
-                    ><span>Up to 10 savings goals</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span
-                    ><span>Budget reminders/alerts</span>
-                  </li>
-                </ul>
-                <button
-                  id="chooseSmartWallet"
-                  class="btn plan-cta btn-premium-primary w-100"
-                  type="button"
-                >
-                  Choose Smart Wallet
-                </button>
-              </div>
+							<!-- The Vault (Coming soon) -->
+							<div class="plan-card">
+								<div class="plan-header">
+									<h6 class="plan-title mb-0">The Vault</h6>
+									<span class="plan-badge">Pro</span>
+								</div>
+								<ul class="plan-features">
+									<li><span class="check">✓</span><span>No ads</span></li>
+									<li>
+										<span class="check">✓</span><span>Unlimited accounts</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Unlimited savings goals</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>All filters available (daily → annual)</span>
+									</li>
+									<li>
+										<span class="check">✓</span><span>Advanced analytics</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Personalized financial insights</span>
+									</li>
+									<li>
+										<span class="check">✓</span
+										><span>Best for advanced users</span>
+									</li>
+								</ul>
+								<button
+									class="btn plan-cta btn-premium-ghost w-100"
+									type="button"
+									disabled
+									title="Coming soon"
+								>
+									Coming soon
+								</button>
+							</div>
+						</div>
+					</div>
 
-              <!-- The Vault (Coming soon) -->
-              <div class="plan-card">
-                <div class="plan-header">
-                  <h6 class="plan-title mb-0">The Vault</h6>
-                  <span class="plan-badge">Pro</span>
-                </div>
-                <ul class="plan-features">
-                  <li><span class="check">✓</span><span>No ads</span></li>
-                  <li>
-                    <span class="check">✓</span><span>Unlimited accounts</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span
-                    ><span>Unlimited savings goals</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span
-                    ><span>All filters available (daily → annual)</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span><span>Advanced analytics</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span
-                    ><span>Personalized financial insights</span>
-                  </li>
-                  <li>
-                    <span class="check">✓</span
-                    ><span>Best for advanced users</span>
-                  </li>
-                </ul>
-                <button
-                  class="btn plan-cta btn-premium-ghost w-100"
-                  type="button"
-                  disabled
-                  title="Coming soon"
-                >
-                  Coming soon
-                </button>
-              </div>
-            </div>
-          </div>
+					<!-- Footer -->
+					<div class="modal-footer modal-footer-muted">
+						<button
+							type="button"
+							class="btn btn-outline-secondary"
+							data-bs-dismiss="modal"
+						>
+							Maybe later
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-          <!-- Footer -->
-          <div class="modal-footer modal-footer-muted">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-bs-dismiss="modal"
-            >
-              Maybe later
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+		<script>
+			const ACCOUNTS_KEY = 'saveior.accounts';
+			const BUDGETS_KEY = 'saveior.budgets';
+			const TRANSACTIONS_KEY = 'saveior.transactions';
+			const CATEGORIES_KEY = 'saveior.categories';
 
-    <script>
-      const ACCOUNTS_KEY = "saveior.accounts";
-      const BUDGETS_KEY = "saveior.budgets";
-      const TRANSACTIONS_KEY = "saveior.transactions";
-      const CATEGORIES_KEY = "saveior.categories";
+			let budgets = JSON.parse(localStorage.getItem(BUDGETS_KEY) || '{}');
 
-      let budgets = JSON.parse(localStorage.getItem(BUDGETS_KEY) || "{}");
+			function getTransactions() {
+				return JSON.parse(localStorage.getItem(TRANSACTIONS_KEY) || '[]');
+			}
 
-      function getTransactions() {
-        return JSON.parse(localStorage.getItem(TRANSACTIONS_KEY) || "[]");
-      }
+			function getTotalAccountsBalance() {
+				const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+				return accounts.reduce((sum, acc) => sum + Number(acc.balance || 0), 0);
+			}
 
-      function getTotalAccountsBalance() {
-        const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || "[]");
-        return accounts.reduce((sum, acc) => sum + Number(acc.balance || 0), 0);
-      }
+			function getExpenseCategories() {
+				const stored = JSON.parse(localStorage.getItem(CATEGORIES_KEY) || '{}');
+				return stored.expense || [];
+			}
 
-      function getExpenseCategories() {
-        const stored = JSON.parse(localStorage.getItem(CATEGORIES_KEY) || "{}");
-        return stored.expense || [];
-      }
+			function calculateSpentByCategory() {
+				const transactions = getTransactions();
+				const spent = {};
+				const expenseCategories = getExpenseCategories();
+				expenseCategories.forEach((c) => (spent[c.name] = 0));
 
-      function calculateSpentByCategory() {
-        const transactions = getTransactions();
-        const spent = {};
-        const expenseCategories = getExpenseCategories();
-        expenseCategories.forEach((c) => (spent[c.name] = 0));
+				transactions.forEach((tx) => {
+					const category = tx.category || '';
+					if (
+						expenseCategories.some((c) => c.name === category) &&
+						tx.type === 'expense'
+					) {
+						spent[category] += Number(tx.amount || 0);
+					}
+				});
+				return spent;
+			}
 
-        transactions.forEach((tx) => {
-          const category = tx.category || "";
-          if (
-            expenseCategories.some((c) => c.name === category) &&
-            tx.type === "expense"
-          ) {
-            spent[category] += Number(tx.amount || 0);
-          }
-        });
-        return spent;
-      }
+			function renderBudgets() {
+				const list = document.getElementById('budgetList');
+				const emptyState = document.getElementById('emptyState');
+				list.innerHTML = '';
 
-      function renderBudgets() {
-        const list = document.getElementById("budgetList");
-        const emptyState = document.getElementById("emptyState");
-        list.innerHTML = "";
+				const expenseCategories = getExpenseCategories();
 
-        const expenseCategories = getExpenseCategories();
+				if (expenseCategories.length === 0) {
+					emptyState.classList.remove('d-none');
+					return;
+				} else {
+					emptyState.classList.add('d-none');
+				}
 
-        if (expenseCategories.length === 0) {
-          emptyState.classList.remove("d-none");
-          return;
-        } else {
-          emptyState.classList.add("d-none");
-        }
+				const spent = calculateSpentByCategory();
+				let totalBudget = 0;
+				let totalSpent = 0;
 
-        const spent = calculateSpentByCategory();
-        let totalBudget = 0;
-        let totalSpent = 0;
+				expenseCategories.forEach((cat) => {
+					const category = cat.name;
+					const limit = Number(budgets[category] || 0);
+					const used = Number(spent[category] || 0);
+					const remaining = limit - used;
 
-        expenseCategories.forEach((cat) => {
-          const category = cat.name;
-          const limit = Number(budgets[category] || 0);
-          const used = Number(spent[category] || 0);
-          const remaining = limit - used;
+					totalBudget += limit;
+					totalSpent += used;
 
-          totalBudget += limit;
-          totalSpent += used;
+					const remainingClass =
+						remaining < 0 ? 'text-danger fw-bold' : 'text-primary';
+					const pct = limit > 0 ? Math.min((used / limit) * 100, 100) : 0;
+					const progressColor =
+						pct >= 90 ? 'bg-danger' : pct >= 70 ? 'bg-warning' : 'bg-success';
 
-          const remainingClass =
-            remaining < 0 ? "text-danger fw-bold" : "text-primary";
-          const pct = limit > 0 ? Math.min((used / limit) * 100, 100) : 0;
-          const progressColor =
-            pct >= 90 ? "bg-danger" : pct >= 70 ? "bg-warning" : "bg-success";
+					const col = document.createElement('div');
+					col.className = 'col-12 col-md-6 col-lg-4';
 
-          const col = document.createElement("div");
-          col.className = "col-12 col-md-6 col-lg-4";
-
-          col.innerHTML = `
+					col.innerHTML = `
             <div class="goal-card p-3" style="cursor:pointer;" onclick="openEditBudget('${category}')">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="fw-bold mb-0">${category}</h5>
@@ -398,161 +391,161 @@
               <div class="stats-2col mb-3">
                 <div class="stat-label">Spent</div>
                 <div class="stat-val text-danger">₱${used.toLocaleString(
-                  "en-US",
-                  {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  }
-                )}</div>
+									'en-US',
+									{
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									}
+								)}</div>
                 <div class="stat-label">Remaining</div>
                 <div class="stat-val ${remainingClass}">₱${remaining.toLocaleString(
-            "en-US",
-            {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            }
-          )}</div>
+						'en-US',
+						{
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						}
+					)}</div>
               </div>
               <div class="progress mb-2" style="height: 10px;">
                 <div class="progress-bar ${progressColor}" role="progressbar" style="width: ${pct}%"></div>
               </div>
               <div class="d-flex justify-content-between small text-muted">
                 <span>${pct.toFixed(1)}% used</span>
-                <span>Limit: ₱${limit.toLocaleString("en-US", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}</span>
+                <span>Limit: ₱${limit.toLocaleString('en-US', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}</span>
               </div>
             </div>
           `;
 
-          list.appendChild(col);
-        });
+					list.appendChild(col);
+				});
 
-        document.getElementById("total-budget").textContent =
-          "₱" +
-          totalBudget.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          });
-        document.getElementById("total-spent").textContent =
-          "₱" +
-          totalSpent.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          });
-        document.getElementById("total-remaining").textContent =
-          "₱" +
-          (totalBudget - totalSpent).toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          });
-      }
+				document.getElementById('total-budget').textContent =
+					'₱' +
+					totalBudget.toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
+				document.getElementById('total-spent').textContent =
+					'₱' +
+					totalSpent.toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
+				document.getElementById('total-remaining').textContent =
+					'₱' +
+					(totalBudget - totalSpent).toLocaleString('en-US', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					});
+			}
 
-      function openEditBudget(category) {
-        document.getElementById("budgetCategory").value = category;
-        document.getElementById("budgetAmount").value = budgets[category] || 0;
-        new bootstrap.Modal(document.getElementById("budgetModal")).show();
-      }
+			function openEditBudget(category) {
+				document.getElementById('budgetCategory').value = category;
+				document.getElementById('budgetAmount').value = budgets[category] || 0;
+				new bootstrap.Modal(document.getElementById('budgetModal')).show();
+			}
 
-      document
-        .getElementById("budgetForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const category = document.getElementById("budgetCategory").value;
-          const amount = parseFloat(
-            document.getElementById("budgetAmount").value
-          );
-          const totalFunds = getTotalAccountsBalance();
+			document
+				.getElementById('budgetForm')
+				.addEventListener('submit', function (e) {
+					e.preventDefault();
+					const category = document.getElementById('budgetCategory').value;
+					const amount = parseFloat(
+						document.getElementById('budgetAmount').value
+					);
+					const totalFunds = getTotalAccountsBalance();
 
-          let currentTotalBudget = 0;
-          for (const [cat, val] of Object.entries(budgets)) {
-            if (cat !== category) currentTotalBudget += Number(val || 0);
-          }
+					let currentTotalBudget = 0;
+					for (const [cat, val] of Object.entries(budgets)) {
+						if (cat !== category) currentTotalBudget += Number(val || 0);
+					}
 
-          if (currentTotalBudget + amount > totalFunds) {
-            alert(
-              `Your total budgets cannot exceed your available funds (₱${totalFunds.toLocaleString(
-                "en-US",
-                {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }
-              )}).`
-            );
-            return;
-          }
+					if (currentTotalBudget + amount > totalFunds) {
+						alert(
+							`Your total budgets cannot exceed your available funds (₱${totalFunds.toLocaleString(
+								'en-US',
+								{
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								}
+							)}).`
+						);
+						return;
+					}
 
-          budgets[category] = amount;
-          localStorage.setItem(BUDGETS_KEY, JSON.stringify(budgets));
-          renderBudgets();
-          bootstrap.Modal.getInstance(
-            document.getElementById("budgetModal")
-          ).hide();
-        });
+					budgets[category] = amount;
+					localStorage.setItem(BUDGETS_KEY, JSON.stringify(budgets));
+					renderBudgets();
+					bootstrap.Modal.getInstance(
+						document.getElementById('budgetModal')
+					).hide();
+				});
 
-      document
-        .getElementById("resetBudgetBtn")
-        .addEventListener("click", () => {
-          const category = document.getElementById("budgetCategory").value;
-          if (!category) return;
-          if (confirm(`Reset budget for ${category}?`)) {
-            budgets[category] = 0;
-            localStorage.setItem(BUDGETS_KEY, JSON.stringify(budgets));
-            renderBudgets();
-            bootstrap.Modal.getInstance(
-              document.getElementById("budgetModal")
-            ).hide();
-          }
-        });
+			document
+				.getElementById('resetBudgetBtn')
+				.addEventListener('click', () => {
+					const category = document.getElementById('budgetCategory').value;
+					if (!category) return;
+					if (confirm(`Reset budget for ${category}?`)) {
+						budgets[category] = 0;
+						localStorage.setItem(BUDGETS_KEY, JSON.stringify(budgets));
+						renderBudgets();
+						bootstrap.Modal.getInstance(
+							document.getElementById('budgetModal')
+						).hide();
+					}
+				});
 
-      document.addEventListener("DOMContentLoaded", renderBudgets);
-      window.addEventListener("storage", renderBudgets);
-      window.addEventListener("focus", renderBudgets);
+			document.addEventListener('DOMContentLoaded', renderBudgets);
+			window.addEventListener('storage', renderBudgets);
+			window.addEventListener('focus', renderBudgets);
 
-      function showPremiumModal() {
-        const el = document.getElementById("premiumModal");
-        if (!el) return;
-        const modal = new bootstrap.Modal(el);
-        modal.show();
-      }
+			function showPremiumModal() {
+				const el = document.getElementById('premiumModal');
+				if (!el) return;
+				const modal = new bootstrap.Modal(el);
+				modal.show();
+			}
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const goPremiumBtn = document.getElementById("goPremiumBtn");
-        if (goPremiumBtn) {
-          goPremiumBtn.addEventListener("click", () => {
-            showPremiumModal();
-          });
-        }
+			document.addEventListener('DOMContentLoaded', () => {
+				const goPremiumBtn = document.getElementById('goPremiumBtn');
+				if (goPremiumBtn) {
+					goPremiumBtn.addEventListener('click', () => {
+						showPremiumModal();
+					});
+				}
 
-        const smartBtn = document.getElementById("chooseSmartWallet");
-        if (smartBtn) {
-          smartBtn.addEventListener("click", () => {
-            window.location.href = "transaction.html";
-          });
-        }
-      });
+				const smartBtn = document.getElementById('chooseSmartWallet');
+				if (smartBtn) {
+					smartBtn.addEventListener('click', () => {
+						window.location.href = 'transaction.html';
+					});
+				}
+			});
 
-	  document.addEventListener("DOMContentLoaded", () => {
-        const goPremiumBtn = document.getElementById("goPremiumBtn");
-        const isPremium = localStorage.getItem("isPremiumUser") === "true";
+			document.addEventListener('DOMContentLoaded', () => {
+				const goPremiumBtn = document.getElementById('goPremiumBtn');
+				const isPremium = localStorage.getItem('isPremiumUser') === 'true';
 
-        if (isPremium && goPremiumBtn) {
-          goPremiumBtn.innerHTML = `<i class="bi bi-star-fill me-2"></i> Premium`;
-          goPremiumBtn.classList.remove("go-premium-btn");
-          goPremiumBtn.classList.add("btn-success");
-          goPremiumBtn.disabled = true;
-          goPremiumBtn.style.backgroundColor = "#FFD700";
-          goPremiumBtn.style.color = "#062807";
-          goPremiumBtn.style.border = "2px solid #062807";
-        } else if (goPremiumBtn) {
-          goPremiumBtn.addEventListener("click", () => {
-            showPremiumModal();
-          });
-        }
-      });
-    </script>
+				if (isPremium && goPremiumBtn) {
+					goPremiumBtn.innerHTML = `<i class="bi bi-star-fill me-2"></i> Premium`;
+					goPremiumBtn.classList.remove('go-premium-btn');
+					goPremiumBtn.classList.add('btn-success');
+					goPremiumBtn.disabled = true;
+					goPremiumBtn.style.backgroundColor = '#FFD700';
+					goPremiumBtn.style.color = '#062807';
+					goPremiumBtn.style.border = '2px solid #062807';
+				} else if (goPremiumBtn) {
+					goPremiumBtn.addEventListener('click', () => {
+						showPremiumModal();
+					});
+				}
+			});
+		</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
 </html>
